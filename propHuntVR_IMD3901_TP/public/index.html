@@ -1,22 +1,471 @@
-<!DOCTYPE html>
 <html>
+    <head>
+        <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+        <script src="js/gate-drop.js"></script>
+        <link rel="stylesheet" href="/css/user-gesture.css">
+      <script>
+        AFRAME.registerComponent('start-experience', {
+          init: function () {
+            console.log('scene loaded');
+            document.querySelector('#loading-animation').style.display='none';
+            document.querySelector('#user-gesture-button').style.display='block';
+          }
+        });
+        
+        const startExperience = function() {
+          document.querySelector('#user-gesture-overlay').style.display='none';
+          
+          const ambientSounds = document.querySelectorAll('.ambient-music');
+          ambientSounds.forEach(function(soundEntity) {
+            soundEntity.components.sound.playSound();
+          });
+        }
+      </script>
+    </head>
+    <body>
+        <div id="user-gesture-overlay">
+            <div class="center">
+              <button id="user-gesture-button" onclick="startExperience();">Enter Scene</button>
+              <img id="loading-animation" src="/assets/loading_anim.gif">
+            </div>
+          </div>
+            <a-scene start-experience>
 
-  <head>
+                <!-- +5 to yPos -->
+                <a-entity   id ="water"
+                            position="0 -5 -2.5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:15; height:9; depth:20;"
+                            material="opacity: 0.5; transparent: true; color:aqua;"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
 
-    <title>Prophunt VR</title>
+                <!-- INTERACTIVE ELEMENTS -->
+                <a-entity id="statue">
+                    <a-entity   class="interactive" id="mainStatue" 
+                            position="0 1.5 -4" rotation="0 0 0" scale=".15 .15 .15" 
+                            gltf-model="#statue_model" shadow="cast:true; receive:true"
+                            gate-drop="duration:5000;"
+                            >
+                    </a-entity>
+                </a-entity>
 
-    <script src="/js/aframe.min.js"></script>
+                <!-- LIGHTS -->
+                <a-entity light="type:spot; intensity:0.8; castShadow:true; shadowBias:-0.0005; angle:20; penumbra:0.3; castShadow:true" position="0 7.5 -4.5" rotation="-90 0 0"></a-entity>
+               
+                <a-entity id="camera" camera wasd-controls look-controls position="0 2.0 0">
+                    <a-entity light="type:spot; intensity:1; castShadow:true; shadowBias:-0.0005; angle:60; penumbra:0.3;" position="0.5 0.5 0" rotation="0 0 0"></a-entity>
+                    <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
+                    
+                    <a-entity   class="interactive" id="heldStatue" 
+                            position="0 -3 0" rotation="0 -45 0" scale=".15 .15 .15" 
+                            gltf-model="#statue_model" shadow="cast:false; receive:false"
+                            gate-drop="duration: 5000;">
+                    </a-entity>
+                </a-entity>
 
-  </head>
+                <!-- PEDESTAL -->
+                <a-entity   id ="boxPedestal"
+                            position="0 0.4 -4"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:2; height:0.5; depth:2;"
+                            material="color:#ffff65"
+                            shadow="cast:true; receive:true;">
+                </a-entity>
+                <a-dodecahedron   position="0 -3.5 -4"
+                                rotation="-32.5 1.5 0"
+                                color="#606060" 
+                                radius="5"></a-dodecahedron
+                                shadow="cast:true; receive:true;">
 
-  <body>
+                <a-entity   id ="floor"
+                            position="0 0 -2.5"
+                            rotation="-90 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:15; height:20;"
+                            material="color:#CCCCCC"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
 
-    <a-scene>
-      
-      
+                <a-entity   id ="ceiling"
+                            position="0 7.5 -2.5"
+                            rotation="90 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:15; height:20;"
+                            material="color:#303030"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
 
-    </a-scene>
-      
-  </body>
+                <a-entity  id="pedestalPillar"
+                            position="0 0.5 -4"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:cylinder; height:2; radius: 0.5;"
+                            material="color:#808080"
+                            shadow="cast:true; receive:true;">
+                </a-entity>
 
+
+
+                <!-- WALL A -->
+                <a-entity   id ="WallA1"
+                            position="7.5 3.5 -6.5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:12;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallA2"
+                            position="7.5 3.5 5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallA3"
+                            position="7.5 5.75 1"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:3.5; depth:3;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimA1"
+                            position="7 0 -6.5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:0.5; depth:12;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimA2"
+                            position="7 0 5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:0.5; depth:5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <!-- WALL B -->
+                <a-entity   id ="WallB1"
+                            position="-7.5 3.5 -6.5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:12;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallB2"
+                            position="-7.5 3.5 5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallB3"
+                            position="-7.5 5.75 1"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:3.5; depth:3;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimB1"
+                            position="-7 0 -6.5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:0.5; depth:12;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimB2"
+                            position="-7 0 5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:0.5; depth:5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <!-- WALL C -->
+                <a-entity   id ="WallC1"
+                            position="-4.5 3.5 -12.5"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallC2"
+                            position="4.5 3.5 -12.5"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallC3"
+                            position="0 5.75 -12.5"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:3.5; depth:3.5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimC1"
+                            position="-4.5 0 -12"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimC2"
+                            position="4.5 0 -12"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                 <!-- WALL D -->
+                <a-entity   id ="WallD1"
+                            position="-4.5 3.5 7.5"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallD2"
+                            position="4.5 3.5 7.5"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="WallD3"
+                            position="0 5.75 7.5"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:3.5; depth:3.5;"
+                            material="color:#505050"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimD1"
+                            position="-4.5 0 7"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity   id ="TrimD2"
+                            position="4.5 0 7"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+
+                 <!-- PILLARS -->
+                 <a-entity  id="Pillar1"
+                            position="-7 3.5 -12"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:cylinder; height:8; radius:1.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity  id="Pillar2"
+                            position="7 3.5 -12"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:cylinder; height:8; radius:1.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity  id="Pillar3"
+                            position="-7 3.5 7"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:cylinder; height:8; radius:1.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+                <a-entity  id="Pillar4"
+                            position="7 3.5 7"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:cylinder; height:8; radius:1.5;"
+                            material="color:#808080"
+                            shadow="cast:false; receive:true;">
+                </a-entity>
+
+
+                <!-- SHADOW BOXES 1 -->
+                <a-entity   id ="sb1-back"
+                            position="8.5 2.75 1"
+                            rotation="0 -90 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb1-floor"
+                            position="8.25 0 1"
+                            rotation="-90 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:#CCCCCC">
+                </a-entity>
+
+                <a-entity   id ="sb1-left"
+                            position="8.25 2.75 -0.75"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb1-right"
+                            position="-8.25 2.75 2.75"
+                            rotation="0 180"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <!-- SHADOW BOXES 2 -->
+                <a-entity   id ="sb2-back"
+                            position="-8.5 2.75 1"
+                            rotation="0 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb2-floor"
+                            position="-8.25 0 1"
+                            rotation="-90 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:#CCCCCC">
+                </a-entity>
+
+                <a-entity   id ="sb2-left"
+                            position="-8.25 2.75 -0.75"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb2-right"
+                            position="8.25 2.75 2.75"
+                            rotation="0 180"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <!-- SHADOW BOXES 3 -->
+                <a-entity   id ="sb3-back"
+                            position="0 2.75 8.5"
+                            rotation="0 180 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb3-floor"
+                            position="0 0 9.5"
+                            rotation="-90 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:#CCCCCC">
+                </a-entity>
+
+                <a-entity   id ="sb3-left"
+                            position="2 2.75 8.25"
+                            rotation="0 -90 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb3-right"
+                            position="-2 2.75 8.25"
+                            rotation="0 90"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <!-- SHADOW BOXES 4 -->
+                <a-entity   id ="sb4-back"
+                            position="0 2.75 -13.5"
+                            rotation="0 0 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb4-floor"
+                            position="0 0 -12.5"
+                            rotation="-90 90 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:4; height:9;"
+                            material="color:#CCCCCC">
+                </a-entity>
+
+                <a-entity   id ="sb4-left"
+                            position="2 2.75 -13.25"
+                            rotation="0 -90 0"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity   id ="sb4-right"
+                            position="-2 2.75 -13.25"
+                            rotation="0 90"
+                            scale="1 1 1"
+                            geometry="primitive:plane; width:1; height:9;"
+                            material="color:black">
+                </a-entity>
+
+                <a-entity environment="preset:osiris"></a-entity>
+            </a-scene>
+    </body>
 </html>
