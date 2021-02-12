@@ -1,471 +1,369 @@
 <html>
-    <head>
-        <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
-        <script src="js/gate-drop.js"></script>
-        <link rel="stylesheet" href="/css/user-gesture.css">
-      <script>
-        AFRAME.registerComponent('start-experience', {
-          init: function () {
-            console.log('scene loaded');
-            document.querySelector('#loading-animation').style.display='none';
-            document.querySelector('#user-gesture-button').style.display='block';
-          }
-        });
-        
-        const startExperience = function() {
-          document.querySelector('#user-gesture-overlay').style.display='none';
-          
-          const ambientSounds = document.querySelectorAll('.ambient-music');
-          ambientSounds.forEach(function(soundEntity) {
-            soundEntity.components.sound.playSound();
-          });
-        }
-      </script>
-    </head>
-    <body>
-        <div id="user-gesture-overlay">
-            <div class="center">
-              <button id="user-gesture-button" onclick="startExperience();">Enter Scene</button>
-              <img id="loading-animation" src="/assets/loading_anim.gif">
-            </div>
-          </div>
-            <a-scene start-experience>
 
-                <!-- +5 to yPos -->
-                <a-entity   id ="water"
-                            position="0 -5 -2.5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:15; height:9; depth:20;"
-                            material="opacity: 0.5; transparent: true; color:aqua;"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+<head>
+  <script src="/js/aframe.min.js"></script>
+  <link rel="stylesheet" href="css/user-gesture.css">
+</head>
 
-                <!-- INTERACTIVE ELEMENTS -->
-                <a-entity id="statue">
-                    <a-entity   class="interactive" id="mainStatue" 
-                            position="0 1.5 -4" rotation="0 0 0" scale=".15 .15 .15" 
-                            gltf-model="#statue_model" shadow="cast:true; receive:true"
-                            gate-drop="duration:5000;"
-                            >
-                    </a-entity>
-                </a-entity>
+<script>
+  AFRAME.registerComponent('hmd',
+{
+  init: function ()
+  {
+    const hmdComp = this;
+    let inView = false;
 
-                <!-- LIGHTS -->
-                <a-entity light="type:spot; intensity:0.8; castShadow:true; shadowBias:-0.0005; angle:20; penumbra:0.3; castShadow:true" position="0 7.5 -4.5" rotation="-90 0 0"></a-entity>
-               
-                <a-entity id="camera" camera wasd-controls look-controls position="0 2.0 0">
-                    <a-entity light="type:spot; intensity:1; castShadow:true; shadowBias:-0.0005; angle:60; penumbra:0.3;" position="0.5 0.5 0" rotation="0 0 0"></a-entity>
-                    <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
-                    
-                    <a-entity   class="interactive" id="heldStatue" 
-                            position="0 -3 0" rotation="0 -45 0" scale=".15 .15 .15" 
-                            gltf-model="#statue_model" shadow="cast:false; receive:false"
-                            gate-drop="duration: 5000;">
-                    </a-entity>
-                </a-entity>
+    this.el.addEventListener('click', function()
+    {
+      if(inView == false)
+      {
+        inView = true;
 
-                <!-- PEDESTAL -->
-                <a-entity   id ="boxPedestal"
-                            position="0 0.4 -4"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:2; height:0.5; depth:2;"
-                            material="color:#ffff65"
-                            shadow="cast:true; receive:true;">
-                </a-entity>
-                <a-dodecahedron   position="0 -3.5 -4"
-                                rotation="-32.5 1.5 0"
-                                color="#606060" 
-                                radius="5"></a-dodecahedron
-                                shadow="cast:true; receive:true;">
+        let overlay = document.querySelector('#ui');
+        overlay.setAttribute('style', 'visibility: hidden');
 
-                <a-entity   id ="floor"
-                            position="0 0 -2.5"
-                            rotation="-90 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:15; height:20;"
-                            material="color:#CCCCCC"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let camera = document.querySelector('#camera');
+        camera.removeAttribute('wasd-controls');
+        camera.removeAttribute('look-controls');
 
-                <a-entity   id ="ceiling"
-                            position="0 7.5 -2.5"
-                            rotation="90 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:15; height:20;"
-                            material="color:#303030"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let camPos = camera.getAttribute('position');
+        let xCam = camPos.x;
+        let yCam = camPos.y;
+        let zCam = camPos.z;
 
-                <a-entity  id="pedestalPillar"
-                            position="0 0.5 -4"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:cylinder; height:2; radius: 0.5;"
-                            material="color:#808080"
-                            shadow="cast:true; receive:true;">
-                </a-entity>
+        let camRot = camera.getAttribute('rotation');
+        let xCamRot = camRot.x;
+        let yCamRot = camRot.y;
+        let zCamRot = camRot.z;
 
+        let objectPos = this.getAttribute('position');
+        let xObject = objectPos.x;
+        let yObject = objectPos.y;
+        let zObject = objectPos.z;
 
+        // camera.setAttribute('animation', 'property: position; from: 0 2 0; to: 0 2 -2; loop: false; dur:1000;')
+        camera.setAttribute('animation', 'property:position; from: ' + xCam.toString() + ' ' + yCam.toString() + ' ' + zCam.toString() + '; to: ' + xObject.toString() + ' ' + (yObject + 1.5).toString() + ' ' + (zObject+1).toString() +'; loop:false; dur:1500; easing: linear;')
+        camera.setAttribute('animation__2', 'property:rotation; from: ' + xCamRot.toString() + ' ' + yCamRot.toString() + ' ' + zCamRot.toString() + '; to: 0 0 0; loop :false; dur:1500; easing: linear;')
 
-                <!-- WALL A -->
-                <a-entity   id ="WallA1"
-                            position="7.5 3.5 -6.5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:12;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        hmdComp.el.setAttribute('animation', 'property:position; from: ' + xObject.toString() + ' ' + yObject.toString() + ' ' + zObject.toString() + '; to: ' + xObject.toString() + ' ' + (yObject + 1.5).toString() + ' ' + (zObject).toString() +'; loop:false; dur:1500; easing: linear;')
 
-                <a-entity   id ="WallA2"
-                            position="7.5 3.5 5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        setTimeout(function()
+        { 
+          let text = document.querySelector('#text');
+          text.setAttribute('style', 'visibility: visible');
+        }, 1500);
+      }
 
-                <a-entity   id ="WallA3"
-                            position="7.5 5.75 1"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:3.5; depth:3;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+      else
+      {
+        inView = false;
 
-                <a-entity   id ="TrimA1"
-                            position="7 0 -6.5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:0.5; depth:12;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let text = document.querySelector('#text');
+        text.setAttribute('style', 'visibility: hidden');
 
-                <a-entity   id ="TrimA2"
-                            position="7 0 5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:0.5; depth:5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let overlay = document.querySelector('#ui');
+        overlay.setAttribute('style', 'visibility: visible');
 
-                <!-- WALL B -->
-                <a-entity   id ="WallB1"
-                            position="-7.5 3.5 -6.5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:12;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let camera = document.querySelector('#camera');
 
-                <a-entity   id ="WallB2"
-                            position="-7.5 3.5 5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        setTimeout(function()
+        { 
+        camera.setAttribute('wasd-controls', '');
+        camera.setAttribute('look-controls', '');
+        }, 1500);
 
-                <a-entity   id ="WallB3"
-                            position="-7.5 5.75 1"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:3.5; depth:3;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let camPos = camera.getAttribute('position');
+        let xCam = camPos.x;
+        let yCam = camPos.y;
+        let zCam = camPos.z;
 
-                <a-entity   id ="TrimB1"
-                            position="-7 0 -6.5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:0.5; depth:12;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        let objectPos = this.getAttribute('position');
+        let xObject = objectPos.x;
+        let yObject = objectPos.y;
+        let zObject = objectPos.z;
 
-                <a-entity   id ="TrimB2"
-                            position="-7 0 5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:0.5; depth:5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        camera.setAttribute('animation', 'property:position; from: ' + xCam.toString() + ' ' + yCam.toString() + ' ' + zCam.toString() + '; to: ' + xObject.toString() + ' 2 ' + (zObject+3).toString() +'; loop:false; dur:1500; easing: linear;')
 
-                <!-- WALL C -->
-                <a-entity   id ="WallC1"
-                            position="-4.5 3.5 -12.5"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+        hmdComp.el.setAttribute('animation', 'property:position; from: ' + xObject.toString() + ' ' + yObject.toString() + ' ' + zObject.toString() + '; to: ' + xObject.toString() + ' ' + (yObject - 1.5).toString() + ' ' + (zObject).toString() +'; loop:false; dur:1500; easing: linear;')      
+      }
+    });
+  },
 
-                <a-entity   id ="WallC2"
-                            position="4.5 3.5 -12.5"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+  tick: function()
+  {
 
-                <a-entity   id ="WallC3"
-                            position="0 5.75 -12.5"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:3.5; depth:3.5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+  }
+});
+</script>
 
-                <a-entity   id ="TrimC1"
-                            position="-4.5 0 -12"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+<body>
 
-                <a-entity   id ="TrimC2"
-                            position="4.5 0 -12"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+  <a-scene> 
 
-                 <!-- WALL D -->
-                <a-entity   id ="WallD1"
-                            position="-4.5 3.5 7.5"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <div id="ui"></div>
+    <div id="text"></div>
 
-                <a-entity   id ="WallD2"
-                            position="4.5 3.5 7.5"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:8; depth:5.5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+      <a-assets timeout="10000">
+        <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
+      </a-assets>
 
-                <a-entity   id ="WallD3"
-                            position="0 5.75 7.5"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:3.5; depth:3.5;"
-                            material="color:#505050"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <!-- LIGHTS -->
+    <a-entity light="type:point; intensity:1.0; castShadow:false;"
+              position="0 5 5"
+              rotation="-45 0 0">
+    </a-entity>
 
-                <a-entity   id ="TrimD1"
-                            position="-4.5 0 7"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <a-entity light="type:spot; intensity:1.0; castShadow:true; angle:25"
+              position="0 5 -4"
+              rotation="-90 0 0">
+    </a-entity>
 
-                <a-entity   id ="TrimD2"
-                            position="4.5 0 7"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:box; width:0.5; height:.5; depth:5.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+      <a-entity id="camera" camera wasd-controls look-controls position="0 2 0">
+        <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
+       </a-entity>
+
+    <a-entity hmd
+              gltf-model="#hmd-gltf"
+              class="interactive"
+              position="0 1.65 -3.9"
+              scale="0.06 0.06 0.06"
+              rotation="0 25 0"
+              shadow="cast: true; receive: true">
+      </a-entity>
+
+    <!-- PEDESTAL -->
+    <a-entity id="floor" position="0 0 -2.5" rotation="-90 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:15; height:20;" material="color:#CCCCCC"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="ceiling" position="0 7.5 -2.5" rotation="90 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:15; height:20;" material="color:#303030"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="pedestalPillar" position="0 0.5 -4" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-dodecahedron position="0 -1.4 -4"
+                    rotation="-32.5 1.5 0"
+                    material="color:black"
+                    radius="2"
+                    shadow="cast:true; receive:true;">
+    </a-dodecahedron>
+
+    <!-- WALL A -->
+    <a-entity id="WallA1" position="7.5 3.5 -6.5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:12;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallA2" position="7.5 3.5 5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallA3" position="7.5 5.75 1" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:3.5; depth:3;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimA1" position="7 0 -6.5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:0.5; depth:12;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimA2" position="7 0 5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:0.5; depth:5;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <!-- WALL B -->
+    <a-entity id="WallB1" position="-7.5 3.5 -6.5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:12;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallB2" position="-7.5 3.5 5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallB3" position="-7.5 5.75 1" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:3.5; depth:3;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimB1" position="-7 0 -6.5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:0.5; depth:12;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimB2" position="-7 0 5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:0.5; depth:5;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <!-- WALL C -->
+    <a-entity id="WallC1" position="-4.5 3.5 -12.5" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:5.5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallC2" position="4.5 3.5 -12.5" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:5.5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallC3" position="0 5.75 -12.5" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:3.5; depth:3.5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimC1" position="-4.5 0 -12" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:.5; depth:5.5;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimC2" position="4.5 0 -12" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:.5; depth:5.5;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <!-- WALL D -->
+    <a-entity id="WallD1" position="-4.5 3.5 7.5" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:5.5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallD2" position="4.5 3.5 7.5" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:8; depth:5.5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="WallD3" position="0 5.75 7.5" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:3.5; depth:3.5;" material="color:#505050"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimD1" position="-4.5 0 7" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:.5; depth:5.5;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <a-entity id="TrimD2" position="4.5 0 7" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:box; width:0.5; height:.5; depth:5.5;" material="color:black"
+              shadow="cast: true; receive: true">
+    </a-entity>
 
 
-                 <!-- PILLARS -->
-                 <a-entity  id="Pillar1"
-                            position="-7 3.5 -12"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:cylinder; height:8; radius:1.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <!-- PILLARS -->
+    <a-entity id="Pillar1" position="-7 3.5 -12" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:cylinder; height:8; radius:1.5;" material="color:black" shadow="cast:false; receive:true;"
+              shadow="cast: true; receive: true">
+    </a-entity>
 
-                <a-entity  id="Pillar2"
-                            position="7 3.5 -12"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:cylinder; height:8; radius:1.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <a-entity id="Pillar2" position="7 3.5 -12" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:cylinder; height:8; radius:1.5;" material="color:black" shadow="cast:false; receive:true;"
+              shadow="cast: true; receive: true">
+    </a-entity>
 
-                <a-entity  id="Pillar3"
-                            position="-7 3.5 7"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:cylinder; height:8; radius:1.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <a-entity id="Pillar3" position="-7 3.5 7" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:cylinder; height:8; radius:1.5;" material="color:black" shadow="cast:false; receive:true;"
+              shadow="cast: true; receive: true">
+    </a-entity>
 
-                <a-entity  id="Pillar4"
-                            position="7 3.5 7"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:cylinder; height:8; radius:1.5;"
-                            material="color:#808080"
-                            shadow="cast:false; receive:true;">
-                </a-entity>
+    <a-entity id="Pillar4" position="7 3.5 7" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:cylinder; height:8; radius:1.5;" material="color:black" shadow="cast:false; receive:true;"
+              shadow="cast: true; receive: true">
+    </a-entity>
 
+    <!-- SHADOW BOXES 1 -->
+    <a-entity id="sb1-back" position="8.5 2.75 1" rotation="0 -90 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <!-- SHADOW BOXES 1 -->
-                <a-entity   id ="sb1-back"
-                            position="8.5 2.75 1"
-                            rotation="0 -90 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb1-floor" position="8.25 0 1" rotation="-90 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:#CCCCCC"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb1-floor"
-                            position="8.25 0 1"
-                            rotation="-90 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:#CCCCCC">
-                </a-entity>
+    <a-entity id="sb1-left" position="8.25 2.75 -0.75" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb1-left"
-                            position="8.25 2.75 -0.75"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb1-right" position="-8.25 2.75 2.75" rotation="0 180" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb1-right"
-                            position="-8.25 2.75 2.75"
-                            rotation="0 180"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <!-- SHADOW BOXES 2 -->
+    <a-entity id="sb2-back" position="-8.5 2.75 1" rotation="0 90 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <!-- SHADOW BOXES 2 -->
-                <a-entity   id ="sb2-back"
-                            position="-8.5 2.75 1"
-                            rotation="0 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb2-floor" position="-8.25 0 1" rotation="-90 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:#CCCCCC"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb2-floor"
-                            position="-8.25 0 1"
-                            rotation="-90 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:#CCCCCC">
-                </a-entity>
+    <a-entity id="sb2-left" position="-8.25 2.75 -0.75" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb2-left"
-                            position="-8.25 2.75 -0.75"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb2-right" position="8.25 2.75 2.75" rotation="0 180" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb2-right"
-                            position="8.25 2.75 2.75"
-                            rotation="0 180"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <!-- SHADOW BOXES 3 -->
+    <a-entity id="sb3-back" position="0 2.75 8.5" rotation="0 180 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <!-- SHADOW BOXES 3 -->
-                <a-entity   id ="sb3-back"
-                            position="0 2.75 8.5"
-                            rotation="0 180 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb3-floor" position="0 0 9.5" rotation="-90 90 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:#CCCCCC"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb3-floor"
-                            position="0 0 9.5"
-                            rotation="-90 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:#CCCCCC">
-                </a-entity>
+    <a-entity id="sb3-left" position="2 2.75 8.25" rotation="0 -90 0" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb3-left"
-                            position="2 2.75 8.25"
-                            rotation="0 -90 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb3-right" position="-2 2.75 8.25" rotation="0 90" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb3-right"
-                            position="-2 2.75 8.25"
-                            rotation="0 90"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <!-- SHADOW BOXES 4 -->
+    <a-entity id="sb4-back" position="0 2.75 -13.5" rotation="0 0 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <!-- SHADOW BOXES 4 -->
-                <a-entity   id ="sb4-back"
-                            position="0 2.75 -13.5"
-                            rotation="0 0 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb4-floor" position="0 0 -12.5" rotation="-90 90 0" scale="1 1 1"
+              geometry="primitive:plane; width:4; height:9;" material="color:#CCCCCC"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb4-floor"
-                            position="0 0 -12.5"
-                            rotation="-90 90 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:4; height:9;"
-                            material="color:#CCCCCC">
-                </a-entity>
+    <a-entity id="sb4-left" position="2 2.75 -13.25" rotation="0 -90 0" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb4-left"
-                            position="2 2.75 -13.25"
-                            rotation="0 -90 0"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
+    <a-entity id="sb4-right" position="-2 2.75 -13.25" rotation="0 90" scale="1 1 1"
+              geometry="primitive:plane; width:1; height:9;" material="color:black"
+              shadow="cast: false; receive: false">
+    </a-entity>
 
-                <a-entity   id ="sb4-right"
-                            position="-2 2.75 -13.25"
-                            rotation="0 90"
-                            scale="1 1 1"
-                            geometry="primitive:plane; width:1; height:9;"
-                            material="color:black">
-                </a-entity>
-
-                <a-entity environment="preset:osiris"></a-entity>
-            </a-scene>
-    </body>
+  </a-scene>
+</body>
 </html>
