@@ -1,13 +1,234 @@
 <html>
 
 <head>
-  <script src="/js/aframe.min.js"></script>
   <link rel="stylesheet" href="css/user-gesture.css">
+
+  <!-- Imports -->
+  <script src="/js/aframe.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 
 <script>
-  AFRAME.registerComponent('hmd',
-{
+  const socket = io({transports: ['websocket'], upgrade: false});
+
+  // emitted when this player connects
+  socket.on('connect', () => {
+  });
+
+  // emitted to update the position of all other players
+  socket.on('updatePlayers', (data) => {
+    // get the players-controller
+    var playersController = document.querySelector('[players-controller]');
+
+    // loop through each player in the data list
+    for (var i = 0; i < data.players.length; i++) {
+      // update the current player from the list
+      playersController.emit('updatePlayer', {player: data.players[i]});
+    }
+  });
+
+  // emitted at the beginning to get all currently connected players
+  socket.on('spawnInitialPlayers', (data) => {
+    // get the players-controller
+    var playersController = document.querySelector('[players-controller]');
+
+    // loop through each player in the data list
+    for (var i = 0; i < data.players.length; i++) {
+      // make sure the current player is not ourself
+      if (data.players[i].id != socket.id) {
+        // add the connected player from the list
+        playersController.emit('addPlayer', {player: data.players[i]});
+      }
+    }
+  });
+
+  // emitted to add a new player on the client side
+  socket.on('playerJoined', (data) => {
+    document.querySelector('[players-controller]').emit(
+      'addPlayer', {player: data.player});
+  });
+
+  // emitted to remove a player on the client side
+  socket.on('playerQuit', (data) => {
+    document.querySelector('[players-controller]').emit(
+      'removePlayer', {playerId: data.playerId});
+  });
+
+  // Creates a random hex color
+  const randomColor = () => {
+    return('#' + Math.floor(Math.random() * 16777215).toString(16));
+  }
+
+  // allows for easily getting position as a THREE vector3
+  const getPosition = (element) => {
+    return element.object3D.getWorldPosition(new THREE.Vector3())
+      .clone();
+  }
+
+  // allows for easily getting a rotation as a THREE quat
+  const getRotation = (element) => {
+    return element.object3D.getWorldQuaternion(new THREE.Quaternion())
+      .clone();
+  }
+
+
+
+
+  AFRAME.registerComponent('player', {
+    schema: {
+      moveThreshold: {type:'number', default: 0.1},
+      rotationThreshold: {type: 'number', default: 0.1}
+    },
+    init: function() {
+      // set up initial vars
+      this.lastPosition = getPosition(this.el);
+      this.lastRotation = getRotation(this.el);
+    },
+
+    tick: function() {
+      var newPosition = getPosition(this.el);
+      var newRotation = getRotation(this.el);
+
+      // check if the player has moved more than the threshold amount
+      if (this.hasMoved(newPosition) || this.hasRotated(newRotation)) {
+        // emit a moved event to the server with the new position
+        socket.emit('moved', {
+          newPosition:
+          {x: newPosition.x, y: newPosition.y, z: newPosition.z},
+          newRotation:
+          {x: newRotation.x, y: newRotation.y, z: newRotation.z,
+            w: newRotation.w}});
+      }
+    },
+
+    hasMoved: function(newPosition) {
+      // check if the player has moved more than the threshold
+      if (this.lastPosition.distanceTo(newPosition) >
+        this.data.moveThreshold)
+      {
+        // console.log('Moved!');
+        this.lastPosition = newPosition;
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    hasRotated: function(newRotation) {
+      // check if the player has rotated more than the threshold
+      if (Math.abs(
+        THREE.MathUtils.radToDeg(this.lastRotation.angleTo(newRotation))) >
+        this.data.rotationThreshold)
+      {
+        // console.log('Rotated!');
+        this.lastRotation = newRotation;
+        return true;
+      } else {
+        return false;
+      }
+    }
+  });
+
+  // The PlayerController component (creates, removes, and updates other
+  // players who have joined)
+  AFRAME.registerComponent('players-controller', {
+    init: function () {
+      var el = this.el;
+
+      el.addEventListener('updatePlayer', function (data) {
+        // get each spawned player
+        var spawnedPlayers = document.querySelectorAll('[other-player]');
+
+        // loop through each spawned player
+        for (var i = 0; i < spawnedPlayers.length; i++) {
+          // check if the current spawned player should be updated (by id)
+          if (spawnedPlayers[i].getAttribute('id') ==
+            data.detail.player.id)
+          {
+            // update the position of the player
+            spawnedPlayers[i].setAttribute('position',
+              data.detail.player.position);
+
+            // update the rotatino of the player
+            spawnedPlayers[i].object3D.quaternion.set(
+              data.detail.player.rotation.x,
+              data.detail.player.rotation.y,
+              data.detail.player.rotation.z,
+              data.detail.player.rotation.w
+            )
+
+            // update the other-player data of the player
+            spawnedPlayers[i].setAttribute('other-player', {
+              name: data.detail.player.name
+            });
+          }
+        }
+      });
+
+      el.addEventListener('addPlayer', function (data) {
+        // create a new entity element
+        playerEl = document.createElement('a-entity');
+
+        // setup the attributes of the new player element
+        playerEl.setAttribute('other-player', {
+          name: data.detail.player.name
+        });
+        playerEl.setAttribute('id', data.detail.player.id);
+        playerEl.setAttribute('position', data.detail.player.position);
+
+        playerEl.object3D.quaternion.set(
+          data.detail.player.rotation.x,
+          data.detail.player.rotation.y,
+          data.detail.player.rotation.z,
+          data.detail.player.rotation.w
+        )
+
+        console.log('Player ' + playerEl.getAttribute('id') + ' added.');
+
+        // append the new player element to the players-controller element
+        el.appendChild(playerEl);
+      });
+
+      el.addEventListener('removePlayer', function (data) {
+        // get each spawned player
+        var spawnedPlayers = document.querySelectorAll('[other-player]');
+
+        // loop through each spawned player
+        for (let i = 0; i < spawnedPlayers.length; i++) {
+          // check if the current spawned player should be removed (by id)
+          if (spawnedPlayers[i].getAttribute('id') ==
+            data.detail.playerId)
+          {
+            console.log('Player ' + spawnedPlayers[i].getAttribute('id')
+              + ' removed.');
+
+            // remove the spawned player
+            spawnedPlayers[i].parentNode.removeChild(spawnedPlayers[i]);
+          }
+        }
+      });
+    }
+  });
+
+  // the OtherPlayer component (created to visualize other connected players)
+  AFRAME.registerComponent('other-player', {
+    schema: {
+      name: {type: 'string', default: ''},
+      color: {type: 'color', default: 'grey'}
+    },
+    init: function () {
+      this.el.setAttribute('geometry', {
+        primitive: 'box',
+        height: 1.6,
+        depth: 0.5
+      });
+      this.el.setAttribute('material', {
+        color: this.data.color
+      });
+    }
+  });
+
+  AFRAME.registerComponent('hmd', {
   init: function ()
   {
     const hmdComp = this;
@@ -19,8 +240,8 @@
       {
         inView = true;
 
-        let overlay = document.querySelector('#ui');
-        overlay.setAttribute('style', 'visibility: hidden');
+        // let overlay = document.querySelector('#ui');
+        // overlay.setAttribute('style', 'visibility: hidden');
 
         let camera = document.querySelector('#camera');
         camera.removeAttribute('wasd-controls');
@@ -61,8 +282,8 @@
         let text = document.querySelector('#text');
         text.setAttribute('style', 'visibility: hidden');
 
-        let overlay = document.querySelector('#ui');
-        overlay.setAttribute('style', 'visibility: visible');
+        // let overlay = document.querySelector('#ui');
+        // overlay.setAttribute('style', 'visibility: visible');
 
         let camera = document.querySelector('#camera');
 
@@ -93,7 +314,7 @@
 
 <body>
   <a-scene>
-    <div id="ui"></div>
+    <!-- <div id="ui"></div> -->
     <div id="text"></div>
 
       <a-assets timeout="10000">
@@ -113,9 +334,13 @@
       </a-entity>
     </a-entity>
 
-    <a-entity id="camera" camera wasd-controls look-controls position="0 2 0">
+    <a-entity id="camera" player camera wasd-controls look-controls position="0 2 0">
+      <a-entity class='geo'></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
+
+    <!-- PLAYERS CONTROLLER (for viewing other players) -->
+    <a-entity players-controller></a-entity>
 
     <a-entity hmd
               gltf-model="#hmd-gltf"
