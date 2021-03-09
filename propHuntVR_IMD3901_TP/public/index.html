@@ -50,7 +50,9 @@
       </a-entity>
     </a-entity>
 
-    <a-entity id="camera" player camera wasd-controls look-controls position="0 2 0">
+    <a-entity id="camera"
+              player camera wasd-controls
+              look-controls="pointerLockEnabled: true" position="0 2 0">
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
