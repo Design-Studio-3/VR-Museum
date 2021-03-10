@@ -15,6 +15,12 @@
   <!-- Socket.io -->
   <script src="/socket.io/socket.io.js"></script>
 
+  <!-- Physics -->
+  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
+  <!-- Environment engine-->
+  <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+
   <!-- Custom components imports -->
   <script src="/js/player.js"></script>
   <script src="/js/player-controller.js"></script>
@@ -88,7 +94,7 @@
 </script>
 
 <body>
-  <a-scene>
+  <a-scene physics="debug: true"> 
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
 
@@ -98,6 +104,10 @@
         <!-- Environment -->
         <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
         <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
+        <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
+        <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
+        <a-asset-item id="env-mouldings-exterior-walls" src="assets/environment/Environment_moulding_exteriorWalls.obj"></a-asset-item>
+        <a-asset-item id="env-mouldings-interior-walls" src="assets/environment/Environment_moulding_interiorWalls.obj"></a-asset-item>
       </a-assets>
 
     <!-- LIGHTS -->
@@ -157,8 +167,15 @@
     </a-entity>
 
     <!-- Environment -->
-    <a-obj-model src="#env-floor" mtl="#env-floor"></a-obj-model>
-    <a-obj-model src="#env-walls" mtl="#env-walls"></a-obj-model>
+    <a-obj-model static-body src="#env-floor" mtl="#env-floor"></a-obj-model>
+    <a-obj-model static-body='shape: convex;' src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
+    <a-obj-model static-body='shape: convex;' src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
+    <a-obj-model static-body='shape: convex;' src="#env-walls" mtl="#env-walls"></a-obj-model>
+    <a-obj-model static-body='shape: convex;' src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
+    <a-obj-model static-body='shape: convex;' src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
+    <a-obj-model static-body='shape: convex;' src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
+
+    <a-entity environment='preset:starry;'></a-entity>
 
     <!-- WALL A -->
     <!---<a-entity id='wall-a'>
