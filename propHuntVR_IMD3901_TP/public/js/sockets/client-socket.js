@@ -2,8 +2,6 @@ const socket = io({transports: ['websocket'], upgrade: false});
 
 // received frequently by the server to update the local players database
 socket.on('tickUpdate', (data) => {
-  console.log("TickUpdate");
-
   // get the players-controller
   var playersController = document.querySelector('[players-controller]');
 

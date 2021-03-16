@@ -1,7 +1,3 @@
-// require('../utils/utils.js');
-// import * as utils from '../utils/utils.js';
-// var utils = import('../utils/utils.js');
-
 // allows for easily getting position as a THREE vector3
 const getPosition = (element) => {
   return element.object3D.getWorldPosition(new THREE.Vector3())
