@@ -10,7 +10,7 @@ const io        = require('socket.io')(server);
 
 // Configuration variables
 const LISTEN_PORT     = 8080;
-const updateInterval  = 100;
+const updateInterval  = 50;
 // const logLevel        = utils.LogLevel.Some;
 
 server.listen(LISTEN_PORT);
