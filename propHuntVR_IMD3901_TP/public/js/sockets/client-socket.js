@@ -1,9 +1,5 @@
 const socket = io({transports: ['websocket'], upgrade: false});
 
-// received when this player connects
-socket.on('connect', () => {
-});
-
 // received frequently by the server to update the local players database
 socket.on('tickUpdate', (data) => {
   console.log("TickUpdate");

@@ -66,9 +66,6 @@ io.on('connection', (socket) =>
     // update the position and rotation of the player in the database
     players[playerIndex].position = data.newPosition;
     players[playerIndex].rotation = data.newRotation;
-
-    // emit the updatePlayers event to all connected clients
-    // socket.broadcast.emit('updatePlayers', {players: players});
   });
 });
 
