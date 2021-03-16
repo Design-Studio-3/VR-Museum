@@ -1,22 +1,23 @@
 const socket = io({transports: ['websocket'], upgrade: false});
 
-// emitted when this player connects
-socket.on('connect', () => {
-});
+// received frequently by the server to update the local players database
+socket.on('tickUpdate', (data) => {
+  console.log("TickUpdate");
 
-// emitted to update the position of all other players
-socket.on('updatePlayers', (data) => {
   // get the players-controller
   var playersController = document.querySelector('[players-controller]');
 
   // loop through each player in the data list
   for (var i = 0; i < data.players.length; i++) {
-    // update the current player from the list
-    playersController.emit('updatePlayer', {player: data.players[i]});
+    // don't update the client's player
+    if (data.players[i].id != socket.id) {
+      // update the current player from the list
+      playersController.emit('updatePlayer', {player: data.players[i]});
+    }
   }
 });
 
-// emitted at the beginning to get all currently connected players
+// received at the beginning to get all currently connected players
 socket.on('spawnInitialPlayers', (data) => {
   // get the players-controller
   var playersController = document.querySelector('[players-controller]');
@@ -31,13 +32,13 @@ socket.on('spawnInitialPlayers', (data) => {
   }
 });
 
-// emitted to add a new player on the client side
+// received to add a new player on the client side
 socket.on('playerJoined', (data) => {
   document.querySelector('[players-controller]').emit(
     'addPlayer', {player: data.player});
 });
 
-// emitted to remove a player on the client side
+// received to remove a player on the client side
 socket.on('playerQuit', (data) => {
   document.querySelector('[players-controller]').emit(
     'removePlayer', {playerId: data.playerId});
