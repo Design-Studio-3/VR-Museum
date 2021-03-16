@@ -8,12 +8,17 @@
         // get each spawned player
         var spawnedPlayers = document.querySelectorAll('[other-player]');
 
+        var playerFound = false;
+
         // loop through each spawned player
         for (var i = 0; i < spawnedPlayers.length; i++) {
           // check if the current spawned player should be updated (by id)
           if (spawnedPlayers[i].getAttribute('id') ==
             data.detail.player.id)
           {
+            // indicate that the player was found
+            playerFound = true;
+
             // update the position of the player
             spawnedPlayers[i].setAttribute('position',
               data.detail.player.position);
@@ -31,6 +36,11 @@
               name: data.detail.player.name
             });
           }
+        }
+
+        // if the player was not found, create the player
+        if (!playerFound) {
+          el.emit('addPlayer', {player: data.detail.player});
         }
       });
 
