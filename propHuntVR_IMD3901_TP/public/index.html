@@ -11,7 +11,6 @@
 
   <!-- Library imports -->
   <script src="/js/libraries/aframe.min.js"></script>
-  <script src="/js/libraries/aframe-environment-component.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
 
   <!-- Physics -->
@@ -21,52 +20,14 @@
   <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
 
   <!-- Custom components imports -->
-  <script src="/js/player.js"></script>
-  <script src="/js/player-controller.js"></script>
-  <script src="/js/other-player.js"></script>
-  <script src="/js/hmd.js"></script>
+  <script src="/js/components/player.js"></script>
+  <script src="/js/components/player-controller.js"></script>
+  <script src="/js/components/other-player.js"></script>
+  <script src="/js/components/hmd.js"></script>
+
+  <!-- Local imports -->
+  <script src="/js/sockets/client-socket.js"></script>
 </head>
-
-<script>
-  const socket = io({transports: ['websocket'], upgrade: false});
-
-  // emitted when this player connects
-  socket.on('connect', () => {
-  });
-
-  // emitted to update the position of all other players
-  socket.on('updatePlayers', (data) => {
-    // get the players-controller
-    var playersController = document.querySelector('[players-controller]');
-
-    // loop through each player in the data list
-    for (var i = 0; i < data.players.length; i++) {
-      // update the current player from the list
-      playersController.emit('updatePlayer', {player: data.players[i]});
-    }
-  });
-
-  // emitted at the beginning to get all currently connected players
-  socket.on('spawnInitialPlayers', (data) => {
-    // get the players-controller
-    var playersController = document.querySelector('[players-controller]');
-
-    // loop through each player in the data list
-    for (var i = 0; i < data.players.length; i++) {
-      // make sure the current player is not ourself
-      if (data.players[i].id != socket.id) {
-        // add the connected player from the list
-        playersController.emit('addPlayer', {player: data.players[i]});
-      }
-    }
-  });
-
-  // emitted to add a new player on the client side
-  socket.on('playerJoined', (data) => {
-    document.querySelector('[players-controller]').emit(
-      'addPlayer', {player: data.player});
-  });
-</script>
 
 <body>
   <a-scene physics="debug: true">
@@ -135,14 +96,14 @@
 
     <!-- Environment -->
     <a-obj-model static-body src="#env-floor" mtl="#env-floor"></a-obj-model>
-    <a-obj-model static-body='shape: convex;' src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
-    <a-obj-model static-body='shape: convex;' src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
-    <a-obj-model static-body='shape: convex;' src="#env-walls" mtl="#env-walls"></a-obj-model>
-    <a-obj-model static-body='shape: convex;' src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
-    <a-obj-model static-body='shape: convex;' src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
-    <a-obj-model static-body='shape: convex;' src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
+    <a-obj-model static-body="shape: convex;" src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
+    <a-obj-model static-body="shape: convex;" src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
+    <a-obj-model static-body="shape: convex;" src="#env-walls" mtl="#env-walls"></a-obj-model>
+    <a-obj-model static-body="shape: convex;" src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
+    <a-obj-model static-body="shape: convex;" src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
+    <a-obj-model static-body="shape: convex;" src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
 
-    <a-entity environment='preset:starry;'></a-entity>
+    <a-entity environment="preset:starry;"></a-entity>
 
   </a-scene>
 </body>

@@ -1,3 +1,19 @@
+// require('../utils/utils.js');
+// import * as utils from '../utils/utils.js';
+// var utils = import('../utils/utils.js');
+
+// allows for easily getting position as a THREE vector3
+const getPosition = (element) => {
+  return element.object3D.getWorldPosition(new THREE.Vector3())
+    .clone();
+};
+
+const getRotation = (element) => {
+// allows for easily getting a rotation as a THREE quat
+  return element.object3D.getWorldQuaternion(new THREE.Quaternion())
+    .clone();
+};
+
 AFRAME.registerComponent('player', {
     schema: {
       moveThreshold: {type:'number', default: 0.1},

@@ -43,20 +43,3 @@ socket.on('playerQuit', (data) => {
   document.querySelector('[players-controller]').emit(
     'removePlayer', {playerId: data.playerId});
 });
-
-// Creates a random hex color
-const randomColor = () => {
-  return('#' + Math.floor(Math.random() * 16777215).toString(16));
-}
-
-// allows for easily getting position as a THREE vector3
-const getPosition = (element) => {
-  return element.object3D.getWorldPosition(new THREE.Vector3())
-    .clone();
-}
-
-// allows for easily getting a rotation as a THREE quat
-const getRotation = (element) => {
-  return element.object3D.getWorldQuaternion(new THREE.Quaternion())
-    .clone();
-}
