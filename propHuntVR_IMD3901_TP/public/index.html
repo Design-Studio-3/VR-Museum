@@ -48,50 +48,57 @@
 
     <!-- LIGHTS -->
     <a-entity id="lights">
-      <a-entity light="type:point; intensity:1.0; castShadow:false;"
-                position="0 5 5"
-                rotation="-45 0 0">
-      </a-entity>
-
-      <a-entity light="type:spot; intensity:1.0; castShadow:true; angle:25"
-                position="0 5 -4"
-                rotation="-90 0 0">
-      </a-entity>
+      <a-entity light="type: directional; intensity: 0.33" position="-20 20 20"></a-entity>
+      <a-entity light="type: directional; intensity: 0.33" position="20 20 -20"></a-entity>
+      <a-entity light="type: directional; intensity: 0.33" position="20 20 20"></a-entity>
+      <a-entity light="type: directional; intensity: 0.33" position="-20 20 -20"></a-entity>
     </a-entity>
 
     <a-entity id="camera"
-              player camera wasd-controls
-              look-controls="pointerLockEnabled: true" position="0 2 0">
+              player camera wasd-controls="acceleration: 20"
+              look-controls="pointerLockEnabled: false" position="0 2 0">
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
 
     <!-- PLAYERS CONTROLLER (for viewing other players) -->
     <a-entity players-controller></a-entity>
+    
+    <a-entity exhibit id="exhibitone" position="0 0 -5">
 
-    <!-- Virtual reality headset -->
-    <a-entity hmd
-              gltf-model="#hmd-gltf"
-              class="interactive"
-              position="0 1.65 -3.9"
-              scale="0.06 0.06 0.06"
-              rotation="0 25 0"
-              shadow="cast: true; receive: true">
-    </a-entity>
-
-    <!-- PEDESTAL -->
-    <a-entity id="pedestal">
-      <a-entity id="pedestalPillar" position="0 0.5 -4" rotation="0 0 0" scale="1 1 1"
-                geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
-                shadow="cast: true; receive: true">
+      <a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
+                scale="0.06 0.06 0.06" rotation="0 25 0" shadow="cast: true; receive: true">
       </a-entity>
 
-      <a-dodecahedron position="0 -1.4 -4"
-        rotation="-32.5 1.5 0"
-        material="color:black"
-        radius="2"
-        shadow="cast:true; receive:true;">
+      <a-entity id="pedestalPillar" position="0 0.5 0" rotation="0 0 0" scale="1 1 1"
+        geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
+        shadow="cast: true; receive: true">
+      </a-entity>
+
+      <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
+        radius="2" shadow="cast:true; receive:true;">
       </a-dodecahedron>
+
+      <a-entity id="screen" visible="false" position="0 3 0">
+      <a-entity position="0 0 0" rotation="0 0 0" scale="2 0.75 1"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="color:cyan; opacity:0.5;"
+        shadow="cast: false; receive: false" opacity="0.5">
+
+        <a-entity text="value: Hello World;" position="1.15 0 0" scale="3 3 3"></a-entity>
+
+      </a-entity>
+
+      <a-entity position="2 0 0" rotation="0 -45 0" scale="2 0.75 1"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="color:cyan; opacity:0.5;"
+        shadow="cast: false; receive: false" >
+      </a-entity>
+
+      <a-entity position="-2 0 0" rotation="0 45 0" scale="2 0.75 1"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="color:cyan; opacity:0.5;"
+        shadow="cast: false; receive: false" opacity="0.5">
+      </a-entity>
+      </a-entity>
+
     </a-entity>
 
     <!-- Environment -->
