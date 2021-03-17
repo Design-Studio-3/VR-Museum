@@ -1,12 +1,22 @@
+// Local imports
+import * as utils from './public/js/utils/utils.js';
+
 // Library Imports
-const express   = require('express');
+import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Initialization
 const app       = express();
-const http      = require('http');
 const server    = http.createServer(app);
-const io        = require('socket.io')(server);
+const io        = new Server(server);
 
 // Configuration variables
 const LISTEN_PORT     = 8080;
+const logLevel        = utils.LogLevel.Some;
 const updateInterval  = 50;
 
 server.listen(LISTEN_PORT);
@@ -28,6 +38,12 @@ var socketUpdateTime = setInterval(updateSockets, updateInterval);
 
 function updateSockets()
 {
+  // do logging
+  if (logLevel == utils.LogLevel.Verbose)
+  {
+    console.log('Updating clients.');
+  }
+
   // send the tick update to all clients
   io.emit('tickUpdate',
   {
@@ -90,6 +106,22 @@ const onConnect = (socket) =>
   // add the new client id to the list of connections
   players.push(newPlayer);
 
+  // do logging
+  switch (logLevel)
+  {
+    case utils.LogLevel.Some:
+      // log the player that was added
+      console.log('Connection %s added.', socket.id);
+      break;
+
+    case utils.LogLevel.Verbose:
+      // log the player that was added to the list (and all players)
+      console.log('Connection %s added.', socket.id);
+      console.log('Connections: (%s)', players.length);
+      console.log(players);
+      break;
+  }
+
   // emit the playerJoined event to all connected sockets
   socket.broadcast.emit('playerJoined', {player: newPlayer});
 }
@@ -102,6 +134,22 @@ const onDisconnect = (socket) =>
 
   // remove the client's id from the list of connections
   players.splice(indexOfPlayer, 1);
+
+  // do logging
+  switch (logLevel)
+  {
+    case utils.LogLevel.Some:
+      // log which player was removed
+      console.log('Connection %s removed.', socket.id);
+      break;
+
+    case utils.LogLevel.Verbose:
+      // log which player was removed and the players left
+      console.log('Connection %s removed.', socket.id);
+      console.log('Connections: (%s)', players.length);
+      console.log(players);
+      break;
+  }
 
   // invoke the playerQuit event to all connected clients
   io.emit('playerQuit', {playerId: socket.id});
