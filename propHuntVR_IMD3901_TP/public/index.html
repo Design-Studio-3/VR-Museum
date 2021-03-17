@@ -8,6 +8,7 @@
 
   <!-- CSS stylesheets -->
   <link rel="stylesheet" href="css/user-gesture.css">
+  <link rel="stylesheet" href="css/user-interface.css">
 
   <!-- Library imports -->
   <script src="/js/libraries/aframe.min.js"></script>
@@ -30,6 +31,21 @@
 </head>
 
 <body>
+  <!-- GUI -->
+  <div id="user-interface">
+    <!-- "Searching For" Box -->
+    <div id="searchingForGrp">
+      <div id="searchingForBox" class="uiBox"><img class="propImage" src="../assets/images/headset.png"></div>
+      <div id="searchingForText" class="uiText">
+        <h3>Searching for:</h3>
+        <h4 id="itemName">Oculus Headset</h4>
+      </div>
+    </div>
+    
+  </div>
+  <!-- End of GUI -->
+
+  <!-- Scene -->
   <a-scene physics="debug: true">
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
@@ -106,5 +122,6 @@
     <a-entity environment="preset:starry;"></a-entity>
 
   </a-scene>
+  <!-- End of scene -->
 </body>
 </html>
