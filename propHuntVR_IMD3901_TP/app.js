@@ -33,6 +33,11 @@ app.get( '/', function( req, res )
 // players database
 var players = [];
 
+// game variables
+var currentExhibitItemId  = 1;
+var piecesFound           = [];
+var numOfPieces           = -1;
+
 // set up socket updater timer
 var socketUpdateTime = setInterval(updateSockets, updateInterval);
 
@@ -47,8 +52,26 @@ function updateSockets()
   // send the tick update to all clients
   io.emit('tickUpdate',
   {
-    players: players
+    players: players,
+    currentExhibitItemId: currentExhibitItemId,
+    piecesFound: piecesFound
   });
+}
+
+// used to advance to the next exhibit item
+function goToNextExhibitItem()
+{
+  // get the number of exhibit items
+
+  // only advance if there are more exhibitItems to go through
+
+    // increment the currentExhibitItemId
+    currentExhibitItemId++;
+
+    // get the number of pieces for this exhibit item from the database
+
+    // clear pieces found
+    piecesFound = [];
 }
 
 // set up socket.io session
