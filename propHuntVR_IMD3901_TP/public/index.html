@@ -24,7 +24,7 @@
   <script src="/js/components/player-controller.js"></script>
   <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
-  <script src="/js/components/hmd.js"></script>
+  <script src="/js/components/exhibit.js"></script>
 
   <!-- Local imports -->
   <script src="/js/sockets/client-socket.js"></script>
@@ -38,7 +38,7 @@
     <a-assets timeout="10000">
       <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
 
-      <!-- Environment -->
+      <!-- Environment assets -->
       <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
@@ -70,7 +70,7 @@
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
 
-    <a-entity exhibit id="exhibitone" position="0 0 -5">
+    <a-entity exhibit="exhibitId: 3" id="exhibitone" position="0 0 -5">
 
       <a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
                 scale="0.06 0.06 0.06" rotation="0 25 0" shadow="cast: true; receive: true">
