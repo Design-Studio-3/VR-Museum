@@ -9,6 +9,14 @@ AFRAME.registerComponent('player', {
       // set up initial vars
       this.lastPosition = utils.getPosition(this.el);
       this.lastRotation = utils.getRotation(this.el);
+
+      // emit a moved event once created
+      socket.emit('moved', {
+        newPosition:
+        {x: this.lastPosition.x, y: this.lastPosition.y, z: this.lastPosition.z},
+        newRotation:
+        {x: this.lastRotation.x, y: this.lastRotation.y, z: this.lastRotation.z,
+          w: this.lastRotation.w}});
     },
 
     tick: function() {

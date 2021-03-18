@@ -22,6 +22,7 @@
   <!-- Custom components imports -->
   <script type="module" src="/js/components/player.js"></script>
   <script src="/js/components/player-controller.js"></script>
+  <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
   <script src="/js/components/hmd.js"></script>
 
@@ -34,17 +35,23 @@
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
 
-      <a-assets timeout="10000">
-        <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
+    <a-assets timeout="10000">
+      <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
 
-        <!-- Environment -->
-        <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
-        <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
-        <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
-        <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
-        <a-asset-item id="env-mouldings-exterior-walls" src="assets/environment/Environment_moulding_exteriorWalls.obj"></a-asset-item>
-        <a-asset-item id="env-mouldings-interior-walls" src="assets/environment/Environment_moulding_interiorWalls.obj"></a-asset-item>
-      </a-assets>
+      <!-- Environment -->
+      <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
+      <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
+      <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
+      <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
+      <a-asset-item id="env-mouldings-exterior-walls" src="assets/environment/Environment_moulding_exteriorWalls.obj"></a-asset-item>
+      <a-asset-item id="env-mouldings-interior-walls" src="assets/environment/Environment_moulding_interiorWalls.obj"></a-asset-item>
+    </a-assets>
+
+    <!-- GAME CONTROLLER (manages the 'game') -->
+    <a-entity game-controller></a-entity>
+
+    <!-- PLAYERS CONTROLLER (for viewing other players) -->
+    <a-entity players-controller></a-entity>
 
     <!-- LIGHTS -->
     <a-entity id="lights">
@@ -63,9 +70,6 @@
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
 
-    <!-- PLAYERS CONTROLLER (for viewing other players) -->
-    <a-entity players-controller></a-entity>
-    
     <a-entity exhibit id="exhibitone" position="0 0 -5">
 
       <a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
