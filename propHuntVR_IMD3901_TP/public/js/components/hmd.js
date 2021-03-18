@@ -50,7 +50,6 @@ AFRAME.registerComponent('exhibit',
 
         if (!oneTime)
         {
-          console.log("rooo");
           i = 0;
           setTimeout(typeWriter, 200);
           oneTime = true;
@@ -84,12 +83,14 @@ AFRAME.registerComponent('exhibit',
     }
 });
 
-var i = 0;
-var txt = '*** LOCKED ***';
-var speed = 50;
+let i = 0;
+let txt = '*** LOCKED ***';
+let speed = 50;
 
-function typeWriter() {
-  if (i < txt.length) {
+function typeWriter()
+{
+  if (i < txt.length)
+  {
     document.getElementById("demo").innerHTML += txt.charAt(i);
     i++;
     setTimeout(typeWriter, speed);
