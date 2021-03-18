@@ -2,9 +2,22 @@ let oneTime = false;
 
 AFRAME.registerComponent('exhibit',
 {
+    schema: {
+      isCompleted: {default: false},
+      exhibitId: {default: -1}
+    },
+
     init: function ()
     {
-      
+      const self = this;
+      const el = this.el;
+
+      el.addEventListener('update', function (data) {
+        // update isCompleted
+        self.data.isCompleted = data.detail.isCompleted;
+
+        console.log(`isCompleted: ${self.data.isCompleted}`);
+      });
     },
 
     tick: function ()

@@ -20,7 +20,8 @@ socket.on('tickUpdate', (data) => {
   // set the current exhibit item
   gameController.emit('update', {
     itemId: data.currentExhibitItemId,
-    partsFound: data.partsFound});
+    partsFound: data.partsFound,
+    completedExhibitIds: data.completedExhibitIds});
 });
 
 // received at the beginning to get all currently connected players

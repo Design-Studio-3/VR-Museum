@@ -74,7 +74,8 @@ function updateSockets()
   {
     players: players,
     currentExhibitItemId: currentExhibitItemId,
-    partsFound: partsFound
+    partsFound: partsFound,
+    completedExhibitIds: completedExhibitIds
   });
 }
 
@@ -113,12 +114,17 @@ function tryCompleteExhibit()
   // check if all the parts have been found
   if (partsFound.length == numOfParts)
   {
-    // add this exhibit id to the list of completed exhibits
-    completedExhibitIds.push(currentExhibitItemId);
-
-    // advance to the next exhibit item
-    goToNextExhibitItem();
+    // complete the exhibit
+    forceCompleteExhibit();
   }
+}
+
+function forceCompleteExhibit() {
+  // add this exhibit id to the list of completed exhibits
+  completedExhibitIds.push(currentExhibitItemId);
+
+  // advance to the next exhibit item
+  goToNextExhibitItem();
 }
 
 // set up socket.io session
