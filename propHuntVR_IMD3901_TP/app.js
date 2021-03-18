@@ -39,6 +39,7 @@ var currentExhibitItemIndex = -1;
 var currentExhibitItemId    = -1;
 var partsFound              = [];
 var numOfParts              = -1;
+var completedExhibitIds     = [];
 
 // set up socket updater timer
 var socketUpdateTime = setInterval(updateSockets, updateInterval);
@@ -56,7 +57,8 @@ function startup()
   players = [];
   currentExhibitItemId = database.exhibitItems[currentExhibitItemIndex].id;
   partsFound = [];
-  numOfParts = database.exhibitItems[currentExhibitItemIndex].parts.length;
+  numOfParts = database.exhibitItems[currentExhibitItemIndex].numOfParts;
+  completedExhibitIds = [];
 }
 
 function updateSockets()
@@ -87,7 +89,7 @@ function goToNextExhibitItem()
 
     // get the new exhibit item information
     currentExhibitItemId = database.exhibitItems[currentExhibitItemIndex].id;
-    numOfParts = database.exhibitItems[currentExhibitItemIndex].parts.length;
+    numOfParts = database.exhibitItems[currentExhibitItemIndex].numOfParts;
 
     // clear pieces found
     partsFound = [];
@@ -97,10 +99,25 @@ function goToNextExhibitItem()
     {
       case utils.LogLevel.Verbose && utils.LogLevel.Some:
         console.log(
-          `Proceeding to next exhibit item (id:${currentExhibitItemId},
+          `Proceeding to next exhibit item:
+          id:${currentExhibitItemId},
           name: ${database.exhibitItems[currentExhibitItemIndex].name},
           numOfParts:${numOfParts}`);
     }
+  }
+}
+
+// used to check if the current exhibit has been completed
+function tryCompleteExhibit()
+{
+  // check if all the parts have been found
+  if (partsFound.length == numOfParts)
+  {
+    // add this exhibit id to the list of completed exhibits
+    completedExhibitIds.push(currentExhibitItemId);
+
+    // advance to the next exhibit item
+    goToNextExhibitItem();
   }
 }
 
@@ -125,6 +142,28 @@ io.on('connection', (socket) =>
     // update the position and rotation of the player in the database
     players[playerIndex].position = data.newPosition;
     players[playerIndex].rotation = data.newRotation;
+  });
+
+  // when the client finds an exhibit item part
+  socket.on('partFound', (data) => {
+    // ensure that this part is for the current exhibit item and hasn't already
+    // been found
+    if (data.itemId == currentExhibitItemId && !partsFound.includes(data.partNumber))
+    {
+      // add the part to the list of found parts
+      partsFound.push(data.partNumber);
+
+      // check if the exhibit has been completed
+      tryCompleteExhibit();
+
+      // do logging
+      switch (logLevel)
+      {
+        case utils.LogLevel.Verbose && utils.LogLevel.Some:
+          console.log(`Part ${data.partNumber} found,` +
+            ` ${numOfParts - partsFound.length} left.`);
+      }
+    }
   });
 });
 
