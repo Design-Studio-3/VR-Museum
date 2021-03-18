@@ -1,5 +1,6 @@
 // Local imports
 import * as utils from './public/js/utils/utils.js';
+import * as database from './public/js/database/data.js';
 
 // Library Imports
 import express from 'express';
@@ -34,12 +35,29 @@ app.get( '/', function( req, res )
 var players = [];
 
 // game variables
-var currentExhibitItemId  = 1;
-var piecesFound           = [];
-var numOfPieces           = -1;
+var currentExhibitItemIndex = -1;
+var currentExhibitItemId    = -1;
+var partsFound              = [];
+var numOfParts              = -1;
 
 // set up socket updater timer
 var socketUpdateTime = setInterval(updateSockets, updateInterval);
+
+// Run the server's startup method
+startup();
+
+// Run on server startup
+function startup()
+{
+  // set the starting exhibitItemIndex
+  currentExhibitItemIndex = 0;
+
+  // initialize variables
+  players = [];
+  currentExhibitItemId = database.exhibitItems[currentExhibitItemIndex].id;
+  partsFound = [];
+  numOfParts = database.exhibitItems[currentExhibitItemIndex].parts.length;
+}
 
 function updateSockets()
 {
@@ -54,24 +72,36 @@ function updateSockets()
   {
     players: players,
     currentExhibitItemId: currentExhibitItemId,
-    piecesFound: piecesFound
+    partsFound: partsFound
   });
 }
 
 // used to advance to the next exhibit item
 function goToNextExhibitItem()
 {
-  // get the number of exhibit items
-
   // only advance if there are more exhibitItems to go through
-
+  if (currentExhibitItemIndex + 1 < database.exhibitItems.length)
+  {
     // increment the currentExhibitItemId
-    currentExhibitItemId++;
+    currentExhibitItemIndex++;
 
-    // get the number of pieces for this exhibit item from the database
+    // get the new exhibit item information
+    currentExhibitItemId = database.exhibitItems[currentExhibitItemIndex].id;
+    numOfParts = database.exhibitItems[currentExhibitItemIndex].parts.length;
 
     // clear pieces found
-    piecesFound = [];
+    partsFound = [];
+
+    // do logging
+    switch (logLevel)
+    {
+      case utils.LogLevel.Verbose && utils.LogLevel.Some:
+        console.log(
+          `Proceeding to next exhibit item (id:${currentExhibitItemId},
+          name: ${database.exhibitItems[currentExhibitItemIndex].name},
+          numOfParts:${numOfParts}`);
+    }
+  }
 }
 
 // set up socket.io session
