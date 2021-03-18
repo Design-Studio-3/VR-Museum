@@ -1,3 +1,5 @@
+let oneTime = false;
+
 AFRAME.registerComponent('exhibit',
 {
     init: function ()
@@ -18,19 +20,78 @@ AFRAME.registerComponent('exhibit',
 
       let distanceToExhibit = playerPosVector.distanceTo(exhibitPosVector);
 
-      const screen = document.querySelector('#screen');
+      const screen = document.querySelector('#screens');
+
+      const screenMiddle = document.querySelector('#screen-middle');
+      const screenLeft = document.querySelector('#screen-left');
+      const screenRight = document.querySelector('#screen-right');
+
+      const screenText = document.querySelector('#screen-text');
+
+      let timeout;
+
+      console.log()
 
       if(distanceToExhibit < 4)
       {
+        clearTimeout(timeout);
+
         screen.setAttribute('visible', 'true')
+
+        screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+        screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+
+        screenLeft.setAttribute('animation__2', 'property: position; to: -1.25 0 0.75; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation__2', 'property: position; to: 1.25s 0 0.75; loop:false; dur:200; easing: linear;')
+
+        screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 45 0; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation__3', 'property: rotation; to: 0 -45 0; loop:false; dur:200; easing: linear;')
+
+        if (!oneTime)
+        {
+          console.log("rooo");
+          i = 0;
+          setTimeout(typeWriter, 200);
+          oneTime = true;
+        }
+
+        let currentText = document.getElementById("demo").innerHTML;
+        screenText.setAttribute('text', "value:" + currentText.toString());
+
         screen.object3D.lookAt(playerPosVector);
       }
 
       else
       {
-        screen.setAttribute('visible', 'false')
+        oneTime = false;
+
+        screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
+        screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
+
+        screenLeft.setAttribute('animation__2', 'property: position; to: 0 0 0.75; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation__2', 'property: position; to: 0 0 0.75; loop:false; dur:200; easing: linear;')
+
+        screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
+
+        document.getElementById("demo").innerHTML = "";
+
+        timeout = setTimeout(function(){ screen.setAttribute('visible', 'false') }, 200);
       }
 
     }
 });
 
+var i = 0;
+var txt = '*** LOCKED ***';
+var speed = 50;
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("demo").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
