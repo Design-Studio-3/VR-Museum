@@ -9,11 +9,13 @@ AFRAME.registerComponent('game-controller', {
 
     // set up component variables
     var currentExhibitItemId = -1;
-    // var
+    var partsFound = [];
 
     // add event listeners
-    el.addEventListener('', function () {
-
+    el.addEventListener('update', function (data) {
+      // update the game variables
+      currentExhibitItemId = data.detail.itemId;
+      partsFound = data.detail.partsFound;
     });
   }
 });
