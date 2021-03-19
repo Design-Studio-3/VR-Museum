@@ -37,6 +37,8 @@ AFRAME.registerComponent('exhibit',
 
       let distanceToExhibit = playerPosVector.distanceTo(exhibitPosVector);
 
+      const prop = document.querySelector('#stereoscope');
+
       const screens = document.querySelector('#screens');
 
       const screenMiddle = document.querySelector('#screen-middle');
@@ -44,6 +46,11 @@ AFRAME.registerComponent('exhibit',
       const screenRight = document.querySelector('#screen-right');
       const screenLeftText = document.querySelector('#screen-left-text');
       const screenRightText = document.querySelector('#screen-right-text');
+
+      if(this.data.isCompleted)
+        {
+          prop.setAttribute('visible', "true");
+        }
 
       let timeout;
 
