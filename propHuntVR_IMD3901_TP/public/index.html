@@ -25,6 +25,7 @@
   <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
   <script src="/js/components/exhibit.js"></script>
+  <script src="/js/components/exhibit-part.js"></script>
 
   <!-- Local imports -->
   <script src="/js/sockets/client-socket.js"></script>
@@ -63,14 +64,24 @@
 
     <a-entity id="camera"
               player camera wasd-controls="acceleration: 20"
-              look-controls="pointerLockEnabled: true" position="0 2 0">
+              look-controls="pointerLockEnabled: false" position="0 2 0">
 
       <a-entity light="type: point; intensity: 0.25" rotation="90 0 0"></a-entity>
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
 
-    <a-entity exhibit="exhibitId: 3" id="exhibitone" position="0 0 -5">
+    <!-- Exhibit parts -->
+    <a-entity id="exhibitParts">
+      <a-entity exhibit-part="partId: 1; relatedExhibitId: 1;"
+                position="-10.1 0.6 -0.9"></a-entity>
+      <a-entity exhibit-part="partId: 2; relatedExhibitId: 1;"
+                position="-4 0.5 -11.7"></a-entity>
+      <a-entity exhibit-part="partId: 3; relatedExhibitId: 1;"
+                position="5.3 4.8 -0.3"></a-entity>
+    </a-entity>
+
+    <a-entity exhibit="exhibitId: 1" id="exhibitone" position="0 0 -5">
 
       <a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
                 scale="0.06 0.06 0.06" rotation="0 25 0" shadow="cast: true; receive: true">

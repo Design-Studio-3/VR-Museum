@@ -156,19 +156,19 @@ io.on('connection', (socket) =>
     // been found
     if (data.itemId == currentExhibitItemId && !partsFound.includes(data.partNumber))
     {
+      // do logging
+      switch (logLevel)
+      {
+        case utils.LogLevel.Verbose && utils.LogLevel.Some:
+        console.log(`Part ${data.partNumber} found,` +
+          ` ${numOfParts - partsFound.length} left.`);
+      }
+
       // add the part to the list of found parts
       partsFound.push(data.partNumber);
 
       // check if the exhibit has been completed
       tryCompleteExhibit();
-
-      // do logging
-      switch (logLevel)
-      {
-        case utils.LogLevel.Verbose && utils.LogLevel.Some:
-          console.log(`Part ${data.partNumber} found,` +
-            ` ${numOfParts - partsFound.length} left.`);
-      }
     }
   });
 });
