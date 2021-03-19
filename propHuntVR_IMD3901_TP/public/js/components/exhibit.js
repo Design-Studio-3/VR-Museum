@@ -48,9 +48,17 @@ AFRAME.registerComponent('exhibit',
       const screenRightText = document.querySelector('#screen-right-text');
 
       if(this.data.isCompleted)
-        {
-          prop.setAttribute('visible', "true");
-        }
+      {
+        prop.setAttribute('visible', "true");
+        txt = "STEREOSCOPE";
+        screenLeftText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
+        screenRightText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText2.png; opacity:1.0; transparent: true; alphaTest: 0.5');
+      }
+
+      else
+      {
+        txt = "LOCKED";
+      }
 
       let timeout;
 
@@ -79,18 +87,6 @@ AFRAME.registerComponent('exhibit',
 
         let currentText = document.getElementById("demo").innerHTML;
         screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + currentText.toString());
-
-        if(this.data.isCompleted)
-        {
-          txt = "STEREOSCOPE";
-          screenLeftText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
-          screenRightText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText2.png; opacity:1.0; transparent: true; alphaTest: 0.5');
-        }
-
-        else
-        {
-          txt = "LOCKED";
-        }
 
         screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
       }
