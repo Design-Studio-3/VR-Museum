@@ -21,7 +21,7 @@ AFRAME.registerComponent('game-controller', {
       // get the exhibits
       var exhibits = document.querySelectorAll('[exhibit]');
 
-      // loop through each  exhibit
+      // loop through each exhibit
       for (var i = 0; i < exhibits.length; i++)
       {
         // get the exhibit id of the current exhibit
@@ -33,6 +33,28 @@ AFRAME.registerComponent('game-controller', {
 
         // update the exhibit
         exhibits[i].emit('update', {isCompleted: shouldBeCompleted});
+      }
+
+      // get the exhibit parts
+      var exhibitParts = document.querySelectorAll('[exhibit-part]');
+
+      // loop through each exhibit part
+      for (var i = 0; i < exhibitParts.length; i++)
+      {
+        // get the exhibit-part id of the current exhibit part
+        var exhibitPartId = AFRAME.utils.entity.getComponentProperty(
+          exhibitParts[i], 'exhibit-part.partId');
+
+        // get the related exhibit id of the current exhibit part
+        var relatedExhibitId = AFRAME.utils.entity.getComponentProperty(
+          exhibitParts[i], 'exhibit-part.relatedExhibitId');
+
+        // determine if this exhibit part should be visible
+        var shouldBeVisible = !(
+          relatedExhibitId == completedExhibitIds ||
+          (relatedExhibitId == currentExhibitItemId && partsFound.includes(exhibitPartId)));
+
+        exhibitParts[i].emit('update', {visible: shouldBeVisible});
       }
     });
   }
