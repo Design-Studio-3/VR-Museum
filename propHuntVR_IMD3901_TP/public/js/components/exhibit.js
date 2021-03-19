@@ -75,8 +75,8 @@ AFRAME.registerComponent('exhibit',
         screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + currentText.toString());
 
         // IF PROP == FOUND
-        screenLeftText.setAttribute('material', 'src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
-        screenRightText.setAttribute('material', 'src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
+        screenLeftText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
+        screenRightText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText2.png; opacity:1.0; transparent: true; alphaTest: 0.5');
 
         screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
       }
@@ -97,8 +97,8 @@ AFRAME.registerComponent('exhibit',
 
         document.getElementById("demo").innerHTML = "";
 
-        screenLeftText.setAttribute('material', 'src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5');
-        screenRightText.setAttribute('material', 'src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5');
+        screenLeftText.setAttribute('material', 'opacity:0.0;');
+        screenRightText.setAttribute('material', 'opacity:0.0;');
 
         timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
       }
