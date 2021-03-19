@@ -8,7 +8,7 @@ AFRAME.registerComponent('player', {
     init: function() {
       // set up initial vars
       this.lastPosition = utils.getPosition(this.el);
-      this.lastRotation = utils.getRotation(this.el);
+      this.lastRotation = utils.getRotation(this.el.querySelector('#camera'));
 
       // emit a moved event once created
       socket.emit('moved', {
@@ -21,7 +21,7 @@ AFRAME.registerComponent('player', {
 
     tick: function() {
       var newPosition = utils.getPosition(this.el);
-      var newRotation = utils.getRotation(this.el);
+      var newRotation = utils.getRotation(this.el.querySelector('#camera'));
 
       // check if the player has moved more than the threshold amount
       if (this.hasMoved(newPosition) || this.hasRotated(newRotation)) {

@@ -57,6 +57,7 @@ AFRAME.registerComponent('exhibit',
 
       else
       {
+        prop.setAttribute('visible', "false");
         txt = "LOCKED";
       }
 
