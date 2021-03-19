@@ -55,6 +55,7 @@
           playerEl.setAttribute('other-player', {
             name: data.detail.player.name
           });
+          playerEl.setAttribute('gltf-model', "#player-model");
           playerEl.setAttribute('id', data.detail.player.id);
           playerEl.setAttribute('position', data.detail.player.position);
 
@@ -63,7 +64,7 @@
             data.detail.player.rotation.y,
             data.detail.player.rotation.z,
             data.detail.player.rotation.w
-          )
+          );
 
           console.log('Player ' + playerEl.getAttribute('id') + ' added.');
 

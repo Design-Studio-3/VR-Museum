@@ -5,13 +5,16 @@ AFRAME.registerComponent('other-player', {
       color: {type: 'color', default: 'grey'}
     },
     init: function () {
-      this.el.setAttribute('geometry', {
-        primitive: 'box',
-        height: 1.6,
-        depth: 0.5
-      });
-      this.el.setAttribute('material', {
-        color: this.data.color
-      });
+      // this.el.setAttribute('geometry', {
+      //   primitive: 'box',
+      //   height: 1.6,
+      //   depth: 0.5
+      // });
+      // this.el.setAttribute('gltf-model', {
+      //   selector: "#player-model"
+      // });
+      // this.el.setAttribute('material', {
+      //   color: this.data.color
+      // });
     }
   });

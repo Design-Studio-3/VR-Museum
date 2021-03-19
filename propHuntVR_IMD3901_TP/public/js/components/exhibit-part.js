@@ -9,13 +9,14 @@ AFRAME.registerComponent('exhibit-part', {
     const el = this.el;
 
     // Create geometry
-    el.setAttribute('geometry', {
+    /*el.setAttribute('geometry', {
       primitive: "box"
     });
     el.setAttribute('material', {
       color: "black"
-    });
+    });*/
     el.setAttribute("class", "interactive");
+    el.setAttribute('gltf-model', `#stereopsis-part${self.data.partId}-model`);
 
     // add click event listener
     el.addEventListener('click', function (evt) {
