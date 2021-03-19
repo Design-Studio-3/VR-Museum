@@ -15,7 +15,7 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "Playerbody_sm",
+            "name" : "Steropsis_PART_3sm",
             "rotation" : [
                 0.7071068286895752,
                 0,
@@ -32,7 +32,7 @@
                 0,
                 0
             ],
-            "name" : "initialShadingGroup",
+            "name" : "initialShadingGroup.003",
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     0.800000011920929,
@@ -47,7 +47,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Playerbody_sm",
+            "name" : "Steropsis_PART_3sm",
             "primitives" : [
                 {
                     "attributes" : {
@@ -65,64 +65,64 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 1722,
+            "count" : 474,
             "max" : [
-                0.787392795085907,
-                0.2700529992580414,
-                2.675020694732666
+                0.24354790151119232,
+                0.24912568926811218,
+                0.28873300552368164
             ],
             "min" : [
-                -0.7818471789360046,
-                -0.2700529992580414,
-                -0.5802582502365112
+                -0.24354811012744904,
+                -0.1727113127708435,
+                -0.38272809982299805
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 1722,
+            "count" : 474,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 1722,
+            "count" : 474,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5123,
-            "count" : 6084,
+            "count" : 1764,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 20664,
+            "byteLength" : 5688,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 20664,
-            "byteOffset" : 20664
+            "byteLength" : 5688,
+            "byteOffset" : 5688
         },
         {
             "buffer" : 0,
-            "byteLength" : 13776,
-            "byteOffset" : 41328
+            "byteLength" : 3792,
+            "byteOffset" : 11376
         },
         {
             "buffer" : 0,
-            "byteLength" : 12168,
-            "byteOffset" : 55104
+            "byteLength" : 3528,
+            "byteOffset" : 15168
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 67272,
-            "uri" : "Player_full.bin"
+            "byteLength" : 18696,
+            "uri" : "Stereopsis_p3.bin"
         }
     ]
 }

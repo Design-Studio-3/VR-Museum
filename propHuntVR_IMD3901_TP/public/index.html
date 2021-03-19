@@ -79,9 +79,9 @@
       <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
       <a-asset-item id="stereopsis-full-obj" src="assets/models/Stereopsis/Steropsis_FULLsm.obj"></a-asset-item>
       <!-- Stereopsis parts -->
-      <a-asset-item id="stereopsis-part1-obj" src="assets/models/Stereopsis/Stereopsis_P1.obj"></a-asset-item>
-      <a-asset-item id="stereopsis-part2-obj" src="assets/models/Stereopsis/Stereopsis_P2.obj"></a-asset-item>
-      <a-asset-item id="stereopsis-part3-obj" src="assets/models/Stereopsis/Stereopsis_P3.obj"></a-asset-item>
+      <a-asset-item id="stereopsis-part1-model" src="assets/models/Stereopsis/Part1/Stereopsis_p1.gltf"></a-asset-item>
+      <a-asset-item id="stereopsis-part2-model" src="assets/models/Stereopsis/Part2/Stereopsis_p2.gltf"></a-asset-item>
+      <a-asset-item id="stereopsis-part3-model" src="assets/models/Stereopsis/Part3/Stereopsis_p3.gltf"></a-asset-item>
 
       <!-- Environment assets -->
       <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
@@ -119,13 +119,13 @@
 
     <!-- Exhibit parts -->
     <a-entity id="exhibitParts">
-      <!--<a-obj-model class="interactive" scale="1 1 1" 
+      <!--<a-obj-model class="interactive" scale="1 1 1"
                    src="#stereopsis-part1-obj" exhibit-part="partId: 1; relatedExhibitId: 1;"
                    position="-10.1 0.6 -0.9"></a-obj-model>-->
-      <!--<a-obj-model class="interactive" scale="1 1 1" 
+      <!--<a-obj-model class="interactive" scale="1 1 1"
                    src="#stereopsis-part2-obj" exhibit-part="partId: 2; relatedExhibitId: 1;"
                    position="-4 0.5 -11.7"></a-obj-model>-->
-      <!--<a-obj-model class="interactive" scale="1 1 1" 
+      <!--<a-obj-model class="interactive" scale="1 1 1"
                    src="#stereopsis-part3-obj" exhibit-part="partId: 3; relatedExhibitId: 1;"
                    position="5.3 4.8 -0.3"></a-obj-model>-->
       <!--<a-obj-model exhibit-part="partId: 1; relatedExhibitId: 1;"
@@ -152,7 +152,7 @@
         </a-entity>-->
 
         <!-- Stereopsis -->
-        <a-obj-model class="interactive" scale="0.5 0.5 0.5" 
+        <a-obj-model class="interactive" scale="0.5 0.5 0.5"
                      src="#stereopsis-full-obj" position="0 0.8 0" rotation="0 0 0"
                      shadow="cast: true; receive: true">
         </a-obj-model>

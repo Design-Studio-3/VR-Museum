@@ -1,5 +1,3 @@
-const e = require("express");
-
 AFRAME.registerComponent('exhibit-part', {
   schema: {
     relatedExhibitId: {default: -1},
@@ -18,7 +16,7 @@ AFRAME.registerComponent('exhibit-part', {
       color: "black"
     });*/
     el.setAttribute("class", "interactive");
-    el.setAttribute('src', `#stereopsis-part${self.data.partId}-obj`);
+    el.setAttribute('gltf-model', `#stereopsis-part${self.data.partId}-model`);
 
     // add click event listener
     el.addEventListener('click', function (evt) {
