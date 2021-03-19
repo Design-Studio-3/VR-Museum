@@ -89,3 +89,18 @@ h4 {
 #inventoryBox1, #inventoryBox2, #inventoryBox3 {
     margin: 5px 0px 0px 10px;
 }
+
+/* Messages */
+#messageGrp {
+    display: flex;
+    justify-content: center;
+}
+
+#messageGrp h3 {
+    min-width: 200px;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: rgba(167, 167, 167, 0.8);
+    box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.3);
+}
+
