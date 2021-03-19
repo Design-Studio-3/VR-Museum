@@ -3,16 +3,17 @@
 #user-interface {
     position: absolute;
     z-index: 9999;
+    pointer-events: none;
 }
 
-#searchingForGrp {
+#searchingForGrp, #hintGrp {
     margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
 }
-
+/* Search for */
 #searchingForBox {
     box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.3 );
 }
@@ -34,15 +35,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.3);
 }
 
-h3, h4 {
+h3, h4, #hintText h3, #hintText h4 {
     margin: 5px;
     color: #212121;
     font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
     font-weight: 500;
-    font-size: 1.1em;
-    
+    font-size: 1.1em; 
 }
 
 h4 {
@@ -52,4 +53,39 @@ h4 {
 
 .propImage {
     max-width: 70px;
+}
+
+/* Hint */
+#hintText {
+    clear: both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: rgba(167, 167, 167, 0.8);
+    box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.3);
+}
+
+#hintText h3 {
+    float: left;
+    font-weight: 700;
+}
+#hintText h4 {
+    float: right;
+    font-size: 1em;
+    font-style: italic;
+}
+
+/* Inventory */
+#inventoryGrp {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    justify-content: flex-end;
+    pointer-events: none;
+}
+
+#inventoryBox1, #inventoryBox2, #inventoryBox3 {
+    margin: 5px 0px 0px 10px;
 }

@@ -35,16 +35,27 @@
   <div id="user-interface">
     <!-- "Searching For" Box -->
     <div id="searchingForGrp">
-<<<<<<< Updated upstream
       <div id="searchingForBox" class="uiBox"><img class="propImage" src="../assets/images/headset.png"></div>
-=======
->>>>>>> Stashed changes
       <div id="searchingForText" class="uiText">
         <h3>Searching for:</h3>
         <h4 id="itemName">Oculus Headset</h4>
       </div>
     </div>
-    
+
+    <!-- Hint box -->
+    <div id="hintGrp">
+      <div id="hintText" class="uiText">
+        <h3>Hint:</h3>
+        <h4 id="hint">Have you checked the exhibit?</h4>
+      </div>
+    </div>
+
+    <!-- Inventory boxes -->
+    <div id="inventoryGrp">
+        <div id="inventoryBox1" class="uiBox"><img class="propImage" src=""></div>
+        <div id="inventoryBox2" class="uiBox"><img class="propImage" src=""></div>
+        <div id="inventoryBox3" class="uiBox"><img class="propImage" src=""></div>
+    </div>
   </div>
   <!-- End of GUI -->
 
@@ -83,6 +94,7 @@
               look-controls="pointerLockEnabled: true" position="0 2 0">
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
+      <a-cursor></a-cursor>
     </a-entity>
 
     <!-- PLAYERS CONTROLLER (for viewing other players) -->
