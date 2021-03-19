@@ -13,6 +13,15 @@ socket.on('tickUpdate', (data) => {
       playersController.emit('updatePlayer', {player: data.players[i]});
     }
   }
+
+  // get the game-controller
+  var gameController = document.querySelector('[game-controller]');
+
+  // set the current exhibit item
+  gameController.emit('update', {
+    itemId: data.currentExhibitItemId,
+    partsFound: data.partsFound,
+    completedExhibitIds: data.completedExhibitIds});
 });
 
 // received at the beginning to get all currently connected players

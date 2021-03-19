@@ -1,16 +1,23 @@
-exhibitItems = {
-    'example1' : {
-        'id' : '',
-        'name' : '',
-        'parts' : ['', '', ''],
-        'pathTo3DAsset' : '../../assets/',
-        'pathToImage' : '../../assets/images'
+export const exhibitItems = [
+    {
+        id: 1,
+        name: 'exampleExhibitItem1',
+        numOfParts: 3,
+        pathTo3DAsset: '../../assets/',
+        pathToImage: '../../assets/images'
     },  // End of Example 1
-    'example2' : {
-        'id' : '',
-        'name' : '',
-        'parts' : ['', '', ''],
-        'pathTo3DAsset' : '../../assets/',
-        'pathToImage' : '../../assets/images'
+    {
+        id: 2,
+        name: 'exampleExhibitItem2',
+        numOfParts: 3,
+        pathTo3DAsset: '../../assets/',
+        pathToImage: '../../assets/images'
     },  // End of Example 2
-}
+    {
+        id: 3,
+        name: 'exampleExhibitItem3',
+        numOfParts: 3,
+        pathTo3DAsset: '../../assets/',
+        pathToImage: '../../assets/images'
+    }  // End of Example 3
+];

@@ -2,6 +2,7 @@
   // players who have joined)
   AFRAME.registerComponent('players-controller', {
     init: function () {
+      var self = this;
       var el = this.el;
 
       el.addEventListener('updatePlayer', function (data) {
@@ -45,27 +46,30 @@
       });
 
       el.addEventListener('addPlayer', function (data) {
-        // create a new entity element
-        playerEl = document.createElement('a-entity');
+        // make sure that the player does not already exist
+        if (!self.playerIsSpawned(data.detail.player.id)) {
+          // create a new entity element
+          playerEl = document.createElement('a-entity');
 
-        // setup the attributes of the new player element
-        playerEl.setAttribute('other-player', {
-          name: data.detail.player.name
-        });
-        playerEl.setAttribute('id', data.detail.player.id);
-        playerEl.setAttribute('position', data.detail.player.position);
+          // setup the attributes of the new player element
+          playerEl.setAttribute('other-player', {
+            name: data.detail.player.name
+          });
+          playerEl.setAttribute('id', data.detail.player.id);
+          playerEl.setAttribute('position', data.detail.player.position);
 
-        playerEl.object3D.quaternion.set(
-          data.detail.player.rotation.x,
-          data.detail.player.rotation.y,
-          data.detail.player.rotation.z,
-          data.detail.player.rotation.w
-        )
+          playerEl.object3D.quaternion.set(
+            data.detail.player.rotation.x,
+            data.detail.player.rotation.y,
+            data.detail.player.rotation.z,
+            data.detail.player.rotation.w
+          )
 
-        console.log('Player ' + playerEl.getAttribute('id') + ' added.');
+          console.log('Player ' + playerEl.getAttribute('id') + ' added.');
 
-        // append the new player element to the players-controller element
-        el.appendChild(playerEl);
+          // append the new player element to the players-controller element
+          el.appendChild(playerEl);
+        }
       });
 
       el.addEventListener('removePlayer', function (data) {
@@ -86,5 +90,21 @@
           }
         }
       });
+    },
+
+    playerIsSpawned: function (playerId) {
+      // get currently spawned players
+      var spawnedPlayers = document.querySelectorAll('[other-player]');
+
+      // loop through each player
+      for (var i = 0; i < spawnedPlayers.length; i++) {
+        if (spawnedPlayers[i].getAttribute('id') == playerId) {
+          // the player was found, return true
+          return true;
+        }
+      }
+
+      // the player was not found, return false
+      return false;
     }
   });
