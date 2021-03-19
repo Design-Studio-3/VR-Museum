@@ -1,3 +1,5 @@
+import * as database from '/public/js/database/data.js';
+
 let oneTime = false;
 
 AFRAME.registerComponent('exhibit',

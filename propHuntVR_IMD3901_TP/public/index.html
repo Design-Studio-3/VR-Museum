@@ -41,7 +41,11 @@
       <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
 
       <!-- Environment assets -->
-      <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
+      <a-asset-item id="env-floor-1" src="assets/environment/Floor/floor1.obj"></a-asset-item>
+      <a-asset-item id="env-floor-2" src="assets/environment/Floor/floor2.obj"></a-asset-item>
+      <a-asset-item id="env-ramp-1" src="assets/environment/Floor/ramp1.obj"></a-asset-item>
+      <a-asset-item id="env-ramp-2" src="assets/environment/Floor/ramp2.obj"></a-asset-item>
+
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
@@ -116,7 +120,10 @@
     </a-entity>
 
     <!-- Environment -->
-    <a-obj-model src="#env-floor" mtl="#env-floor"></a-obj-model>
+    <a-obj-model static-body="shape: box" src="#env-floor-1"></a-obj-model>
+    <a-obj-model static-body="shape: box" src="#env-floor-2"></a-obj-model>
+    <a-obj-model static-body="shape: convex" src="#env-ramp-1"></a-obj-model>
+    <a-obj-model static-body="shape: convex" src="#env-ramp-2"></a-obj-model>
 
     <a-entity static-body="shape: box" geometry="primitive: box" scale="100 1 100" material="color: red" position="0 -0.55 0"></a-entity>
 
