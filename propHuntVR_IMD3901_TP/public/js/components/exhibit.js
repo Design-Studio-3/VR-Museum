@@ -1,5 +1,3 @@
-import * as database from '/public/js/database/data.js';
-
 let oneTime = false;
 
 AFRAME.registerComponent('exhibit',
@@ -43,7 +41,10 @@ AFRAME.registerComponent('exhibit',
 
       let timeout;
 
-      console.log()
+      // IF PROP == FOUND:
+      // txt = prop.name
+      // ELSE
+      // txt = "LOCKED"
 
       if(distanceToExhibit < 4)
       {
@@ -71,6 +72,10 @@ AFRAME.registerComponent('exhibit',
         let currentText = document.getElementById("demo").innerHTML;
         screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + currentText.toString());
 
+        // IF PROP == FOUND
+        screenLeft.setAttribute('text', 'font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:' + " Charles Wheatstone was the first to demonstrate that the brain combines two photographs of the same object taken from different perspectives to create an image with depth. He used this knowledge to create the first stereoscope. ");
+        screenRight.setAttribute('text', 'font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:' + " Charles Wheatstone was the first to demonstrate that the brain combines two photographs of the same object taken from different perspectives to create an image with depth. He used this knowledge to create the first stereoscope. ");
+
         screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2, playerPosVector.z);
       }
 
@@ -89,6 +94,8 @@ AFRAME.registerComponent('exhibit',
         screenRight.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
 
         document.getElementById("demo").innerHTML = "";
+        screenLeft.removeAttribute('text');
+        screenRight.removeAttribute('text');
 
         timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
       }

@@ -22,10 +22,10 @@
 
   <!-- Custom components imports -->
   <script type="module" src="/js/components/player.js"></script>
+  <script src="/js/components/exhibit.js"></script>
   <script src="/js/components/player-controller.js"></script>
   <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
-  <script src="/js/components/exhibit.js"></script>
 
   <!-- Local imports -->
   <script src="/js/sockets/client-socket.js"></script>
@@ -44,7 +44,6 @@
       <a-asset-item id="env-floor-1" src="assets/environment/Floor/floor1.obj"></a-asset-item>
       <a-asset-item id="env-floor-2" src="assets/environment/Floor/floor2.obj"></a-asset-item>
       <a-asset-item id="env-ramp-1" src="assets/environment/Floor/ramp1.obj"></a-asset-item>
-      <a-asset-item id="env-ramp-2" src="assets/environment/Floor/ramp2.obj"></a-asset-item>
 
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
@@ -96,8 +95,7 @@
 
         <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true"
-        text="">
+        shadow="cast: true; receive: true">
 
         <p id="demo"></p>
 
@@ -105,14 +103,12 @@
 
         <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true"
-        text="font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:">
+        shadow="cast: true; receive: true">
         </a-entity>
 
         <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true"
-        text="font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:">
+        shadow="cast: true; receive: true">
         </a-entity>
 
       </a-entity>
@@ -123,7 +119,6 @@
     <a-obj-model static-body="shape: box" src="#env-floor-1"></a-obj-model>
     <a-obj-model static-body="shape: box" src="#env-floor-2"></a-obj-model>
     <a-obj-model static-body="shape: convex" src="#env-ramp-1"></a-obj-model>
-    <a-obj-model static-body="shape: convex" src="#env-ramp-2"></a-obj-model>
 
     <a-entity static-body="shape: box" geometry="primitive: box" scale="100 1 100" material="color: red" position="0 -0.55 0"></a-entity>
 
