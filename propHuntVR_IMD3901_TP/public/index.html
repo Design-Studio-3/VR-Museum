@@ -25,7 +25,7 @@
   <script src="/js/components/player-controller.js"></script>
   <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
-  <script src="/js/components/exhibit.js"></script>
+  <script type="module" src="/js/components/exhibit.js"></script>
   <script src="/js/components/exhibit-part.js"></script>
 
   <!-- Local imports -->
@@ -72,6 +72,10 @@
     <div id="text"></div>
 
     <a-assets timeout="10000">
+      <!-- Player model -->
+      <a-asset-item id="player-model" src="assets/models/Player/Player_full.gltf"></a-asset-item>
+
+      <!-- Exhibit Items -->
       <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
 
       <!-- Environment assets -->
@@ -118,45 +122,44 @@
                 position="5.3 4.8 -0.3"></a-entity>
     </a-entity>
 
-    <a-entity exhibit="exhibitId: 1" id="exhibitone" position="0 0 -5">
+    <!-- Exhibits -->
+    <a-entity>
+      <a-entity exhibit="exhibitId: 1" id="exhibitone" position="0 0 -5">
 
-      <a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
-                scale="0.06 0.06 0.06" rotation="0 25 0" shadow="cast: true; receive: true">
+        <a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
+                  scale="0.06 0.06 0.06" rotation="0 25 0" shadow="cast: true; receive: true">
+        </a-entity>
+
+        <a-entity id="pedestalPillar" position="0 0.5 0" rotation="0 0 0" scale="1 1 1"
+          geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
+          shadow="cast: true; receive: true">
+        </a-entity>
+
+        <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
+          radius="2" shadow="cast:true; receive:true;">
+        </a-dodecahedron>
+
+        <a-entity id="screens" visible="false" position="0 2.75 0">
+          <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
+            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+            shadow="cast: true; receive: true">
+
+            <p id="demo"></p>
+
+            <a-entity id="screen-text" text="value:;" position="1.05 0 0.1" scale="3 3 3"></a-entity>
+          </a-entity>
+
+          <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
+            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+            shadow="cast: true; receive: true">
+          </a-entity>
+
+          <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
+            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+            shadow="cast: true; receive: true">
+          </a-entity>
+        </a-entity>
       </a-entity>
-
-      <a-entity id="pedestalPillar" position="0 0.5 0" rotation="0 0 0" scale="1 1 1"
-        geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
-        shadow="cast: true; receive: true">
-      </a-entity>
-
-      <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
-        radius="2" shadow="cast:true; receive:true;">
-      </a-dodecahedron>
-
-      <a-entity id="screens" visible="false" position="0 2.75 0">
-
-      <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
-        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true">
-
-        <p id="demo"></p>
-
-        <a-entity id="screen-text" text="value:;" position="1.05 0 0.1" scale="3 3 3"></a-entity>
-
-      </a-entity>
-
-      <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
-        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true">
-      </a-entity>
-
-      <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
-        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true">
-      </a-entity>
-
-      </a-entity>
-
     </a-entity>
 
     <!-- Environment -->
