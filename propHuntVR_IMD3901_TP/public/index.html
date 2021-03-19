@@ -84,6 +84,7 @@
       <a-asset-item id="stereopsis-part3-model" src="assets/models/Stereopsis/Part3/Stereopsis_p3.gltf"></a-asset-item>
 
       <!-- Environment assets -->
+      <a-asset-item id="pedestal-model" src="assets/models/Pedestal/Pedestal.gltf"></a-asset-item>
       <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
@@ -156,11 +157,12 @@
                      src="#stereopsis-full-obj" position="0 0.8 0" rotation="0 0 0"
                      shadow="cast: true; receive: true">
         </a-obj-model>
-
+<!--
         <a-entity id="pedestalPillar" position="0 0.5 0" rotation="0 0 0" scale="1 1 1"
           geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
           shadow="cast: true; receive: true">
-        </a-entity>
+        </a-entity> -->
+        <a-entity gltf-model="#pedestal-model" position="0 0.5 0"></a-entity>
 
         <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
           radius="2" shadow="cast:true; receive:true;">
