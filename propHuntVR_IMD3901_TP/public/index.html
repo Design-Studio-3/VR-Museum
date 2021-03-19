@@ -8,6 +8,7 @@
 
   <!-- CSS stylesheets -->
   <link rel="stylesheet" href="css/user-gesture.css">
+  <link rel="stylesheet" href="css/user-interface.css">
 
   <!-- Library imports -->
   <script src="/js/libraries/aframe.min.js"></script>
@@ -31,6 +32,40 @@
 </head>
 
 <body>
+  <!-- GUI -->
+  <div id="user-interface">
+    <!-- "Searching For" Box -->
+    <div id="searchingForGrp">
+      <div id="searchingForBox" class="uiBox"><img class="propImage" src="../assets/images/headset.png"></div>
+      <div id="searchingForText" class="uiText">
+        <h3>Searching for:</h3>
+        <h4 id="itemName">Oculus Headset</h4>
+      </div>
+    </div>
+
+    <!-- Hint box -->
+    <div id="hintGrp">
+      <div id="hintText" class="uiText">
+        <h3>Hint:</h3>
+        <h4 id="hint">Have you checked the exhibit?</h4>
+      </div>
+    </div>
+
+    <!-- Inventory boxes -->
+    <div id="inventoryGrp">
+        <div id="inventoryBox1" class="uiBox"><img class="propImage" src=""></div>
+        <div id="inventoryBox2" class="uiBox"><img class="propImage" src=""></div>
+        <div id="inventoryBox3" class="uiBox"><img class="propImage" src=""></div>
+    </div>
+
+    <!-- Messages -->
+    <div id="messageGrp">
+      <h3 id="messageBox">Player joined</h3>
+    </div>
+  </div>
+  <!-- End of GUI -->
+
+  <!-- Scene -->
   <a-scene physics="debug: true">
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
@@ -68,6 +103,7 @@
       <a-entity light="type: point; intensity: 0.25" rotation="90 0 0"></a-entity>
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
+      <a-cursor></a-cursor>
     </a-entity>
 
     <a-entity exhibit="exhibitId: 3" id="exhibitone" position="0 0 -5">
@@ -123,5 +159,17 @@
     <a-entity environment="preset:starry;"></a-entity>
 
   </a-scene>
+  <!-- End of scene -->
+
+  <!-- Temporary message updater -->
+  <script>
+    /*let socket = io();
+    socket.on('playerJoined', (data) => {
+      document.querySelector('#messageBox').innerHTML = 'A new player has joined.';
+    })
+    socket.on('playerQuit', (data) => {
+      document.querySelector('#messageBox').innerHTML = 'A player has quit.';
+    })*/
+  </script>
 </body>
 </html>
