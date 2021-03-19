@@ -15,6 +15,7 @@
 
   <!-- Physics -->
   <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
   <!-- Environment engine-->
   <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
@@ -28,10 +29,11 @@
 
   <!-- Local imports -->
   <script src="/js/sockets/client-socket.js"></script>
+
 </head>
 
 <body>
-  <a-scene physics="debug: true">
+  <a-scene physics="debug: true; gravity: -9.8;">
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
 
@@ -61,9 +63,9 @@
       <a-entity light="type: directional; intensity: 0.33" position="-20 20 -20"></a-entity>
     </a-entity>
 
-    <a-entity id="camera"
-              player camera wasd-controls="acceleration: 20"
-              look-controls="pointerLockEnabled: true" position="0 2 0">
+    <a-entity id="rig" movement-controls kinematic-body>
+      <a-entity id="camera" camera position="0 2 0" look-controls></a-entity>
+    </a-entity>
 
       <a-entity light="type: point; intensity: 0.25" rotation="90 0 0"></a-entity>
       <a-entity class="geo"></a-entity>
@@ -78,7 +80,8 @@
 
       <a-entity id="pedestalPillar" position="0 0.5 0" rotation="0 0 0" scale="1 1 1"
         geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
-        shadow="cast: true; receive: true">
+        shadow="cast: true; receive: true"
+        static-body="shape: cylinder">
       </a-entity>
 
       <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
@@ -87,38 +90,42 @@
 
       <a-entity id="screens" visible="false" position="0 2.75 0">
 
-      <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
+        <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true">
+        shadow="cast: true; receive: true"
+        text="">
 
         <p id="demo"></p>
 
-        <a-entity id="screen-text" text="value:;" position="1.05 0 0.1" scale="3 3 3"></a-entity>
+        </a-entity>
 
-      </a-entity>
-
-      <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
+        <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true">
-      </a-entity>
+        shadow="cast: true; receive: true"
+        text="font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:">
+        </a-entity>
 
-      <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
+        <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-        shadow="cast: true; receive: true">
-      </a-entity>
+        shadow="cast: true; receive: true"
+        text="font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:">
+        </a-entity>
 
       </a-entity>
 
     </a-entity>
 
     <!-- Environment -->
-    <a-obj-model static-body src="#env-floor" mtl="#env-floor"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-walls" mtl="#env-walls"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
+    <a-obj-model src="#env-floor" mtl="#env-floor"></a-obj-model>
+
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="100 1 100" material="color: red" position="0 -0.55 0"></a-entity>
+
+    <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
+    <a-obj-model src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
+    <a-obj-model src="#env-walls" mtl="#env-walls"></a-obj-model>
+    <a-obj-model src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
+    <a-obj-model src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
+    <a-obj-model src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
 
     <a-entity environment="preset:starry;"></a-entity>
 

@@ -23,7 +23,7 @@ AFRAME.registerComponent('exhibit',
     tick: function ()
     {
       const exhibit = this.el;
-      const player = document.querySelector('#camera');
+      const player = document.querySelector('#rig');
 
       let exhibitPos = exhibit.getAttribute('position');
       let playerPos = player.getAttribute('position');
@@ -33,13 +33,11 @@ AFRAME.registerComponent('exhibit',
 
       let distanceToExhibit = playerPosVector.distanceTo(exhibitPosVector);
 
-      const screen = document.querySelector('#screens');
+      const screens = document.querySelector('#screens');
 
       const screenMiddle = document.querySelector('#screen-middle');
       const screenLeft = document.querySelector('#screen-left');
       const screenRight = document.querySelector('#screen-right');
-
-      const screenText = document.querySelector('#screen-text');
 
       let timeout;
 
@@ -49,7 +47,7 @@ AFRAME.registerComponent('exhibit',
       {
         clearTimeout(timeout);
 
-        screen.setAttribute('visible', 'true')
+        screens.setAttribute('visible', 'true')
 
         screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
         screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
@@ -64,14 +62,14 @@ AFRAME.registerComponent('exhibit',
         if (!oneTime)
         {
           i = 0;
-          setTimeout(typeWriter, 200);
+          setTimeout(typeWriter, 300);
           oneTime = true;
         }
 
         let currentText = document.getElementById("demo").innerHTML;
-        screenText.setAttribute('text', "value:" + currentText.toString());
+        screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + currentText.toString());
 
-        screen.object3D.lookAt(playerPosVector);
+        screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2, playerPosVector.z);
       }
 
       else
@@ -90,15 +88,15 @@ AFRAME.registerComponent('exhibit',
 
         document.getElementById("demo").innerHTML = "";
 
-        timeout = setTimeout(function(){ screen.setAttribute('visible', 'false') }, 200);
+        timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
       }
 
     }
 });
 
 let i = 0;
-let txt = '*** LOCKED ***';
-let speed = 50;
+let txt = "LOCKED";
+let speed = 100;
 
 function typeWriter()
 {
