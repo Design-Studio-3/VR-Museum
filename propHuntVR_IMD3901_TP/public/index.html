@@ -8,7 +8,6 @@
 
   <!-- CSS stylesheets -->
   <link rel="stylesheet" href="css/user-gesture.css">
-  <link rel="stylesheet" href="css/user-interface.css">
 
   <!-- Library imports -->
   <script src="/js/libraries/aframe.min.js"></script>
@@ -16,58 +15,26 @@
 
   <!-- Physics -->
   <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
   <!-- Environment engine-->
   <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
 
   <!-- Custom components imports -->
   <script type="module" src="/js/components/player.js"></script>
+  <script src="/js/components/exhibit.js"></script>
   <script src="/js/components/player-controller.js"></script>
   <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
-  <script type="module" src="/js/components/exhibit.js"></script>
   <script src="/js/components/exhibit-part.js"></script>
 
   <!-- Local imports -->
   <script src="/js/sockets/client-socket.js"></script>
+
 </head>
 
 <body>
-  <!-- GUI -->
-  <div id="user-interface">
-    <!-- "Searching For" Box -->
-    <div id="searchingForGrp">
-      <div id="searchingForBox" class="uiBox"><img class="propImage" src="../assets/images/headset.png"></div>
-      <div id="searchingForText" class="uiText">
-        <h3>Searching for:</h3>
-        <h4 id="itemName">Oculus Headset</h4>
-      </div>
-    </div>
-
-    <!-- Hint box -->
-    <div id="hintGrp">
-      <div id="hintText" class="uiText">
-        <h3>Hint:</h3>
-        <h4 id="hint">Have you checked the exhibit?</h4>
-      </div>
-    </div>
-
-    <!-- Inventory boxes -->
-    <div id="inventoryGrp">
-        <div id="inventoryBox1" class="uiBox"><img class="propImage" src=""></div>
-        <div id="inventoryBox2" class="uiBox"><img class="propImage" src=""></div>
-        <div id="inventoryBox3" class="uiBox"><img class="propImage" src=""></div>
-    </div>
-
-    <!-- Messages -->
-    <!--<div id="messageGrp">
-      <h3 id="messageBox">Player joined</h3>
-    </div>-->
-  </div>
-  <!-- End of GUI -->
-
-  <!-- Scene -->
-  <a-scene physics="debug: false">
+  <a-scene physics="debug: true; gravity: -9.8;">
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
 
@@ -86,6 +53,7 @@
       <!-- Environment assets -->
       <a-asset-item id="pedestal-model" src="assets/models/Pedestal/Pedestal.gltf"></a-asset-item>
       <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
+
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
@@ -107,34 +75,15 @@
       <a-entity light="type: directional; intensity: 0.33" position="-20 20 -20"></a-entity>
     </a-entity>
 
-    <!-- Camera & cursor -->
-    <a-entity id="camera"
-              position="-16 2 0.8"
-              player camera wasd-controls="acceleration: 20"
-              look-controls="pointerLockEnabled: false">
+    <a-entity id="rig" movement-controls kinematic-body player>
+      <a-entity id="camera" camera position="0 2 0" look-controls></a-entity>
       <a-entity light="type: point; intensity: 0.25" rotation="90 0 0"></a-entity>
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
-      <a-cursor></a-cursor>
     </a-entity>
 
     <!-- Exhibit parts -->
     <a-entity id="exhibitParts">
-      <!--<a-obj-model class="interactive" scale="1 1 1"
-                   src="#stereopsis-part1-obj" exhibit-part="partId: 1; relatedExhibitId: 1;"
-                   position="-10.1 0.6 -0.9"></a-obj-model>-->
-      <!--<a-obj-model class="interactive" scale="1 1 1"
-                   src="#stereopsis-part2-obj" exhibit-part="partId: 2; relatedExhibitId: 1;"
-                   position="-4 0.5 -11.7"></a-obj-model>-->
-      <!--<a-obj-model class="interactive" scale="1 1 1"
-                   src="#stereopsis-part3-obj" exhibit-part="partId: 3; relatedExhibitId: 1;"
-                   position="5.3 4.8 -0.3"></a-obj-model>-->
-      <!--<a-obj-model exhibit-part="partId: 1; relatedExhibitId: 1;"
-                   position="-10.1 0.6 -0.9"></a-obj-model>
-      <a-obj-model exhibit-part="partId: 2; relatedExhibitId: 1;"
-                   position="-4 0.5 -11.7"></a-obj-model>
-      <a-obj-model exhibit-part="partId: 3; relatedExhibitId: 1;"
-                   position="5.3 4.8 -0.3"></a-obj-model>-->
       <a-entity exhibit-part="partId: 1; relatedExhibitId: 1;"
                 position="-10.1 0.6 -0.9"></a-entity>
       <a-entity exhibit-part="partId: 2; relatedExhibitId: 1;"
@@ -147,73 +96,66 @@
     <a-entity>
       <a-entity exhibit="exhibitId: 1" id="exhibitone" position="0 0 -5">
 
-        <!-- HMD -->
-        <!--<a-entity gltf-model="#hmd-gltf" class="interactive" position="0 1.65 0"
-                  scale="0.06 0.06 0.06" rotation="0 25 0" shadow="cast: true; receive: true">
-        </a-entity>-->
-
         <!-- Stereopsis -->
         <a-obj-model class="interactive" scale="0.5 0.5 0.5"
                      src="#stereopsis-full-obj" position="0 0.8 0" rotation="0 0 0"
                      shadow="cast: true; receive: true">
         </a-obj-model>
-<!--
-        <a-entity id="pedestalPillar" position="0 0.5 0" rotation="0 0 0" scale="1 1 1"
-          geometry="primitive:cylinder; height:2; radius: 0.5;" material="color:red"
-          shadow="cast: true; receive: true">
-        </a-entity> -->
         <a-entity gltf-model="#pedestal-model" position="0 0.5 0"></a-entity>
 
-        <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
-          radius="2" shadow="cast:true; receive:true;">
-        </a-dodecahedron>
+      <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
+        radius="2" shadow="cast:true; receive:true;">
+      </a-dodecahedron>
 
-        <a-entity id="screens" visible="false" position="0 2.75 0">
-          <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
-            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-            shadow="cast: true; receive: true">
+      <a-entity id="screens" visible="false" position="0 2.75 0">
 
-            <p id="demo"></p>
+        <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+        shadow="cast: true; receive: true">
 
-            <a-entity id="screen-text" text="value:;" position="1.05 0 0.1" scale="3 3 3"></a-entity>
-          </a-entity>
+        <p id="demo"></p>
 
-          <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
-            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-            shadow="cast: true; receive: true">
-          </a-entity>
+        </a-entity>
 
-          <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
-            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-            shadow="cast: true; receive: true">
-          </a-entity>
+        <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+        shadow="cast: true; receive: true">
+
+        <a-entity id="screen-right-text" position="0 0 0.01"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
+        </a-entity>
+
+        </a-entity>
+
+        <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+        shadow="cast: true; receive: true">
+
+        <a-entity id="screen-left-text" position="0 0 0.01"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5;">
+        </a-entity>
+
         </a-entity>
       </a-entity>
     </a-entity>
 
     <!-- Environment -->
-    <a-obj-model static-body src="#env-floor" mtl="#env-floor"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-walls" mtl="#env-walls"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
-    <a-obj-model static-body="shape: convex;" src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
+    <a-obj-model src="#env-floor"></a-obj-model>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="50 1 50" material="color: red" position="0 -0.55 0"></a-entity>
+
+    <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" material="color: red" scale="16.410 1 10.830" position="18.941 0.999 -9.649"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 2 4.280" position="22.711 -0.296 -1.849" rotation="0 90 17.8"></a-entity>
+
+    <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
+    <a-obj-model src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
+    <a-obj-model src="#env-walls" mtl="#env-walls"></a-obj-model>
+    <a-obj-model src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
+    <a-obj-model src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
+    <a-obj-model src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
 
     <a-entity environment="preset:starry;"></a-entity>
 
   </a-scene>
-  <!-- End of scene -->
-
-  <!-- Temporary message updater -->
-  <script>
-    /*let socket = io();
-    socket.on('playerJoined', (data) => {
-      document.querySelector('#messageBox').innerHTML = 'A new player has joined.';
-    })
-    socket.on('playerQuit', (data) => {
-      document.querySelector('#messageBox').innerHTML = 'A player has quit.';
-    })*/
-  </script>
 </body>
 </html>
