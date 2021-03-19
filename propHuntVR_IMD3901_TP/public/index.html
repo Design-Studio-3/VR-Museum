@@ -41,9 +41,7 @@
       <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
 
       <!-- Environment assets -->
-      <a-asset-item id="env-floor-1" src="assets/environment/Floor/floor1.obj"></a-asset-item>
-      <a-asset-item id="env-floor-2" src="assets/environment/Floor/floor2.obj"></a-asset-item>
-      <a-asset-item id="env-ramp-1" src="assets/environment/Floor/ramp1.obj"></a-asset-item>
+      <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
 
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
@@ -66,7 +64,7 @@
       <a-entity light="type: directional; intensity: 0.33" position="-20 20 -20"></a-entity>
     </a-entity>
 
-    <a-entity id="rig" movement-controls kinematic-body>
+    <a-entity id="rig" movement-controls kinematic-body player>
       <a-entity id="camera" camera position="0 2 0" look-controls></a-entity>
     </a-entity>
 
@@ -101,14 +99,26 @@
 
         </a-entity>
 
-        <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
+        <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
         shadow="cast: true; receive: true">
+
+        <a-entity id="screen-right-text" position="0 0 0.01"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
         </a-entity>
 
-        <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.5 1"
+        </a-entity>
+
+        
+
+        <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
         geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
         shadow="cast: true; receive: true">
+
+        <a-entity id="screen-left-text" position="0 0 0.01"
+        geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5;">
+        </a-entity>
+
         </a-entity>
 
       </a-entity>
@@ -116,11 +126,12 @@
     </a-entity>
 
     <!-- Environment -->
-    <a-obj-model static-body="shape: box" src="#env-floor-1"></a-obj-model>
-    <a-obj-model static-body="shape: box" src="#env-floor-2"></a-obj-model>
-    <a-obj-model static-body="shape: convex" src="#env-ramp-1"></a-obj-model>
+    <a-obj-model src="#env-floor"></a-obj-model>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="50 1 50" material="color: red" position="0 -0.55 0"></a-entity>
 
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="100 1 100" material="color: red" position="0 -0.55 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" material="color: red" scale="16.410 1 10.830" position="18.941 0.999 -9.649"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 2 4.280" position="22.711 -0.296 -1.849" rotation="0 90 17.8"></a-entity>
 
     <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
     <a-obj-model src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>

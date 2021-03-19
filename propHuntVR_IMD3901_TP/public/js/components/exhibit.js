@@ -38,6 +38,8 @@ AFRAME.registerComponent('exhibit',
       const screenMiddle = document.querySelector('#screen-middle');
       const screenLeft = document.querySelector('#screen-left');
       const screenRight = document.querySelector('#screen-right');
+      const screenLeftText = document.querySelector('#screen-left-text');
+      const screenRightText = document.querySelector('#screen-right-text');
 
       let timeout;
 
@@ -56,11 +58,11 @@ AFRAME.registerComponent('exhibit',
         screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
         screenRight.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
 
-        screenLeft.setAttribute('animation__2', 'property: position; to: -1.25 0 0.75; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation__2', 'property: position; to: 1.25s 0 0.75; loop:false; dur:200; easing: linear;')
+        screenLeft.setAttribute('animation__2', 'property: position; to: -1.35 -0.05 0.75; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation__2', 'property: position; to: 1.35 -0.05 0.75; loop:false; dur:200; easing: linear;')
 
-        screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 45 0; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation__3', 'property: rotation; to: 0 -45 0; loop:false; dur:200; easing: linear;')
+        screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 25 0; loop:false; dur:200; easing: linear;')
+        screenRight.setAttribute('animation__3', 'property: rotation; to: 0 -25 0; loop:false; dur:200; easing: linear;')
 
         if (!oneTime)
         {
@@ -73,10 +75,10 @@ AFRAME.registerComponent('exhibit',
         screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + currentText.toString());
 
         // IF PROP == FOUND
-        screenLeft.setAttribute('text', 'font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:' + " Charles Wheatstone was the first to demonstrate that the brain combines two photographs of the same object taken from different perspectives to create an image with depth. He used this knowledge to create the first stereoscope. ");
-        screenRight.setAttribute('text', 'font: roboto; color: #80e5ff; lineHeight: 100; align: center; wrapCount: 25; value:' + " Charles Wheatstone was the first to demonstrate that the brain combines two photographs of the same object taken from different perspectives to create an image with depth. He used this knowledge to create the first stereoscope. ");
+        screenLeftText.setAttribute('material', 'src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
+        screenRightText.setAttribute('material', 'src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
 
-        screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2, playerPosVector.z);
+        screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
       }
 
       else
@@ -94,8 +96,9 @@ AFRAME.registerComponent('exhibit',
         screenRight.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
 
         document.getElementById("demo").innerHTML = "";
-        screenLeft.removeAttribute('text');
-        screenRight.removeAttribute('text');
+
+        screenLeftText.setAttribute('material', 'src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5');
+        screenRightText.setAttribute('material', 'src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5');
 
         timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
       }
