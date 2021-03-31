@@ -54,6 +54,8 @@
       <a-asset-item id="pedestal-model" src="assets/models/Pedestal/Pedestal.gltf"></a-asset-item>
       <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
 
+      <a-asset-item id="museum" src="assets/models/Museum/Museum.gltf"></a-asset-item>
+
       <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
       <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
@@ -136,19 +138,20 @@
     </a-entity>
 
     <!-- Environment -->
-    <a-obj-model src="#env-floor"></a-obj-model>
+    <a-entity gltf-model="#museum"></a-entity>
+    <!-- <a-obj-model src="#env-floor"></a-obj-model> -->
 
     <a-entity static-body="shape: box" geometry="primitive: box" scale="50 1 50" material="color: red" position="0 -0.55 0"></a-entity>
     <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
     <a-entity static-body="shape: box" geometry="primitive: box" material="color: red" scale="16.410 1 10.830" position="18.941 0.999 -9.649"></a-entity>
     <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 2 4.280" position="22.711 -0.296 -1.849" rotation="0 90 17.8"></a-entity>
 
-    <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
+    <!-- <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
     <a-obj-model src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
     <a-obj-model src="#env-walls" mtl="#env-walls"></a-obj-model>
     <a-obj-model src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
     <a-obj-model src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
-    <a-obj-model src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model>
+    <a-obj-model src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model> -->
 
     <a-entity environment="preset:starry;"></a-entity>
 
