@@ -52,7 +52,8 @@
 
       <!-- Environment assets -->
       <a-asset-item id="pedestal-model" src="assets/models/Pedestal/Pedestal.gltf"></a-asset-item>
-      <a-asset-item id="env-floor" src="assets/environment/Environment_blockout_floor.obj"></a-asset-item>
+
+      <a-asset-item id="floor-gltf" src="assets/environment/Floor/floor.gltf"></a-asset-item>
 
       <a-asset-item id="museum" src="assets/models/Museum/Museum.gltf"></a-asset-item>
 
@@ -139,7 +140,8 @@
 
     <!-- Environment -->
     <a-entity gltf-model="#museum"></a-entity>
-    <!-- <a-obj-model src="#env-floor"></a-obj-model> -->
+    <a-gltf-model src="#floor-gltf"></a-gltf-model>
+
 
     <a-entity static-body="shape: box" geometry="primitive: box" scale="50 1 50" material="color: red" position="0 -0.55 0"></a-entity>
     <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
