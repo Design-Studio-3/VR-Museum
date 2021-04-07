@@ -15,7 +15,7 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "Steropsis_PART_3sm",
+            "name" : "PartLeft",
             "rotation" : [
                 0.7071068286895752,
                 0,
@@ -32,22 +32,26 @@
                 0,
                 0
             ],
-            "name" : "initialShadingGroup.003",
+            "name" : "Stereoscope",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
             "pbrMetallicRoughness" : {
-                "baseColorFactor" : [
-                    0.800000011920929,
-                    0.800000011920929,
-                    0.800000011920929,
-                    1
-                ],
-                "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
             }
         }
     ],
     "meshes" : [
         {
-            "name" : "Steropsis_PART_3sm",
+            "name" : "Mesh.001",
             "primitives" : [
                 {
                     "attributes" : {
@@ -61,68 +65,96 @@
             ]
         }
     ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        },
+        {
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "Stereoscope_lambert1_Normal",
+            "uri" : "Stereoscope_lambert1_Normal.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Stereoscope_lambert1_BaseColor",
+            "uri" : "Stereoscope_lambert1_BaseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Stereoscope_lambert1_Metallic-Stereoscope_lambert1_Roughness",
+            "uri" : "Stereoscope_lambert1_Metallic-Stereoscope_lambert1_Roughness.png"
+        }
+    ],
     "accessors" : [
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 474,
+            "count" : 90,
             "max" : [
-                0.24354790151119232,
-                0.24912568926811218,
-                0.28873300552368164
+                -0.7229436039924622,
+                0.6343547701835632,
+                -0.2539321780204773
             ],
             "min" : [
-                -0.24354811012744904,
-                -0.1727113127708435,
-                -0.38272809982299805
+                -0.9795976877212524,
+                -0.6413723826408386,
+                -1.1042604446411133
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 474,
+            "count" : 90,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 474,
+            "count" : 90,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5123,
-            "count" : 1764,
+            "count" : 174,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 5688,
+            "byteLength" : 1080,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 5688,
-            "byteOffset" : 5688
+            "byteLength" : 1080,
+            "byteOffset" : 1080
         },
         {
             "buffer" : 0,
-            "byteLength" : 3792,
-            "byteOffset" : 11376
+            "byteLength" : 720,
+            "byteOffset" : 2160
         },
         {
             "buffer" : 0,
-            "byteLength" : 3528,
-            "byteOffset" : 15168
+            "byteLength" : 348,
+            "byteOffset" : 2880
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 18696,
-            "uri" : "Stereopsis_p3.bin"
+            "byteLength" : 3228,
+            "uri" : "Stereopsis_part1.bin"
         }
     ]
 }
