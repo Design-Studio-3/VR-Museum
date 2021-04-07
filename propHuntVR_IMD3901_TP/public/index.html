@@ -72,16 +72,12 @@
 
     <!-- LIGHTS -->
     <a-entity id="lights">
-      <a-entity light="type: directional; intensity: 0.33" position="-20 20 20"></a-entity>
-      <a-entity light="type: directional; intensity: 0.33" position="20 20 -20"></a-entity>
-      <a-entity light="type: directional; intensity: 0.33" position="20 20 20"></a-entity>
-      <a-entity light="type: directional; intensity: 0.33" position="-20 20 -20"></a-entity>
+      <a-entity light="type: ambient; intensity: 0.80"></a-entity>
     </a-entity>
 
     <a-entity id="rig" movement-controls kinematic-body player
               position="-16 2 0.8">
       <a-entity id="camera" camera position="0 2.3 0" look-controls></a-entity>
-      <a-entity light="type: point; intensity: 0.25" rotation="90 0 0"></a-entity>
       <a-entity class="geo"></a-entity>
       <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
     </a-entity>
