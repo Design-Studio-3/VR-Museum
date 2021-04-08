@@ -15,6 +15,7 @@
 
   <!-- Physics -->
   <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <script src="/js/libraries/kinema.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
   <!-- Environment engine-->
@@ -34,7 +35,7 @@
 </head>
 
 <body>
-  <a-scene physics="debug: false; gravity: -9.8;">
+  <a-scene physics="debug: true; gravity: -9.8;">
     <!-- <div id="ui"></div> -->
     <div id="text"></div>
 
@@ -75,7 +76,7 @@
       <a-entity light="type: ambient; intensity: 0.80"></a-entity>
     </a-entity>
 
-    <a-entity id="rig" movement-controls kinematic-body player
+    <a-entity id="rig" movement-controls kinema-body="radius: 0.8" player
               position="-16 2 0.8">
       <a-entity id="camera" camera position="0 2.3 0" look-controls></a-entity>
       <a-entity class="geo"></a-entity>
@@ -138,11 +139,56 @@
     <a-entity gltf-model="#museum"></a-entity>
     <a-gltf-model src="#floor-gltf" position="0 0.1 0"></a-gltf-model>
 
+    <!-- Wall Colliders -->
+    <!-- North/South Facing -->
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="15.1 7.320 0.850" position="2.957 1.978 -10.151"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="25.490 7.320 0.5" position="1.230 1.978 0.677"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="52.020 7.320 0.5" position="3.745 1.978 18.456"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.300 7.320 0.760" position="7.189 1.978 8.512" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="5.220 7.320 0.760" position="-2.182 1.978 8.512" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="5.950 7.320 0.760" position="-12.182 1.978 8.512" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="5.950 7.320 0.5" position="16.959 1.978 8.744" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="9.030 7.320 0.5" position="15.555 1.978 -3.899" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="11.920 7.320 0.5" position="18.706 1.978 -14.423" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="11.920 7.320 0.5" position="-8.809 1.978 -15.606" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="11.920 7.320 0.5" position="-21.156 1.978 -18.392" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="12.960 7.320 0.840" position="-15.921 1.978 -10.116" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="2.660 7.320 0.840" position="-21.301 1.978 -3.018" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.550 7.320 0.5" position="8.294 1.978 -4.917" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.550 7.320 0.5" position="27.348 1.978 -3.858" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.550 7.320 0.5" position="27.348 1.978 8.772" rotation="0 0 0"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="8.790 7.320 0.5" position="-24.501 1.978 4.047" rotation="0 0 0"></a-entity>
 
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="50 1 50" material="color: red" position="0 -0.55 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" material="color: red" scale="16.410 1 10.830" position="18.941 0.999 -9.649"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" material="color: red" scale="5.130 2 4.280" position="22.711 -0.296 -1.849" rotation="0 90 17.8"></a-entity>
+    <!-- East/West Facing -->
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="25.490 7.320 0.5" position="-20.227 1.978 9.271" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.820 7.320 0.5" position="-11.440 1.978 3.574" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.130 7.320 0.5" position="20.091 1.978 2.421" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.130 7.320 0.5" position="25.324 1.978 2.421" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.760 7.320 0.5" position="26.982 1.978 13.744" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="9.980 7.320 0.5" position="27.107 1.978 -7.788" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="9.980 7.320 0.5" position="14.164 1.978 3.957" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="6.090 7.320 0.5" position="6.260 1.978 -2.117" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="4.400 7.320 0.780" position="7.189 1.978 8.619" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="4.400 7.320 0.780" position="7.189 1.978 16.879" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="4.400 7.320 0.670" position="-11.446 1.978 18.789" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="25.110 7.320 0.5" position="-27.284 1.978 -8.132" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="2.100 7.320 0.950" position="-20.241 1.978 -8.954" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="2.100 7.320 0.950" position="-11.485 1.978 -8.954" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="6.200 7.320 0.5" position="-2.849 1.978 -13.202" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="6.200 7.320 0.5" position="10.436 1.978 -12.828" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="3.650 7.320 0.5" position="10.541 1.978 -3.336" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="9.220 7.320 0.850" position="-15.093 1.978 -14.576" rotation="0 90 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="1.060 7.320 0.850" position="7.199 1.978 1.316" rotation="0 90 0"></a-entity>
+    
+    <!-- Diagonal Facing -->
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="3.960 7.320 0.5" position="11.801 1.978 -13.496" rotation="0 45 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="3.960 7.320 0.5" position="25.923 1.978 -13.268" rotation="0 -45 0"></a-entity>
+
+    <!-- Floor Colliders -->
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="75 1 75" position="0 -0.55 0"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
+    <a-entity static-body="shape: box" geometry="primitive: box" scale="16.410 1 10.830" position="18.941 0.999 -9.649"></a-entity>
+    <a-entity static-body="shape: convex" geometry="primitive: box" scale="5.130 2 4.280" position="22.711 -0.296 -1.849" rotation="0 90 17.8"></a-entity>
 
     <!-- <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
     <a-obj-model src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
