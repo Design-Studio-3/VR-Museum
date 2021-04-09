@@ -25,6 +25,7 @@ AFRAME.registerComponent('exhibit',
         cast: true,
         receive: true
       });
+      exhibitItemGeo.setAttribute('class', 'exhibitItem');
 
       // place the exhibit item on the pedestal if there is one
       if (this.data.enablePedestal)
@@ -32,7 +33,7 @@ AFRAME.registerComponent('exhibit',
         exhibitItemGeo.setAttribute('position', "0 1.8 0");
       }
 
-      exhibitItemGeo.setAttribute('class', 'exhibitItem');
+      // add the exhibit item geometry to the scene
       el.appendChild(exhibitItemGeo);
 
       // create the pedestal geometry if enabled
@@ -42,6 +43,69 @@ AFRAME.registerComponent('exhibit',
         pedestalGeo.setAttribute('gltf-model', "#pedestal-model");
         el.appendChild(pedestalGeo);
       }
+
+      // create the root screen
+      let screenRoot = document.createElement('a-entity');
+      screenRoot.setAttribute('id', "screens");
+      screenRoot.setAttribute('position', "0 2.8 0");
+
+      // create each screen
+      let leftScreen = document.createElement('a-entity');
+      leftScreen.setAttribute('id', 'screen-left');
+      leftScreen.setAttribute('scale', '1.25 0.4 1');
+      leftScreen.setAttribute('geometry', {
+        primitive: 'plane', height: 2, radius: 0.5});
+      leftScreen.setAttribute('shadow', {cast: true, receive: true});
+      leftScreen.setAttribute('material', {
+        src: '../assets/holo.png', opacity: 0, transparent: true});
+
+      let leftScreenText = document.createElement('a-entity');
+      leftScreenText.setAttribute('id', 'screen-left-text');
+      leftScreenText.setAttribute('position', '0 0 0.01');
+      leftScreenText.setAttribute('geometry', {
+        primitive: 'plane', height: 2, radius: 0.5});
+      leftScreenText.setAttribute('material', {
+        src: '../assets/StereoText1.png', opacity: 0, transparent: true,
+        alphaTest: 0.5});
+
+      let middleScreen = document.createElement('a-entity');
+      middleScreen.setAttribute('id', 'screen-middle');
+      middleScreen.setAttribute('scale', '1.75 0.55 1');
+      middleScreen.setAttribute('geometry', {
+        primitive: 'plane', height: 2, radius: 0.5});
+      middleScreen.setAttribute('material', {
+        src: '../assets/holo.png', opacity: 0});
+      middleScreen.setAttribute('shadow', {cast: true, receive: true});
+
+      let middleScreenText = document.createElement('p');
+      middleScreenText.setAttribute('id', 'demo');
+
+      let rightScreen = document.createElement('a-entity');
+      rightScreen.setAttribute('id', 'screen-right');
+      rightScreen.setAttribute('scale', '1.25 0.4 1');
+      rightScreen.setAttribute('geometry', {
+        primitive: 'plane', height: 2, radius: 0.5});
+      rightScreen.setAttribute('shadow', {cast: true, receive: true});
+      rightScreen.setAttribute('material', {
+        src: '../assets/holo.png', opacity: 0, transparent: true});
+
+      let rightScreenText = document.createElement('a-entity');
+      rightScreenText.setAttribute('id', 'screen-right-text');
+      rightScreenText.setAttribute('position', '0 0 0.01');
+      rightScreenText.setAttribute('geometry', {
+        primitive: 'plane', height: 2, radius: 0.5});
+      rightScreenText.setAttribute('material', {
+        src: '../assets/StereoText1.png', opacity: 0, transparent: true,
+        alphaTest: 0.5});
+
+      // add the screens to the scene
+      leftScreen.appendChild(leftScreenText);
+      middleScreen.appendChild(middleScreenText);
+      rightScreen.appendChild(rightScreenText);
+      screenRoot.appendChild(leftScreen);
+      screenRoot.appendChild(rightScreen);
+      screenRoot.appendChild(middleScreen);
+      el.appendChild(screenRoot);
 
       el.addEventListener('update', function (data) {
         // update isCompleted
