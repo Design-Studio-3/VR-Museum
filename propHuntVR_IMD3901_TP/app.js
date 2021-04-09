@@ -198,7 +198,7 @@ const onConnect = (socket) =>
     id: socket.id,
     name: '',
     position: {x:0, y:0, z:0},
-    rotation: {x:0, y:0, z:0, w:0}
+    rotation: {x:0, y:0, z:0}
   };
 
   // add the new client id to the list of connections

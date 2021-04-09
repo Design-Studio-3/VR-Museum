@@ -20,17 +20,31 @@
             // indicate that the player was found
             playerFound = true;
 
-            // update the position of the player
+            // update the position of the player's body
             spawnedPlayers[i].setAttribute('position',
               data.detail.player.position);
 
-            // update the rotatino of the player
-            spawnedPlayers[i].object3D.quaternion.set(
+            // calculate the rotation of the player's body
+            var playerRotation = new THREE.Euler();
+            playerRotation.setFromQuaternion(new THREE.Quaternion(
               data.detail.player.rotation.x,
               data.detail.player.rotation.y,
-              data.detail.player.rotation.z,
-              data.detail.player.rotation.w
-            )
+              data.detail.player.rotation.z
+            ));
+
+            // update the rotation of the player's body
+            spawnedPlayers[i].object3D.rotation.set(
+              0,
+              data.detail.player.rotation.y,
+              0
+            );
+
+            // update the rotation of the player's head
+            spawnedPlayers[i].querySelector('.player-head').object3D.rotation.set(
+              data.detail.player.rotation.x,
+              0,
+              0
+            );
 
             // update the other-player data of the player
             spawnedPlayers[i].setAttribute('other-player', {
@@ -49,27 +63,47 @@
         // make sure that the player does not already exist
         if (!self.playerIsSpawned(data.detail.player.id)) {
           // create a new entity element
-          playerEl = document.createElement('a-entity');
+          playerRootEl = document.createElement('a-entity');
 
           // setup the attributes of the new player element
-          playerEl.setAttribute('other-player', {
+          playerRootEl.setAttribute('other-player', {
             name: data.detail.player.name
           });
-          playerEl.setAttribute('gltf-model', "#player-model");
-          playerEl.setAttribute('id', data.detail.player.id);
-          playerEl.setAttribute('position', data.detail.player.position);
+          playerRootEl.setAttribute('id', data.detail.player.id);
 
-          playerEl.object3D.quaternion.set(
-            data.detail.player.rotation.x,
+          // set the mesh of the player body
+          playerRootEl.setAttribute('gltf-model', "#player-body-model");
+
+          // position and rotate the player body
+          playerRootEl.setAttribute('position', data.detail.player.position);
+          playerRootEl.object3D.quaternion.set(
+            0,
             data.detail.player.rotation.y,
-            data.detail.player.rotation.z,
+            0,
             data.detail.player.rotation.w
           );
 
-          console.log('Player ' + playerEl.getAttribute('id') + ' added.');
+          // create the player head
+          playerHeadEl = document.createElement('a-entity');
+          playerHeadEl.setAttribute('class', "player-head");
+          playerHeadEl.setAttribute('gltf-model', "#player-head-model");
+
+          // position and rotate the head
+          playerHeadEl.setAttribute('position', "0 2 0");
+          playerHeadEl.object3D.quaternion.set(
+            data.detail.player.rotation.x,
+            0,
+            0,
+            0
+          );
+
+          // append the player head to the player body
+          playerRootEl.appendChild(playerHeadEl);
+
+          console.log('Player ' + playerRootEl.getAttribute('id') + ' added.');
 
           // append the new player element to the players-controller element
-          el.appendChild(playerEl);
+          el.appendChild(playerRootEl);
         }
       });
 
