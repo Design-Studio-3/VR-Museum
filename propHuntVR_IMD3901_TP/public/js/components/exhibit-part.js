@@ -1,6 +1,9 @@
+import * as utils from "../utils/utils.js";
+
 AFRAME.registerComponent('exhibit-part', {
   schema: {
     relatedExhibitId: {default: -1},
+    partAssetPath: {default: ""},
     partId: {default: -1}
   },
 
@@ -8,15 +11,9 @@ AFRAME.registerComponent('exhibit-part', {
     const self = this;
     const el = this.el;
 
-    // Create geometry
-    /*el.setAttribute('geometry', {
-      primitive: "box"
-    });
-    el.setAttribute('material', {
-      color: "black"
-    });*/
     el.setAttribute("class", "interactive");
-    el.setAttribute('gltf-model', `#stereopsis-part${self.data.partId}-model`);
+    el.setAttribute('gltf-model', utils.getExhibitPartById(
+      this.data.relatedExhibitId, this.data.partId));
 
     // add click event listener
     el.addEventListener('click', function (evt) {

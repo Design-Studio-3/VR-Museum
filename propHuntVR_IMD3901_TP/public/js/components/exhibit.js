@@ -1,6 +1,5 @@
 import * as database from "../database/data.js";
-
-console.log(database.exhibitItems);
+import * as utils from "../utils/utils.js";
 
 let oneTime = false;
 
@@ -8,13 +7,41 @@ AFRAME.registerComponent('exhibit',
 {
     schema: {
       isCompleted: {default: false},
-      exhibitId: {default: -1}
+      exhibitId: {default: -1},
+      enablePedestal: {default: true}
     },
 
     init: function ()
     {
       const self = this;
       const el = this.el;
+
+      // create the geometry for the exhibit item
+      let exhibitItemGeo = document.createElement('a-entity');
+      exhibitItemGeo.setAttribute('gltf-model',
+        utils.getExhibitById(this.data.exhibitId).pathToFullAsset);
+      exhibitItemGeo.setAttribute('visible', 'false');
+      exhibitItemGeo.setAttribute('shadow', {
+        cast: true,
+        receive: true
+      });
+
+      // place the exhibit item on the pedestal if there is one
+      if (this.data.enablePedestal)
+      {
+        exhibitItemGeo.setAttribute('position', "0 1.8 0");
+      }
+
+      exhibitItemGeo.setAttribute('class', 'exhibitItem');
+      el.appendChild(exhibitItemGeo);
+
+      // create the pedestal geometry if enabled
+      if (this.data.enablePedestal)
+      {
+        let pedestalGeo = document.createElement('a-entity');
+        pedestalGeo.setAttribute('gltf-model', "#pedestal-model");
+        el.appendChild(pedestalGeo);
+      }
 
       el.addEventListener('update', function (data) {
         // update isCompleted
@@ -27,6 +54,7 @@ AFRAME.registerComponent('exhibit',
     tick: function ()
     {
       const exhibit = this.el;
+
       const player = document.querySelector('#rig');
 
       let exhibitPos = exhibit.getAttribute('position');
@@ -37,15 +65,14 @@ AFRAME.registerComponent('exhibit',
 
       let distanceToExhibit = playerPosVector.distanceTo(exhibitPosVector);
 
-      const prop = document.querySelector('#stereoscope');
+      const prop = exhibit.querySelector('.exhibitItem');
 
-      const screens = document.querySelector('#screens');
-
-      const screenMiddle = document.querySelector('#screen-middle');
-      const screenLeft = document.querySelector('#screen-left');
-      const screenRight = document.querySelector('#screen-right');
-      const screenLeftText = document.querySelector('#screen-left-text');
-      const screenRightText = document.querySelector('#screen-right-text');
+      const screens = exhibit.querySelector('#screens');
+      const screenMiddle = screens.querySelector('#screen-middle');
+      const screenLeft = screens.querySelector('#screen-left');
+      const screenRight = screens.querySelector('#screen-right');
+      const screenLeftText = screenLeft.children[0];
+      const screenRightText = screenRight.children[0];
 
       if(this.data.isCompleted)
       {

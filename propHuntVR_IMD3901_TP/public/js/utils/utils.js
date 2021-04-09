@@ -1,3 +1,5 @@
+import * as database from "../database/data.js";
+
 // Used for switching between different levels of console logging
 export const LogLevel =
 {
@@ -25,3 +27,13 @@ export function getRotation (element) {
 export function getRotationEuler (element) {
   return element.object3D.rotation.clone();
 };
+
+// finds an exhibit in the database given an id
+export function getExhibitById (id) {
+  return database.exhibitItems.find(em => em.id == id);
+};
+
+// finds an exhibit item part given it's exhibit id and part id
+export function getExhibitPartById(exhibitId, partId) {
+  return getExhibitById(exhibitId).pathToAssetParts[partId-1];
+}
