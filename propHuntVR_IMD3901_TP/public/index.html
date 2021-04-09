@@ -27,7 +27,7 @@
   <script src="/js/components/player-controller.js"></script>
   <script src="/js/components/game-controller.js"></script>
   <script src="/js/components/other-player.js"></script>
-  <script src="/js/components/exhibit-part.js"></script>
+  <script type="module" src="/js/components/exhibit-part.js"></script>
 
   <!-- Local imports -->
   <script src="/js/sockets/client-socket.js"></script>
@@ -47,11 +47,6 @@
 
       <!-- Exhibit Items -->
       <a-asset-item id="hmd-gltf" src="assets/scene.gltf"></a-asset-item>
-      <a-asset-item id="stereopsis-full-obj" src="assets/models/Stereopsis/Steropsis_FULLsm.obj"></a-asset-item>
-      <!-- Stereopsis parts -->
-      <a-asset-item id="stereopsis-part1-model" src="assets/models/Stereopsis/Part1/Stereopsis_p1.gltf"></a-asset-item>
-      <a-asset-item id="stereopsis-part2-model" src="assets/models/Stereopsis/Part2/Stereopsis_p2.gltf"></a-asset-item>
-      <a-asset-item id="stereopsis-part3-model" src="assets/models/Stereopsis/Part3/Stereopsis_p3.gltf"></a-asset-item>
 
       <!-- Environment assets -->
       <a-asset-item id="pedestal-model" src="assets/models/Pedestal/Pedestal.gltf"></a-asset-item>
@@ -88,23 +83,23 @@
     <!-- Exhibit parts -->
     <a-entity id="exhibitParts">
       <a-entity exhibit-part="partId: 1; relatedExhibitId: 1;"
-                position="-10.1 0.6 -0.9"></a-entity>
+                position="-10.1 0 -0.9"></a-entity>
       <a-entity exhibit-part="partId: 2; relatedExhibitId: 1;"
-                position="-4 0.5 -11.7"></a-entity>
+                position="-4 0 -11.7"></a-entity>
       <a-entity exhibit-part="partId: 3; relatedExhibitId: 1;"
-                position="12.8 1.7 -13.7"></a-entity>
+                position="13.3 1.685 -13.2"></a-entity>
     </a-entity>
 
     <!-- Exhibits -->
-    <a-entity>
+    <a-entity id="exhibits">
       <a-entity exhibit="exhibitId: 1" id="exhibitone" position="0 0 -5">
 
         <!-- Stereopsis -->
-        <a-obj-model id="stereoscope" scale="0.5 0.5 0.5"
+        <!-- <a-obj-model id="stereoscope" scale="0.5 0.5 0.5"
                      src="#stereopsis-full-obj" position="0 0.65 0" rotation="0 0 0"
                      shadow="cast: true; receive: true"
                      visible="false">
-        </a-obj-model>
+        </a-obj-model> -->
 
         <a-entity id="screens" visible="false" position="0 2.80 0">
 
@@ -121,7 +116,7 @@
           shadow="cast: true; receive: true">
 
             <a-entity id="screen-left-text" position="0 0 0.01"
-            geometry="primitive:plane; height:2; radius: 0.5;" 
+            geometry="primitive:plane; height:2; radius: 0.5;"
             material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
             </a-entity>
 
@@ -132,7 +127,7 @@
           shadow="cast: true; receive: true">
 
             <a-entity id="screen-right-text" position="0 0 0.01"
-            geometry="primitive:plane; height:2; radius: 0.5;" 
+            geometry="primitive:plane; height:2; radius: 0.5;"
             material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
             </a-entity>
 
@@ -140,11 +135,11 @@
 
         </a-entity>
 
-        <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
+        <!-- <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
           radius="2" shadow="cast:true; receive:true;">
         </a-dodecahedron>
 
-        <a-entity gltf-model="#pedestal-model" static-body="shape: box" position="0 0.4 0"></a-entity>
+        <a-entity gltf-model="#pedestal-model" static-body="shape: box" position="0 0.4 0"></a-entity> -->
 
       </a-entity>
     </a-entity>
