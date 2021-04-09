@@ -15,12 +15,17 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "pCylinder9",
+            "name" : "pSphere1",
             "rotation" : [
+                0,
                 0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
+                -0.7071067690849304,
+                -1.152023116901546e-07
+            ],
+            "scale" : [
+                0.2846609354019165,
+                0.2846609354019165,
+                0.2846609354019165
             ]
         }
     ],
@@ -55,7 +60,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Mesh.004",
+            "name" : "Mesh",
             "primitives" : [
                 {
                     "attributes" : {
@@ -109,63 +114,63 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 50,
+            "count" : 187,
             "max" : [
-                0.724415123462677,
-                0.9644525051116943,
-                -0.2967034876346588
+                0.9302948117256165,
+                0.866025447845459,
+                -0.04297429323196411
             ],
             "min" : [
-                0.1168610155582428,
-                0.5566803812980652,
-                -0.897005021572113
+                -0.9718378186225891,
+                -0.8660255074501038,
+                -1.847192406654358
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 50,
+            "count" : 187,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 50,
+            "count" : 187,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5123,
-            "count" : 120,
+            "count" : 558,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 600,
+            "byteLength" : 2244,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 600,
-            "byteOffset" : 600
+            "byteLength" : 2244,
+            "byteOffset" : 2244
         },
         {
             "buffer" : 0,
-            "byteLength" : 400,
-            "byteOffset" : 1200
+            "byteLength" : 1496,
+            "byteOffset" : 4488
         },
         {
             "buffer" : 0,
-            "byteLength" : 240,
-            "byteOffset" : 1600
+            "byteLength" : 1116,
+            "byteOffset" : 5984
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 1840,
+            "byteLength" : 7100,
             "uri" : "Vital_part1.bin"
         }
     ]

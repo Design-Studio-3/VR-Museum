@@ -33,9 +33,9 @@ export const exhibitItems = [
       pathToFullAsset: '../../assets/models/Vital/Vital.gltf',
       numOfParts: 3,
       pathToAssetParts: [
-        '../../assets/models/Vital/Vital_part1',
-        '../../assets/models/Vital/Vital_part2',
-        '../../assets/models/Vital/Vital_part3'
+        '../../assets/models/Vital/Vital_part1.gltf',
+        '../../assets/models/Vital/Vital_part2.gltf',
+        '../../assets/models/Vital/Vital_part3.gltf'
       ],
       pathToImage: ''
     },

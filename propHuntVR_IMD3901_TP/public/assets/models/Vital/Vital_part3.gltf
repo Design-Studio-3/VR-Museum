@@ -8,41 +8,24 @@
         {
             "name" : "Scene",
             "nodes" : [
-                0,
-                1,
-                2
+                0
             ]
         }
     ],
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "pSphere1",
+            "name" : "pCylinder6",
             "rotation" : [
+                0,
                 0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ]
-        },
-        {
-            "mesh" : 1,
-            "name" : "pCylinder7",
-            "rotation" : [
-                0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ]
-        },
-        {
-            "mesh" : 2,
-            "name" : "pCylinder8",
-            "rotation" : [
-                0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
+                -0.7071067690849304,
+                -1.152023116901546e-07
+            ],
+            "scale" : [
+                0.2846609354019165,
+                0.2846609354019165,
+                0.2846609354019165
             ]
         }
     ],
@@ -77,7 +60,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Mesh",
+            "name" : "Mesh.001",
             "primitives" : [
                 {
                     "attributes" : {
@@ -86,34 +69,6 @@
                         "TEXCOORD_0" : 2
                     },
                     "indices" : 3,
-                    "material" : 0
-                }
-            ]
-        },
-        {
-            "name" : "Mesh.002",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "POSITION" : 4,
-                        "NORMAL" : 5,
-                        "TEXCOORD_0" : 6
-                    },
-                    "indices" : 7,
-                    "material" : 0
-                }
-            ]
-        },
-        {
-            "name" : "Mesh.003",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "POSITION" : 8,
-                        "NORMAL" : 9,
-                        "TEXCOORD_0" : 10
-                    },
-                    "indices" : 7,
                     "material" : 0
                 }
             ]
@@ -159,160 +114,63 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 187,
+            "count" : 784,
             "max" : [
-                0.9302948117256165,
-                0.866025447845459,
-                -0.04297429323196411
+                0.9823464155197144,
+                1.1200246810913086,
+                -0.7547036409378052
             ],
             "min" : [
-                -0.9718378186225891,
-                -0.8660255074501038,
-                -1.847192406654358
+                -1.0333034992218018,
+                0.08532145619392395,
+                -1.2949411869049072
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 187,
+            "count" : 784,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 187,
+            "count" : 784,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5123,
-            "count" : 558,
+            "count" : 2160,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 4,
-            "componentType" : 5126,
-            "count" : 30,
-            "max" : [
-                0.1109381914138794,
-                0.014808177947998047,
-                -1.8267865180969238
-            ],
-            "min" : [
-                -0.0999518632888794,
-                -0.20150530338287354,
-                -1.9510612487792969
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 5,
-            "componentType" : 5126,
-            "count" : 30,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 6,
-            "componentType" : 5126,
-            "count" : 30,
-            "type" : "VEC2"
-        },
-        {
-            "bufferView" : 7,
-            "componentType" : 5123,
-            "count" : 63,
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 8,
-            "componentType" : 5126,
-            "count" : 30,
-            "max" : [
-                -0.3198598623275757,
-                -0.012965619564056396,
-                -1.7474565505981445
-            ],
-            "min" : [
-                -0.47659504413604736,
-                -0.17373156547546387,
-                -1.8717315196990967
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 9,
-            "componentType" : 5126,
-            "count" : 30,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 10,
-            "componentType" : 5126,
-            "count" : 30,
-            "type" : "VEC2"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 2244,
+            "byteLength" : 9408,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 2244,
-            "byteOffset" : 2244
+            "byteLength" : 9408,
+            "byteOffset" : 9408
         },
         {
             "buffer" : 0,
-            "byteLength" : 1496,
-            "byteOffset" : 4488
+            "byteLength" : 6272,
+            "byteOffset" : 18816
         },
         {
             "buffer" : 0,
-            "byteLength" : 1116,
-            "byteOffset" : 5984
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 360,
-            "byteOffset" : 7100
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 360,
-            "byteOffset" : 7460
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 240,
-            "byteOffset" : 7820
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 126,
-            "byteOffset" : 8060
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 360,
-            "byteOffset" : 8188
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 360,
-            "byteOffset" : 8548
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 240,
-            "byteOffset" : 8908
+            "byteLength" : 4320,
+            "byteOffset" : 25088
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 9148,
+            "byteLength" : 29408,
             "uri" : "Vital_part3.bin"
         }
     ]
