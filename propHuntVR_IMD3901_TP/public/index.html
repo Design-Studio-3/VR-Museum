@@ -105,35 +105,47 @@
                      shadow="cast: true; receive: true"
                      visible="false">
         </a-obj-model>
-        <a-entity gltf-model="#pedestal-model" static-body="shape: box" position="0 0.4 0"></a-entity>
-
-        <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
-          radius="2" shadow="cast:true; receive:true;">
-        </a-dodecahedron>
 
         <a-entity id="screens" visible="false" position="0 2.80 0">
+
           <a-entity id="screen-middle" position="0 0 0" rotation="0 0 0" scale="1.75 0.55 1"
           geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
           shadow="cast: true; receive: true">
-            <p id="demo"></p>
-          </a-entity>
 
-          <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
-          geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
-          shadow="cast: true; receive: true">
-            <a-entity id="screen-right-text" position="0 0 0.01"
-            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
-            </a-entity>
+            <p id="demo"></p>
+
           </a-entity>
 
           <a-entity id="screen-left" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
           geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
           shadow="cast: true; receive: true">
+
             <a-entity id="screen-left-text" position="0 0 0.01"
-            geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
+            geometry="primitive:plane; height:2; radius: 0.5;" 
+            material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
             </a-entity>
+
           </a-entity>
+
+          <a-entity id="screen-right" position="0 0 0" rotation="0 0 0" scale="1.25 0.4 1"
+          geometry="primitive:plane; height:2; radius: 0.5;" material="src: assets/holo.png; opacity:0.0;"
+          shadow="cast: true; receive: true">
+
+            <a-entity id="screen-right-text" position="0 0 0.01"
+            geometry="primitive:plane; height:2; radius: 0.5;" 
+            material="src: assets/StereoText1.png; opacity:0.0; transparent: true; alphaTest: 0.5;">
+            </a-entity>
+
+          </a-entity>
+
         </a-entity>
+
+        <a-dodecahedron position="0 -1.4 0" rotation="-32.5 1.5 0" material="color:black"
+          radius="2" shadow="cast:true; receive:true;">
+        </a-dodecahedron>
+
+        <a-entity gltf-model="#pedestal-model" static-body="shape: box" position="0 0.4 0"></a-entity>
+
       </a-entity>
     </a-entity>
 

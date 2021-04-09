@@ -27,6 +27,7 @@ AFRAME.registerComponent('exhibit',
     tick: function ()
     {
       const exhibit = this.el;
+
       const player = document.querySelector('#rig');
 
       let exhibitPos = exhibit.getAttribute('position');
@@ -37,15 +38,15 @@ AFRAME.registerComponent('exhibit',
 
       let distanceToExhibit = playerPosVector.distanceTo(exhibitPosVector);
 
-      const prop = document.querySelector('#stereoscope');
+      const prop = exhibit.children[0];
 
-      const screens = document.querySelector('#screens');
+      const screens = exhibit.children[1];
 
-      const screenMiddle = document.querySelector('#screen-middle');
-      const screenLeft = document.querySelector('#screen-left');
-      const screenRight = document.querySelector('#screen-right');
-      const screenLeftText = document.querySelector('#screen-left-text');
-      const screenRightText = document.querySelector('#screen-right-text');
+      const screenMiddle = screens.children[0];
+      const screenLeft = screens.children[1];
+      const screenRight = screens.children[2];
+      const screenLeftText = screenLeft.children[0];
+      const screenRightText = screenRight.children[0];
 
       if(this.data.isCompleted)
       {
