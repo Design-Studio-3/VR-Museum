@@ -8,7 +8,7 @@ AFRAME.registerComponent('player', {
     init: function() {
       // set up initial vars
       this.lastPosition = utils.getPosition(this.el);
-      this.lastRotation = utils.getRotation(this.el.querySelector('#camera'));
+      this.lastRotation = utils.getRotationEuler(this.el.querySelector('#camera'));
 
       // emit a moved event once created
       socket.emit('moved', {
@@ -21,7 +21,7 @@ AFRAME.registerComponent('player', {
 
     tick: function() {
       var newPosition = utils.getPosition(this.el);
-      var newRotation = utils.getRotation(this.el.querySelector('#camera'));
+      var newRotation = utils.getRotationEuler(this.el.querySelector('#camera'));
 
       // check if the player has moved more than the threshold amount
       if (this.hasMoved(newPosition) || this.hasRotated(newRotation)) {
@@ -50,10 +50,11 @@ AFRAME.registerComponent('player', {
 
     hasRotated: function(newRotation) {
       // check if the player has rotated more than the threshold
-      if (Math.abs(
-        THREE.MathUtils.radToDeg(this.lastRotation.angleTo(newRotation))) >
-        this.data.rotationThreshold)
-      {
+      if (
+        Math.abs(newRotation.x - this.lastRotation.x) > this.data.rotationThreshold ||
+        Math.abs(newRotation.y - this.lastRotation.y) > this.data.rotationThreshold ||
+        Math.abs(newRotation.z - this.lastRotation.z) > this.data.rotationThreshold
+      ) {
         // console.log('Rotated!');
         this.lastRotation = newRotation;
         return true;

@@ -21,3 +21,7 @@ export function getRotation (element) {
   return element.object3D.getWorldQuaternion(new THREE.Quaternion())
     .clone();
 };
+
+export function getRotationEuler (element) {
+  return element.object3D.rotation.clone();
+};

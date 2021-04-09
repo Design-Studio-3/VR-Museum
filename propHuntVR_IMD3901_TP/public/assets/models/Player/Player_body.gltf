@@ -1,0 +1,154 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.2.75",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "player_body"
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "lambert1",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Mesh.002",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        },
+        {
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "PlayerCombined_lambert2_Normal",
+            "uri" : "PlayerCombined_lambert2_Normal.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PlayerCombined_lambert2_BaseColor",
+            "uri" : "PlayerCombined_lambert2_BaseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PlayerCombined_lambert2_Metallic-PlayerCombined_lambert2_Roughness",
+            "uri" : "PlayerCombined_lambert2_Metallic-PlayerCombined_lambert2_Roughness.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 14471,
+            "max" : [
+                0.5062370300292969,
+                1.920914649963379,
+                0.174237921833992
+            ],
+            "min" : [
+                -0.5062370896339417,
+                0.4452100694179535,
+                -0.17423850297927856
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 14471,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 14471,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 81312,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 173652,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 173652,
+            "byteOffset" : 173652
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 115768,
+            "byteOffset" : 347304
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 162624,
+            "byteOffset" : 463072
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 625696,
+            "uri" : "Player_body.bin"
+        }
+    ]
+}
