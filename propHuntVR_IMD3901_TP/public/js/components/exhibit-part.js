@@ -3,7 +3,6 @@ import * as utils from "../utils/utils.js";
 AFRAME.registerComponent('exhibit-part', {
   schema: {
     relatedExhibitId: {default: -1},
-    partAssetPath: {default: ""},
     partId: {default: -1}
   },
 

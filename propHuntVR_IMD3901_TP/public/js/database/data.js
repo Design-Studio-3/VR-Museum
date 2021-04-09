@@ -30,17 +30,21 @@ export const exhibitItems = [
     {
       id: 4,
       name: 'VITAL Helmet',
-      pathToFullAsset: '',
+      pathToFullAsset: '../../assets/models/Vital/Vital.gltf',
       numOfParts: 3,
-      pathToAssetParts: [],
+      pathToAssetParts: [
+        '../../assets/models/Vital/Vital_part1',
+        '../../assets/models/Vital/Vital_part2',
+        '../../assets/models/Vital/Vital_part3'
+      ],
       pathToImage: ''
     },
     {
       id: 5,
       name: 'VPL Body Suit',
-      pathToFullAsset: '',
-      numOfParts: 3,
-      pathToAssetParts: [],
+      pathToFullAsset: '../../assets/models/VPL/VPL.gltf',
+      numOfParts: 1,
+      pathToAssetParts: ['../../assets/models/VPL/VPL.gltf'],
       pathToImage: ''
     }
 ];
