@@ -33,21 +33,25 @@
                 0
             ],
             "name" : "lambert1",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
             "pbrMetallicRoughness" : {
-                "baseColorFactor" : [
-                    0.5,
-                    0.5,
-                    0.5,
-                    1
-                ],
-                "metallicFactor" : 0,
-                "roughnessFactor" : 0.5527864098548889
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
             }
         }
     ],
     "meshes" : [
         {
-            "name" : "Mesh",
+            "name" : "Mesh.002",
             "primitives" : [
                 {
                     "attributes" : {
@@ -61,11 +65,39 @@
             ]
         }
     ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        },
+        {
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "PlayerCombined_lambert2_Normal",
+            "uri" : "PlayerCombined_lambert2_Normal.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PlayerCombined_lambert2_BaseColor",
+            "uri" : "PlayerCombined_lambert2_BaseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "PlayerCombined_lambert2_Metallic-PlayerCombined_lambert2_Roughness",
+            "uri" : "PlayerCombined_lambert2_Metallic-PlayerCombined_lambert2_Roughness.png"
+        }
+    ],
     "accessors" : [
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 14282,
+            "count" : 14471,
             "max" : [
                 0.784620463848114,
                 0.270052969455719,
@@ -81,13 +113,13 @@
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 14282,
+            "count" : 14471,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 14282,
+            "count" : 14471,
             "type" : "VEC2"
         },
         {
@@ -100,28 +132,28 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 171384,
+            "byteLength" : 173652,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 171384,
-            "byteOffset" : 171384
+            "byteLength" : 173652,
+            "byteOffset" : 173652
         },
         {
             "buffer" : 0,
-            "byteLength" : 114256,
-            "byteOffset" : 342768
+            "byteLength" : 115768,
+            "byteOffset" : 347304
         },
         {
             "buffer" : 0,
             "byteLength" : 162624,
-            "byteOffset" : 457024
+            "byteOffset" : 463072
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 619648,
+            "byteLength" : 625696,
             "uri" : "Player_body.bin"
         }
     ]
