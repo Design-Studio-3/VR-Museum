@@ -173,12 +173,12 @@ AFRAME.registerComponent('exhibit',
 
         if(this.data.isCompleted)
         {
-          screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + database.exhibitItems[this.data.exhibitId-1].name.toUpperCase());
+          screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 100; wrapCount: 12; value:" + database.exhibitItems[this.data.exhibitId-1].name.toUpperCase());
         }
 
         else
         {
-          screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value: LOCKED");
+          screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 100; wrapCount: 12; value: EXHIBIT: #" + database.exhibitItems[this.data.exhibitId-1].id + "\n LOCKED");
         }
 
         screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
