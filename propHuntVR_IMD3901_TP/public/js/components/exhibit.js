@@ -1,8 +1,6 @@
 import * as database from "../database/data.js";
 import * as utils from "../utils/utils.js";
 
-let oneTime = false;
-
 AFRAME.registerComponent('exhibit',
 {
     schema: {
@@ -15,6 +13,13 @@ AFRAME.registerComponent('exhibit',
     {
       const self = this;
       const el = this.el;
+
+      // set constants for the exhibit
+      this.exhibitName = utils.getExhibitById(this.data.exhibitId).name;
+      this.typeWriterIteration = 0;
+      this.typeWriterText = "LOCKED";
+      this.typeWriterSpeed = 100;
+      this.isTypeWriterOn = false;
 
       // create the geometry for the exhibit item
       let exhibitItemGeo = document.createElement('a-entity');
@@ -54,48 +59,48 @@ AFRAME.registerComponent('exhibit',
       leftScreen.setAttribute('id', 'screen-left');
       leftScreen.setAttribute('scale', '1.25 0.4 1');
       leftScreen.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
+        primitive: 'plane', height: 2});
       leftScreen.setAttribute('shadow', {cast: true, receive: true});
       leftScreen.setAttribute('material', {
-        src: '../assets/holo.png', opacity: 0, transparent: true});
+        src: 'assets/holo.png', opacity: 0, transparent: true});
 
       let leftScreenText = document.createElement('a-entity');
       leftScreenText.setAttribute('id', 'screen-left-text');
       leftScreenText.setAttribute('position', '0 0 0.01');
       leftScreenText.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
+        primitive: 'plane', height: 2});
       leftScreenText.setAttribute('material', {
-        src: '../assets/StereoText1.png', opacity: 0, transparent: true,
+        src: 'assets/StereoText1.png', opacity: 0, transparent: true,
         alphaTest: 0.5});
 
       let middleScreen = document.createElement('a-entity');
       middleScreen.setAttribute('id', 'screen-middle');
       middleScreen.setAttribute('scale', '1.75 0.55 1');
       middleScreen.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
+        primitive: 'plane', height: 2});
       middleScreen.setAttribute('material', {
-        src: '../assets/holo.png', opacity: 0});
+        src: 'assets/holo.png', opacity: 0});
       middleScreen.setAttribute('shadow', {cast: true, receive: true});
 
       let middleScreenText = document.createElement('p');
-      middleScreenText.setAttribute('id', 'demo');
+      middleScreenText.setAttribute('id', 'exhibitNameText');
 
       let rightScreen = document.createElement('a-entity');
       rightScreen.setAttribute('id', 'screen-right');
       rightScreen.setAttribute('scale', '1.25 0.4 1');
       rightScreen.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
+        primitive: 'plane', height: 2});
       rightScreen.setAttribute('shadow', {cast: true, receive: true});
       rightScreen.setAttribute('material', {
-        src: '../assets/holo.png', opacity: 0, transparent: true});
+        src: 'assets/holo.png', opacity: 0, transparent: true});
 
       let rightScreenText = document.createElement('a-entity');
       rightScreenText.setAttribute('id', 'screen-right-text');
       rightScreenText.setAttribute('position', '0 0 0.01');
       rightScreenText.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
+        primitive: 'plane', height: 2});
       rightScreenText.setAttribute('material', {
-        src: '../assets/StereoText1.png', opacity: 0, transparent: true,
+        src: 'assets/StereoText1.png', opacity: 0, transparent: true,
         alphaTest: 0.5});
 
       // add the screens to the scene
@@ -110,8 +115,6 @@ AFRAME.registerComponent('exhibit',
       el.addEventListener('update', function (data) {
         // update isCompleted
         self.data.isCompleted = data.detail.isCompleted;
-
-        console.log(`isCompleted: ${self.data.isCompleted}`);
       });
     },
 
@@ -141,7 +144,7 @@ AFRAME.registerComponent('exhibit',
       if(this.data.isCompleted)
       {
         prop.setAttribute('visible', "true");
-        txt = "STEREOSCOPE";
+        this.typeWriterText = this.exhibitName;
         screenLeftText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
         screenRightText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText2.png; opacity:1.0; transparent: true; alphaTest: 0.5');
       }
@@ -149,7 +152,7 @@ AFRAME.registerComponent('exhibit',
       else
       {
         prop.setAttribute('visible', "false");
-        txt = "LOCKED";
+        this.typeWriterText = "LOCKED";
       }
 
       let timeout;
@@ -170,14 +173,15 @@ AFRAME.registerComponent('exhibit',
         screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 25 0; loop:false; dur:200; easing: linear;')
         screenRight.setAttribute('animation__3', 'property: rotation; to: 0 -25 0; loop:false; dur:200; easing: linear;')
 
-        if (!oneTime)
+        if (!this.isTypeWriteOn)
         {
-          i = 0;
-          setTimeout(typeWriter, 300);
-          oneTime = true;
+          this.typeWriter();
+          this.typeWriterIteration = 0;
+          // setTimeout(this.typeWriter, 300);
+          this.isTypeWriterOn = true;
         }
 
-        let currentText = document.getElementById("demo").innerHTML;
+        let currentText = exhibit.querySelector("#exhibitNameText").innerHTML;
         screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 200; wrapCount: 12; value:" + currentText.toString());
 
         screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
@@ -185,7 +189,7 @@ AFRAME.registerComponent('exhibit',
 
       else
       {
-        oneTime = false;
+        this.isTypeWriterOn = false;
 
         screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
         screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
@@ -197,27 +201,28 @@ AFRAME.registerComponent('exhibit',
         screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
         screenRight.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
 
-        document.getElementById("demo").innerHTML = "";
+        exhibit.querySelector("#exhibitNameText").innerHTML = "";
 
         screenLeftText.setAttribute('material', 'opacity:0.0;');
         screenRightText.setAttribute('material', 'opacity:0.0;');
 
         timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
       }
+    },
 
+    typeWriter: function ()
+    {
+      console.log('typewriter function called!');
+      console.log(this.typeWriterIteration);
+      console.log(this.typeWriterText);
+      console.log(this.el);
+
+      if (this.typeWriterIteration < this.typeWriterText)
+      {
+        this.el.querySelector('#exhibitNameText').innerHTML +=
+          this.typeWriterText.charAt(this.typeWriterIteration);
+        this.typeWriterIteration++;
+        // setTimeout(this.typeWriter, this.typeWriterSpeed);
+      }
     }
 });
-
-let i = 0;
-let txt = "LOCKED";
-let speed = 100;
-
-function typeWriter()
-{
-  if (i < txt.length)
-  {
-    document.getElementById("demo").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
-}
