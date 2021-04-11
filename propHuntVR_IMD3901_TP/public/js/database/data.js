@@ -22,9 +22,13 @@ export const exhibitItems = [
     {
       id: 3,
       name: 'Telesphere Mask',
-      pathToFullAsset: '../../assets/',
+      pathToFullAsset: '../../assets/models/Telesphere_Mask/Telesphere_Mask.gltf',
       numOfParts: 3,
-      pathToAssetParts: [],
+      pathToAssetParts: [
+        '../../assets/models/Telesphere_Mask/Telesphere_Mask_part1.gltf',
+        '../../assets/models/Telesphere_Mask/Telesphere_Mask_part2.gltf',
+        '../../assets/models/Telesphere_Mask/Telesphere_Mask_part3.gltf'
+      ],
       pathToImage: '../../assets/images'
     },
     {
