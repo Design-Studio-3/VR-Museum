@@ -95,6 +95,15 @@ function goToNextExhibitItem()
     // clear pieces found
     partsFound = [];
 
+    // emit for the UI
+    io.emit('updateUIExhibits', {
+      currentExhibitItemId: currentExhibitItemId,
+      allPartsFoundBool: 'True'
+    });
+    io.emit('updateUIMessage', {
+      message: 'All parts have been found! Proceed to next exhibit item'
+    });
+
     // do logging
     switch (logLevel)
     {
@@ -156,6 +165,7 @@ io.on('connection', (socket) =>
     // been found
     if (data.itemId == currentExhibitItemId && !partsFound.includes(data.partNumber))
     {
+
       // do logging
       switch (logLevel)
       {
@@ -166,6 +176,16 @@ io.on('connection', (socket) =>
 
       // add the part to the list of found parts
       partsFound.push(data.partNumber);
+
+      // emit for the UI
+      io.emit('updateUIExhibits', {
+        currentExhibitItemId: currentExhibitItemId,
+        partNumber: data.partNumber,
+        allPartsFoundBool: 'False'
+      });
+      io.emit('updateUIMessage', {
+        message: 'A part of the exhibit item has been found'
+      });
 
       // check if the exhibit has been completed
       tryCompleteExhibit();
@@ -200,6 +220,15 @@ const onConnect = (socket) =>
     position: {x:0, y:0, z:0},
     rotation: {x:0, y:0, z:0}
   };
+  // emit for the UI
+  io.emit('displayUIExhibits', {
+    currentExhibitItemId: currentExhibitItemId,
+    allPartsFoundBool: 'False'
+  });
+  // update UI message
+  io.emit('updateUIMessage', {
+    message: 'Player ' + socket.id + ' has joined'
+  });
 
   // add the new client id to the list of connections
   players.push(newPlayer);
@@ -232,6 +261,11 @@ const onDisconnect = (socket) =>
 
   // remove the client's id from the list of connections
   players.splice(indexOfPlayer, 1);
+
+  // update UI message
+  io.emit('updateUIMessage', {
+    message: 'Player ' + socket.id + ' has left'
+  });
 
   // do logging
   switch (logLevel)

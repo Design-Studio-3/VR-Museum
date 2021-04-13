@@ -5,11 +5,17 @@ export const exhibitItems = [
       pathToFullAsset: '../../assets/models/Stereopsis/Stereopsis.gltf',
       numOfParts: 3,
       pathToAssetParts: [
-        "../../assets/models/Stereopsis/Stereopsis_part1.gltf",
-        "../../assets/models/Stereopsis/Stereopsis_part2.gltf",
-        "../../assets/models/Stereopsis/Stereopsis_part3.gltf"
+        "../../assets/models/stereopsis/Stereopsis_part1.gltf",
+        "../../assets/models/stereopsis/Stereopsis_part2.gltf",
+        "../../assets/models/stereopsis/Stereopsis_part3.gltf"
       ],
-      pathToImage: '../../assets/images',
+      pathToImages: [
+        '../assets/images/stereopsis/stereopsis_P1.png',
+        '../assets/images/stereopsis/stereopsis_P2.png',
+        '../assets/images/stereopsis/stereopsis_P3.png',
+        '../assets/images/stereopsis/stereopsis_FULLsm.png'
+      ],
+      hint: 'Your mom is a nice lady'
     },
     {
       id: 2,
@@ -17,7 +23,13 @@ export const exhibitItems = [
       pathToFullAsset: '../../assets/',
       numOfParts: 3,
       pathToAssetParts: [],
-      pathToImage: '../../assets/images'
+      pathToImages: [
+        '../assets/images/Sensorama/',
+        '../assets/images/Sensorama/',
+        '../assets/images/Sensorama/',
+        '../assets/images/Sensorama/'
+      ],
+      hint: 'Your mom is a nice lady'
     },
     {
       id: 3,
@@ -25,7 +37,13 @@ export const exhibitItems = [
       pathToFullAsset: '../../assets/',
       numOfParts: 3,
       pathToAssetParts: [],
-      pathToImage: '../../assets/images'
+      pathToImages: [
+        '../assets/images/Telesphere/',
+        '../assets/images/Telesphere/',
+        '../assets/images/Telesphere/',
+        '../assets/images/Telesphere/'
+      ],
+      hint: 'Your mom is a nice lady'
     },
     {
       id: 4,
@@ -37,7 +55,13 @@ export const exhibitItems = [
         '../../assets/models/Vital/Vital_part2.gltf',
         '../../assets/models/Vital/Vital_part3.gltf'
       ],
-      pathToImage: ''
+      pathToImages: [
+        '../assets/images/VITAL/',
+        '../assets/images/VITAL/',
+        '../assets/images/VITAL/',
+        '../assets/images/VITAL/'
+      ],
+      hint: 'Your mom is a nice lady'
     },
     {
       id: 5,
@@ -45,6 +69,12 @@ export const exhibitItems = [
       pathToFullAsset: '../../assets/models/VPL/VPL.gltf',
       numOfParts: 1,
       pathToAssetParts: ['../../assets/models/VPL/VPL.gltf'],
-      pathToImage: ''
+      pathToImages: [
+        '../assets/images/VPL/',
+        '../assets/images/VPL/',
+        '../assets/images/VPL/',
+        '../assets/images/VPL/'
+      ],
+      hint: 'Your mom is a nice lady'
     }
 ];
