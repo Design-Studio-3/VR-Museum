@@ -9,8 +9,6 @@ let part1Box = document.getElementById('inventoryBox1');
 let part2Box = document.getElementById('inventoryBox2');
 let part3Box = document.getElementById('inventoryBox3');
 
-let allPartsFound = [];
-
 let messageBoard = document.getElementById('messageBox');
 
 // Update UI when a part of an exhibit is found or when an exhibit is completed
@@ -20,15 +18,8 @@ socket.on('updateUIExhibits', (data) => {
     let pathToText;
 
     let allPartsFoundBool = data.allPartsFoundBool;
-
     // This exhibit's ID
     let currentExhibitItemId = data.currentExhibitItemId - 1;
-    // This exhibit's part
-    let partNumber = data.partNumber;
-
-    // Check if all parts have been found
-    let numberOfParts = database.exhibitItems[currentExhibitItemId].numOfParts;
-    allPartsFound[partNumber] = partNumber;
 
     // Update the looking for image
     pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[3];
@@ -42,21 +33,33 @@ socket.on('updateUIExhibits', (data) => {
     pathToText = database.exhibitItems[currentExhibitItemId].hint;
     lookingForHint.innerHTML = pathToText;
 
-    if (allPartsFound[1] == 1) {
+    // Display which parts have been found in the UI
+    let partsFoundArray = [];
+    let partsFound = data.partsFound;
+    console.log(partsFound);
+    for (var i = 0 ; i <= partsFound.length ; i++) {
+        let thisPartNumber = partsFound.slice(i, i+1);
+        partsFoundArray[thisPartNumber] = thisPartNumber;
+    }
+    console.log(partsFoundArray);
+
+    // Display exhibit part
+    if (partsFoundArray[1] == 1) {
         pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[0];
         part1Box.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
     }
 
-    if (allPartsFound[2] == 2) {
+    if (partsFoundArray[2] == 2) {
         pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[1];
         part2Box.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
     }
 
-    if (allPartsFound[3] == 3) {
+    if (partsFoundArray[3] == 3) {
         pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[2];
         part3Box.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
     }
 
+    // Reset UI when all parts of an exhibit have been found
     if (allPartsFoundBool == 'True') {
         part1Box.innerHTML = '';
         part2Box.innerHTML = '';
@@ -65,8 +68,6 @@ socket.on('updateUIExhibits', (data) => {
     
 }); 
 
-// 
-socket.on('updateUIExhibits', (data) => {});
 
 // Update message board
 socket.on('updateUIMessage', (data) => {

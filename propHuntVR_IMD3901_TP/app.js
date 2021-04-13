@@ -180,7 +180,7 @@ io.on('connection', (socket) =>
       // emit for the UI
       io.emit('updateUIExhibits', {
         currentExhibitItemId: currentExhibitItemId,
-        partNumber: data.partNumber,
+        partsFound: partsFound,
         allPartsFoundBool: 'False'
       });
       io.emit('updateUIMessage', {
@@ -221,9 +221,9 @@ const onConnect = (socket) =>
     rotation: {x:0, y:0, z:0}
   };
   // emit for the UI
-  io.emit('displayUIExhibits', {
+  io.emit('updateUIExhibits', {
     currentExhibitItemId: currentExhibitItemId,
-    allPartsFoundBool: 'False'
+    partsFound: partsFound
   });
   // update UI message
   io.emit('updateUIMessage', {
