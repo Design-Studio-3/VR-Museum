@@ -62,8 +62,8 @@ socket.on('updateUIExhibits', (data) => {
         part2Box.innerHTML = '';
         part3Box.innerHTML = '';
     }
-    
-}); 
+
+});
 
 // Update message board
 socket.on('updateUIMessage', (data) => {
