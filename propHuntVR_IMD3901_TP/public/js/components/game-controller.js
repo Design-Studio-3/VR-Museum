@@ -9,6 +9,7 @@ AFRAME.registerComponent('game-controller', {
 
     // set up component variables
     var currentExhibitItemId = -1;
+    var completedExhibitIds = [];
     var partsFound = [];
 
     // add event listeners

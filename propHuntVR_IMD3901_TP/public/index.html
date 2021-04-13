@@ -1,253 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Virtual Museum</title>
-  <meta name="description" content="The bois' museum">
+<html>
+    <head>
+      <title>VR Museum</title>
+      <meta name="description" content="">
 
-  <!-- CSS stylesheets -->
-  <link rel="stylesheet" href="css/user-gesture.css">
-  <link rel="stylesheet" href="css/user-interface.css">
+      <!-- Google fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Library imports -->
-  <script src="/js/libraries/aframe.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <style>
+      .centerIntro {
+        display: flex;
+        justify-content: center;
+      }
+      .intro {
+        margin: 3em auto;
+        width: 600px;
+        height: auto;
+        padding: 20px;
+        border-radius: 15px;
+        position: fixed;
 
-  <!-- Physics -->
-  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
-  <script src="/js/libraries/kinema.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+        background-color: white;
+        font-family: Helvetica, sans-serif;
+        -webkit-box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.1);
+        box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.1);
+      }
+      h2 {
+        font-weight: 100;
+        font-size: 20px;
+        line-height: 1.4;
+        margin-top: 0;
+      }
+      h3 {
+        font-weight: 100;
+        font-size: 14px;
+        line-height: 1.4;
+      }
 
-  <!-- Environment engine-->
-  <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+      .enterExperienceButton {
+        margin-top: 40px;
+        padding:10px;
+        border-radius: 15px;
+        text-decoration: none;
+        font-weight: 100;
+        color: #1b1b1b;
 
-  <!-- Custom components imports -->
-  <script type="module" src="/js/components/player.js"></script>
-  <script type="module" src="/js/components/exhibit.js"></script>
-  <script src="/js/components/player-controller.js"></script>
-  <script src="/js/components/game-controller.js"></script>
-  <script src="/js/components/other-player.js"></script>
-  <script type="module" src="/js/components/exhibit-part.js"></script>
-  <script type="module" src="/js/components/ui-controller.js"></script>
+        background-color: white;
+        border:1px solid #4c4c4c;
 
-  <!-- Local imports -->
-  <script src="/js/sockets/client-socket.js"></script>
+        -webkit-box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.1);
+        box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1), -5px -5px 20px 0px rgba(0,0,0,0.1);
 
-</head>
+        transition: background-color 0.5s, color 0.2s, border-color 0.2s;
 
-<body>
-   <!-- GUI -->
-   <div id="user-interface">
-    <!-- "Searching For" Box -->
-    <div id="searchingForGrp">
-      <div id="searchingForBox" class="uiBox"><img class="propImage" src=""></div>
-      <div id="searchingForText" class="uiText">
-        <h3>Searching for:</h3>
-        <h4 id="itemName"></h4>
+        display:block;
+        width: 121px;
+      }
+
+      .enterExperienceButton:hover {
+        background-color: #4c4c4c;
+        color: rgb(255, 255, 255);
+      }
+
+      /* Style the video: 100% width and height to cover the entire window */
+      #myVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        filter: blur(10px);
+      }
+    </style>
+    <body>
+      <video autoplay muted loop id="myVideo">
+        <source src="assets/videos/intro.mp4" type="video/mp4">
+      </video>
+
+      <div class="centerIntro">
+        <div class="intro">
+          <h2>Dylan Medeiros, Fred Gauthier, Mark McGregor, Tomas Babkine-Di Caprio<br>Term Project - Virtual Museum<br>Presented to Anthony Scavarelli<br>IMD3901 - Winter 2021</h2>
+
+          <form action="/ingame.html">
+            <label for="fname">Enter your name</label><br>
+            <input type="text" id="fname" name="fname" required placeholder="My name is..."><br>
+
+            <h3>Copyright: Dylan Medeiros, Fred Gauthier, Mark McGregor, Tomas Babkine-Di Caprio</h3>
+
+            <h3>Github:</h3>
+
+            <input type="submit" class="enterExperienceButton" value="Enter Museum">
+            <!-- <a class="enterExperienceButton" href="">Enter Museum</a> -->
+          </form>
+        </div>
       </div>
-    </div>
-
-    <!-- Hint box -->
-    <div id="hintGrp">
-      <div id="hintText" class="uiText">
-        <h3>Hint:</h3>
-        <h4 id="hint">Have you checked the exhibit?</h4>
-      </div>
-    </div>
-
-    <!-- Inventory boxes -->
-    <div id="inventoryGrp">
-        <div id="inventoryBox1" class="uiBox"><img class="propImage" src=""></div>
-        <div id="inventoryBox2" class="uiBox"><img class="propImage" src=""></div>
-        <div id="inventoryBox3" class="uiBox"><img class="propImage" src=""></div>
-    </div>
-
-    <!-- Messages -->
-    <div id="messageGrp">
-      <h3 id="messageBox"></h3>
-    </div>
-  </div>
-  <!-- End of GUI -->
-
-  <!-- Scene -->
-  <a-scene physics="debug: true; gravity: -9.8;">
-    <!-- <div id="ui"></div> -->
-    <div id="text"></div>
-
-    <a-assets timeout="10000">
-      <!-- Player model -->
-      <a-asset-item id="player-model" src="assets/models/Player/Player_full.gltf"></a-asset-item>
-      <a-asset-item id="player-body-model" src="assets/models/Player/Player_body.gltf"></a-asset-item>
-      <a-asset-item id="player-head-model" src="assets/models/Player/Player_head.gltf"></a-asset-item>
-
-      <!-- Environment assets -->
-      <a-asset-item id="pedestal-model" src="assets/models/Pedestal/Pedestal.gltf"></a-asset-item>
-
-      <a-asset-item id="floor-gltf" src="assets/environment/Floor/floor.gltf"></a-asset-item>
-
-      <a-asset-item id="museum" src="assets/models/Museum/Museum.gltf"></a-asset-item>
-
-      <a-asset-item id="plant1" src="assets/decoration/Plant1/Plant1.gltf"></a-asset-item>
-      <a-asset-item id="plant2" src="assets/decoration/Plant2/Plant2.gltf"></a-asset-item>
-      <a-asset-item id="bench" src="assets/decoration/Bench/Bench.gltf"></a-asset-item>
-
-      <a-asset-item id="env-walls" src="assets/environment/Environment_blockout_walls.obj"></a-asset-item>
-      <a-asset-item id="env-mouldings-pillar1" src="assets/environment/Environment_moulding_pillar1.obj"></a-asset-item>
-      <a-asset-item id="env-mouldings-pillar2" src="assets/environment/Environment_moulding_pillar2.obj"></a-asset-item>
-      <a-asset-item id="env-mouldings-exterior-walls" src="assets/environment/Environment_moulding_exteriorWalls.obj"></a-asset-item>
-      <a-asset-item id="env-mouldings-interior-walls" src="assets/environment/Environment_moulding_interiorWalls.obj"></a-asset-item>
-    </a-assets>
-
-    <!-- GAME CONTROLLER (manages the 'game') -->
-    <a-entity game-controller></a-entity>
-
-    <!-- PLAYERS CONTROLLER (for viewing other players) -->
-    <a-entity players-controller></a-entity>
-
-    <!-- LIGHTS -->
-    <a-entity id="lights">
-      <a-entity light="type: ambient; intensity: 0.80"></a-entity>
-    </a-entity>
-
-    <a-entity id="rig" movement-controls kinema-body="radius: 0.8" player
-              position="-16 2 0.8">
-      <a-entity id="camera" camera position="0 2.3 0" look-controls></a-entity>
-      <a-entity class="geo"></a-entity>
-      <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive"></a-entity>
-    </a-entity>
-
-    <!-- Exhibit parts -->
-    <a-entity id="exhibitParts">
-      <a-entity exhibit-part="partId: 1; relatedExhibitId: 1;" position="-10.1 0 -1.55"></a-entity>
-      <a-entity exhibit-part="partId: 2; relatedExhibitId: 1;" position="-4 0 -11.7"></a-entity>
-      <a-entity exhibit-part="partId: 3; relatedExhibitId: 1;" position="13.3 1.538 -13.2"></a-entity>
-
-      <a-entity exhibit-part="partId: 1; relatedExhibitId: 2;" position="-18.51159 0 -8.70205"></a-entity>
-      <a-entity exhibit-part="partId: 2; relatedExhibitId: 2;" position="-13.74083 0 -14.06133"></a-entity>
-      <a-entity exhibit-part="partId: 3; relatedExhibitId: 2;" position="5.20004 0 16.65654"></a-entity>
-
-      <a-entity exhibit-part="partId: 1; relatedExhibitId: 3;" position="-26.24348 0 1.8741"></a-entity>
-      <a-entity exhibit-part="partId: 2; relatedExhibitId: 3;" position="-18.57916 0 16.8401"></a-entity>
-      <a-entity exhibit-part="partId: 3; relatedExhibitId: 3;" position="4.67836 1.538 -1.06927"></a-entity>
-
-      <a-entity exhibit-part="partId: 1; relatedExhibitId: 4;" position="-10.02063 0 1.663"></a-entity>
-      <a-entity exhibit-part="partId: 2; relatedExhibitId: 4;" position="9.35347 0 16.78102"></a-entity>
-      <a-entity exhibit-part="partId: 3; relatedExhibitId: 4;" position="-19.22 0.978 -14.44"></a-entity>
-
-      <a-entity exhibit-part="partId: 1; relatedExhibitId: 5;" position="-13.046 0.843 7.457"></a-entity>
-    </a-entity>
-
-    <!-- Exhibits -->
-    <a-entity id="exhibits">
-      <a-entity exhibit="exhibitId: 1; enablePedestal: true;" id="exhibit1" position="0 0 -5"></a-entity>
-      <a-entity exhibit="exhibitId: 2; enablePedestal: false;" id="exhibit2" position="20.73 1.538 -12.84" rotation="0 90 0"></a-entity>
-      <a-entity exhibit="exhibitId: 3; enablePedestal: true;" id="exhibit3" position="17.4 0 13.4"></a-entity>
-      <a-entity exhibit="exhibitId: 4; enablePedestal: true;" id="exhibit4" position="-2.4 0 14.9"></a-entity>
-      <a-entity exhibit="exhibitId: 5; enablePedestal: true;" id="exhibit5" position="-2.9 0 4"></a-entity>
-    </a-entity>
-
-    <!-- Environment -->
-    <a-entity gltf-model="#museum"></a-entity>
-    <a-entity id="set-dressing">
-      <a-gltf-model src="#bench" position="-6.82 0 -0.76"></a-gltf-model>
-      <a-gltf-model src="#bench" position="0.95 0 -0.76"></a-gltf-model>
-      <a-gltf-model src="#bench" position="-15.85 0 -8.7"></a-gltf-model>
-      <a-gltf-model src="#bench" position="-12.75 0 2.17" rotation="0 90 0"></a-gltf-model>
-      <a-gltf-model src="#bench" position="-10.09 0 4.13" rotation="0 90 0"></a-gltf-model>
-      <a-gltf-model src="#bench" position="12.81 1.575 -12.03" rotation="0 45 0"></a-gltf-model>
-      <a-gltf-model src="#bench" position="25.89 1.575 -8.27" rotation="0 90 0"></a-gltf-model>
-      <a-gltf-model src="#bench" position="-20.59 0 -14.44"></a-gltf-model>
-      <a-gltf-model src="#bench" position="-24.17 0 2.73"></a-gltf-model>
-
-      <a-gltf-model src="#plant1" position="-3 0 -0.5"></a-gltf-model>
-      <a-gltf-model src="#plant1" position="-0.45 0 9.68"></a-gltf-model>
-      <a-gltf-model src="#plant1" position="-3.83 0 9.68"></a-gltf-model>
-      <a-gltf-model src="#plant1" position="17.11 0 9.74"></a-gltf-model>
-      <a-gltf-model src="#plant1" position="-16.92 0 -17.31"></a-gltf-model>
-      <a-gltf-model src="#plant1" position="-16.92 0 -11.32"></a-gltf-model>
-
-      <a-gltf-model src="#plant2" position="5.22 0 -0.52"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-10.13 0 -0.52"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-9.9 0 7.2"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="5.77 0 7.2"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="5.77 0 9.94"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="8.55 0 9.94"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="8.55 0 7.21"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="13 0 1.93"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-12.68 0 9.87"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-12.68 0 7.17"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-12.68 0 -2.69"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-12.68 0 -8.56"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="11.52 1.575 -4.93"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="25.99 1.575 -4.93"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-26.08 0 -14.39"></a-gltf-model>
-      <a-gltf-model src="#plant2" position="-21.65 0 -1.48"></a-gltf-model>
-    </a-entity>
-    <a-gltf-model src="#floor-gltf" position="0 0.005 0"></a-gltf-model>
-
-    <!-- Wall Colliders -->
-    <!-- North/South Facing -->
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="15.1 7.320 0.850" position="2.957 1.978 -10.151"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="25.490 7.320 0.5" position="1.230 1.978 0.677"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="52.020 7.320 0.5" position="3.745 1.978 18.456"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.300 7.320 0.760" position="7.189 1.978 8.512" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="5.220 7.320 0.760" position="-2.182 1.978 8.512" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="5.950 7.320 0.760" position="-12.182 1.978 8.512" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="5.950 7.320 0.5" position="16.959 1.978 8.744" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="9.030 7.320 0.5" position="15.555 1.978 -3.899" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="11.920 7.320 0.5" position="18.706 1.978 -14.423" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="11.920 7.320 0.5" position="-8.809 1.978 -15.606" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="11.920 7.320 0.5" position="-21.156 1.978 -18.392" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="12.960 7.320 0.840" position="-15.921 1.978 -10.116" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="2.660 7.320 0.840" position="-21.301 1.978 -3.018" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.550 7.320 0.5" position="8.294 1.978 -4.917" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.550 7.320 0.5" position="27.348 1.978 -3.858" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="4.550 7.320 0.5" position="27.348 1.978 8.772" rotation="0 0 0"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="8.790 7.320 0.5" position="-24.501 1.978 4.047" rotation="0 0 0"></a-entity>
-
-    <!-- East/West Facing -->
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="25.490 7.320 0.5" position="-20.227 1.978 9.271" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.820 7.320 0.5" position="-11.440 1.978 3.574" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.130 7.320 0.5" position="20.091 1.978 2.421" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.130 7.320 0.5" position="25.324 1.978 2.421" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="13.760 7.320 0.5" position="26.982 1.978 13.744" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="9.980 7.320 0.5" position="27.107 1.978 -7.788" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="9.980 7.320 0.5" position="14.164 1.978 3.957" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="6.090 7.320 0.5" position="6.260 1.978 -2.117" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="4.400 7.320 0.780" position="7.189 1.978 8.619" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="4.400 7.320 0.780" position="7.189 1.978 16.879" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="4.400 7.320 0.670" position="-11.446 1.978 18.789" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="25.110 7.320 0.5" position="-27.284 1.978 -8.132" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="2.100 7.320 0.950" position="-20.241 1.978 -8.954" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="2.100 7.320 0.950" position="-11.485 1.978 -8.954" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="6.200 7.320 0.5" position="-2.849 1.978 -13.202" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="6.200 7.320 0.5" position="10.436 1.978 -12.828" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="3.650 7.320 0.5" position="10.541 1.978 -3.336" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="9.220 7.320 0.850" position="-15.093 1.978 -14.576" rotation="0 90 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="1.060 7.320 0.850" position="7.199 1.978 1.316" rotation="0 90 0"></a-entity>
-
-    <!-- Diagonal Facing -->
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="3.960 7.320 0.5" position="11.801 1.978 -13.496" rotation="0 45 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="3.960 7.320 0.5" position="25.923 1.978 -13.268" rotation="0 -45 0"></a-entity>
-
-    <!-- Floor Colliders -->
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="75 1 75" position="0 -0.55 0"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="5.130 1 4.280" position="8.489 0.266 -7.341" rotation="0 0 17.8"></a-entity>
-    <a-entity static-body="shape: box" geometry="primitive: box" scale="16.410 1 10.830" position="18.941 0.999 -9.649"></a-entity>
-    <a-entity static-body="shape: convex" geometry="primitive: box" scale="5.130 2 4.280" position="22.711 -0.296 -1.849" rotation="0 90 17.8"></a-entity>
-
-    <!-- <a-obj-model src="#env-mouldings-pillar1" mtl="#env-mouldings-pillar1"></a-obj-model>
-    <a-obj-model src="#env-mouldings-pillar2" mtl="#env-mouldings-pillar2"></a-obj-model>
-    <a-obj-model src="#env-walls" mtl="#env-walls"></a-obj-model>
-    <a-obj-model src="#env-mouldings" mtl="#env-mouldings"></a-obj-model>
-    <a-obj-model src="#env-mouldings-exterior-walls" mtl="#env-mouldings-exterior-walls"></a-obj-model>
-    <a-obj-model src="#env-mouldings-interior-walls" mtl="#env-mouldings-interior-walls"></a-obj-model> -->
-
-    <a-entity environment="preset:starry;"></a-entity>
-
-  </a-scene>
-
-
-</body>
+    </body>
 </html>

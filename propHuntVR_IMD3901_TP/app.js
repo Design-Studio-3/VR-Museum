@@ -139,13 +139,22 @@ function forceCompleteExhibit() {
 // set up socket.io session
 io.on('connection', (socket) =>
 {
-  // when this client connects
-  onConnect(socket);
+  var joined = false;
+
+  socket.on('joinGame', (data) => {
+    // when this client connects
+    onConnect(socket, data);
+
+    joined = true;
+  });
 
   // when this client disconnects
   socket.on('disconnect', (reason) =>
   {
-    onDisconnect(socket);
+    if (joined)
+    {
+      onDisconnect(socket);
+    }
   });
 
   // when this client moves or rotates
@@ -165,7 +174,6 @@ io.on('connection', (socket) =>
     // been found
     if (data.itemId == currentExhibitItemId && !partsFound.includes(data.partNumber))
     {
-
       // do logging
       switch (logLevel)
       {
@@ -210,16 +218,17 @@ const getPlayerIndex = (id) =>
 }
 
 // to be called when a new client connects
-const onConnect = (socket) =>
+const onConnect = (socket, playerData) =>
 {
   // create the new player
   var newPlayer =
   {
     id: socket.id,
-    name: '',
+    name: playerData.name,
     position: {x:0, y:0, z:0},
     rotation: {x:0, y:0, z:0}
   };
+
   // emit for the UI
   io.emit('updateUIExhibits', {
     currentExhibitItemId: currentExhibitItemId,
@@ -227,62 +236,65 @@ const onConnect = (socket) =>
   });
   // update UI message
   io.emit('updateUIMessage', {
-    message: 'Player ' + socket.id + ' has joined'
+    message: 'Player ' + playerData.name + ' has joined'
   });
 
   // add the new client id to the list of connections
   players.push(newPlayer);
 
+  // emit the playerJoined event to all connected sockets
+  socket.broadcast.emit('playerJoined', {player: newPlayer});
+
   // do logging
   switch (logLevel)
   {
     case utils.LogLevel.Some:
-      // log the player that was added
-      console.log('Connection %s added.', socket.id);
-      break;
+    // log the player that was added
+    console.log('Connection %s (%s) added.', socket.id, playerData.name);
+    break;
 
     case utils.LogLevel.Verbose:
-      // log the player that was added to the list (and all players)
-      console.log('Connection %s added.', socket.id);
-      console.log('Connections: (%s)', players.length);
-      console.log(players);
-      break;
+    // log the player that was added to the list (and all players)
+    console.log('Connection %s (%s) added.', socket.id, playerData.name);
+    console.log('Connections: (%s)', players.length);
+    console.log(players);
+    break;
   }
-
-  // emit the playerJoined event to all connected sockets
-  socket.broadcast.emit('playerJoined', {player: newPlayer});
 }
 
 // to be called when a client disconnects
 const onDisconnect = (socket) =>
 {
+  console.log(socket.id);
+
   // get the id of the player to disconnect
   var indexOfPlayer = getPlayerIndex(socket.id);
+  var playerName = players[indexOfPlayer].name;
 
   // remove the client's id from the list of connections
   players.splice(indexOfPlayer, 1);
 
   // update UI message
   io.emit('updateUIMessage', {
-    message: 'Player ' + socket.id + ' has left'
+    message: 'Player ' + playerName + ' has left'
   });
+
+  // invoke the playerQuit event to all connected clients
+  io.emit('playerQuit', {playerId: socket.id});
 
   // do logging
   switch (logLevel)
   {
     case utils.LogLevel.Some:
-      // log which player was removed
-      console.log('Connection %s removed.', socket.id);
-      break;
+    // log which player was removed
+    console.log('Connection %s (%s) removed.', socket.id, playerName);
+    break;
 
     case utils.LogLevel.Verbose:
-      // log which player was removed and the players left
-      console.log('Connection %s removed.', socket.id);
-      console.log('Connections: (%s)', players.length);
-      console.log(players);
-      break;
+    // log which player was removed and the players left
+    console.log('Connection %s (%s) removed.', socket.id, playerName);
+    console.log('Connections: (%s)', players.length);
+    console.log(players);
+    break;
   }
-
-  // invoke the playerQuit event to all connected clients
-  io.emit('playerQuit', {playerId: socket.id});
 }

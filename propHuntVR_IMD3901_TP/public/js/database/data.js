@@ -22,7 +22,11 @@ export const exhibitItems = [
       name: 'Sensorama',
       pathToFullAsset: '../../assets/models/Sensorama/Sensorama.gltf',
       numOfParts: 3,
-      pathToAssetParts: [],
+      pathToAssetParts: [
+        "../assets/models/Sensorama/Sensorama_part1.gltf",
+        "../assets/models/Sensorama/Sensorama_part2.gltf",
+        "../assets/models/Sensorama/Sensorama_part3.gltf"
+      ],
       pathToImages: [
         '../assets/images/Sensorama/',
         '../assets/images/Sensorama/',
@@ -36,7 +40,11 @@ export const exhibitItems = [
       name: 'Telesphere Mask',
       pathToFullAsset: '../../assets/models/TelesphereMask/TelesphereMask.gltf',
       numOfParts: 3,
-      pathToAssetParts: [],
+      pathToAssetParts: [
+        "../../assets/models/TelesphereMask/TelesphereMask_part1.gltf",
+        "../../assets/models/TelesphereMask/TelesphereMask_part2.gltf",
+        "../../assets/models/TelesphereMask/TelesphereMask_part3.gltf"
+      ],
       pathToImages: [
         '../assets/images/Telesphere/',
         '../assets/images/Telesphere/',

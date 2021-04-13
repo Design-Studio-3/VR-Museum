@@ -1,5 +1,4 @@
 import * as database from './../database/data.js';
-const socket = io({transports: ['websocket'], upgrade: false});
 
 // HTML selectors
 let lookingForImage = document.getElementById('searchingForBox');
@@ -36,12 +35,10 @@ socket.on('updateUIExhibits', (data) => {
     // Display which parts have been found in the UI
     let partsFoundArray = [];
     let partsFound = data.partsFound;
-    console.log(partsFound);
     for (var i = 0 ; i <= partsFound.length ; i++) {
         let thisPartNumber = partsFound.slice(i, i+1);
         partsFoundArray[thisPartNumber] = thisPartNumber;
     }
-    console.log(partsFoundArray);
 
     // Display exhibit part
     if (partsFoundArray[1] == 1) {
@@ -65,9 +62,8 @@ socket.on('updateUIExhibits', (data) => {
         part2Box.innerHTML = '';
         part3Box.innerHTML = '';
     }
-    
-}); 
 
+});
 
 // Update message board
 socket.on('updateUIMessage', (data) => {

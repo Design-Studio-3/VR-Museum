@@ -1,5 +1,9 @@
 const socket = io({transports: ['websocket'], upgrade: false});
 
+const joinGame = (playerName) => {
+  socket.emit('joinGame', {name: playerName});
+}
+
 // received frequently by the server to update the local players database
 socket.on('tickUpdate', (data) => {
   // get the players-controller
@@ -41,8 +45,10 @@ socket.on('spawnInitialPlayers', (data) => {
 
 // received to add a new player on the client side
 socket.on('playerJoined', (data) => {
-  document.querySelector('[players-controller]').emit(
-    'addPlayer', {player: data.player});
+  if (socket.id != data.player.id) {
+    document.querySelector('[players-controller]').emit(
+      'addPlayer', {player: data.player});
+  }
 });
 
 // received to remove a player on the client side

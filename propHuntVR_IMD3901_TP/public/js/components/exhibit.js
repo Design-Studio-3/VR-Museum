@@ -114,7 +114,7 @@ AFRAME.registerComponent('exhibit',
         // update isCompleted
         self.data.isCompleted = data.detail.isCompleted;
 
-        console.log(`isCompleted: ${self.data.isCompleted}`);
+        // console.log(`isCompleted: ${self.data.isCompleted}`);
       });
     },
 
