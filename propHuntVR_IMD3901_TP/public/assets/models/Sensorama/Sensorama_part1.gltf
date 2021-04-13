@@ -1,0 +1,170 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.2.75",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Sensorama_part1",
+            "rotation" : [
+                0.21257132291793823,
+                0.7221167087554932,
+                -0.6079564094543457,
+                0.2524873912334442
+            ],
+            "scale" : [
+                0.7218431830406189,
+                0.7218431830406189,
+                0.7218431830406189
+            ],
+            "translation" : [
+                0.00011201389133930206,
+                0.08041281253099442,
+                -0.05384664610028267
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "Sensorama",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Mesh.009",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        },
+        {
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "Sensorama_Normal",
+            "uri" : "Sensorama_Normal.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Sensorama_BaseColor",
+            "uri" : "Sensorama_BaseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Sensorama_Metallic-Sensorama_Roughness",
+            "uri" : "Sensorama_Metallic-Sensorama_Roughness.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 302,
+            "max" : [
+                0.237229585647583,
+                0.2916879653930664,
+                0.11666405200958252
+            ],
+            "min" : [
+                -0.17830896377563477,
+                -0.2065967321395874,
+                -0.13368678092956543
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 302,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 302,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 684,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 3624,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3624,
+            "byteOffset" : 3624
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2416,
+            "byteOffset" : 7248
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1368,
+            "byteOffset" : 9664
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 11032,
+            "uri" : "Sensorama_part1.bin"
+        }
+    ]
+}

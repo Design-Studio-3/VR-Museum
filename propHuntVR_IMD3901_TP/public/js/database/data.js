@@ -14,9 +14,13 @@ export const exhibitItems = [
     {
       id: 2,
       name: 'Sensorama',
-      pathToFullAsset: '../../assets/',
+      pathToFullAsset: '../../assets/models/Sensorama/Sensorama.gltf',
       numOfParts: 3,
-      pathToAssetParts: [],
+      pathToAssetParts: [
+        "../../assets/models/Sensorama/Sensorama_part1.gltf",
+        "../../assets/models/Sensorama/Sensorama_part2.gltf",
+        "../../assets/models/Sensorama/Sensorama_part3.gltf"
+      ],
       pathToImage: '../../assets/images'
     },
     {
