@@ -220,15 +220,6 @@ const onConnect = (socket) =>
     position: {x:0, y:0, z:0},
     rotation: {x:0, y:0, z:0}
   };
-  // emit for the UI
-  io.emit('updateUIExhibits', {
-    currentExhibitItemId: currentExhibitItemId,
-    partsFound: partsFound
-  });
-  // update UI message
-  io.emit('updateUIMessage', {
-    message: 'Player ' + socket.id + ' has joined'
-  });
 
   // add the new client id to the list of connections
   players.push(newPlayer);
@@ -248,6 +239,16 @@ const onConnect = (socket) =>
       console.log(players);
       break;
   }
+
+  // emit for the UI, displays which exhibit parts have been found
+  io.emit('updateUIExhibits', {
+    currentExhibitItemId: currentExhibitItemId,
+    partsFound: partsFound
+  });
+  // update UI message
+  io.emit('updateUIMessage', {
+    message: 'Player ' + socket.id + ' has joined'
+  });
 
   // emit the playerJoined event to all connected sockets
   socket.broadcast.emit('playerJoined', {player: newPlayer});

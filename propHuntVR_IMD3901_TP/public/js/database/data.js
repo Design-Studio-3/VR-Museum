@@ -10,10 +10,10 @@ export const exhibitItems = [
         "../../assets/models/stereopsis/Stereopsis_part3.gltf"
       ],
       pathToImages: [
-        '../assets/images/stereopsis/stereopsis_P1.png',
-        '../assets/images/stereopsis/stereopsis_P2.png',
-        '../assets/images/stereopsis/stereopsis_P3.png',
-        '../assets/images/stereopsis/stereopsis_FULLsm.png'
+        '../assets/images/stereopsis/stereopsis_part1.png',
+        '../assets/images/stereopsis/stereopsis_part2.png',
+        '../assets/images/stereopsis/stereopsis_part3.png',
+        '../assets/images/stereopsis/stereopsis_FULL.png'
       ],
       hint: 'Your mom is a nice lady'
     },
