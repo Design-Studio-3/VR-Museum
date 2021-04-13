@@ -163,9 +163,16 @@ io.on('connection', (socket) =>
     // get the player index
     const playerIndex = getPlayerIndex(socket.id);
 
-    // update the position and rotation of the player in the database
-    players[playerIndex].position = data.newPosition;
-    players[playerIndex].rotation = data.newRotation;
+    if (playerIndex == -1)
+    {
+      console.log("onMove: Cannot find player with id: %s", socket.id);
+    }
+    else
+    {
+      // update the position and rotation of the player in the database
+      players[playerIndex].position = data.newPosition;
+      players[playerIndex].rotation = data.newRotation;
+    }
   });
 
   // when the client finds an exhibit item part
@@ -234,8 +241,9 @@ const onConnect = (socket, playerData) =>
     currentExhibitItemId: currentExhibitItemId,
     partsFound: partsFound
   });
+  
   // update UI message
-  io.emit('updateUIMessage', {
+  socket.broadcast.emit('updateUIMessage', {
     message: 'Player ' + playerData.name + ' has joined'
   });
 

@@ -10,11 +10,15 @@ for (var i = 0; i < pairs.length; i++) {
   params[p[0]] = p[1];
 }
 
+var playerName = params.fname;
+playerName = playerName.replace(/\+/g, " ");
+console.log(playerName);
+
 // if the player's parameters have not been provided correctly:
-if (params.fname == null) {
+if (playerName == null) {
   // send the player to the 'something went wrong page'
   window.location.href = "./error.html";
 } else {
   // emit the joined event with the player's name
-  joinGame(params.fname);
+  joinGame(playerName);
 }

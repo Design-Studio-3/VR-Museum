@@ -10,8 +10,8 @@ AFRAME.registerComponent('other-player', {
       nameTag.setAttribute('text', {
         value: this.data.name,
         align: "center",
-        width: 1.68,
-        wrapCount: 7.34
+        width: 15,
+        wrapCount: 100
       });
       nameTag.setAttribute('class', 'nameTag');
       nameTag.setAttribute("position", "0 2.9 0");
