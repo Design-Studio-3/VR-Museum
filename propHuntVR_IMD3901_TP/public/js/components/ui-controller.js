@@ -66,7 +66,7 @@ socket.on('updateUIExhibits', (data) => {
 }); 
 
 // 
-socket.on('updateUIExhibits', (data) => {
+socket.on('updateUIExhibits', (data) => {});
 
 // Update message board
 socket.on('updateUIMessage', (data) => {
