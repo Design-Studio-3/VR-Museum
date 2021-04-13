@@ -28,12 +28,12 @@ export const exhibitItems = [
         "../assets/models/Sensorama/Sensorama_part3.gltf"
       ],
       pathToImages: [
-        '../assets/images/Sensorama/',
-        '../assets/images/Sensorama/',
-        '../assets/images/Sensorama/',
-        '../assets/images/Sensorama/'
+        '../assets/images/sensorama/sensorama_part1.png',
+        '../assets/images/sensorama/sensorama_part2.png',
+        '../assets/images/sensorama/sensorama_part3.png',
+        '../assets/images/sensorama/sensorama_FULL.png'
       ],
-      hint: 'Your mom is a nice lady'
+      hint: 'Dillin\'s mom is a nice lady'
     },
     {
       id: 3,
@@ -46,10 +46,10 @@ export const exhibitItems = [
         "../../assets/models/TelesphereMask/TelesphereMask_part3.gltf"
       ],
       pathToImages: [
-        '../assets/images/Telesphere/',
-        '../assets/images/Telesphere/',
-        '../assets/images/Telesphere/',
-        '../assets/images/Telesphere/'
+        '../assets/images/telesphere/telesphere_part1.png',
+        '../assets/images/telesphere/telesphere_part2.png',
+        '../assets/images/telesphere/telesphere_part3.png',
+        '../assets/images/telesphere/telesphere_FULL.png'
       ],
       hint: 'Your mom is a nice lady'
     },
@@ -64,10 +64,10 @@ export const exhibitItems = [
         '../../assets/models/Vital/Vital_part3.gltf'
       ],
       pathToImages: [
-        '../assets/images/VITAL/',
-        '../assets/images/VITAL/',
-        '../assets/images/VITAL/',
-        '../assets/images/VITAL/'
+        '../assets/images/vital/vital_part1.png',
+        '../assets/images/vital/vital_part2.png',
+        '../assets/images/vital/vital_part3.png',
+        '../assets/images/vital/vital_FULL.png'
       ],
       hint: 'Your mom is a nice lady'
     },
@@ -78,10 +78,7 @@ export const exhibitItems = [
       numOfParts: 1,
       pathToAssetParts: ['../../assets/models/VPL/VPL.gltf'],
       pathToImages: [
-        '../assets/images/VPL/',
-        '../assets/images/VPL/',
-        '../assets/images/VPL/',
-        '../assets/images/VPL/'
+        '../assets/images/vpl/VPL_FULL'
       ],
       hint: 'Your mom is a nice lady'
     }
