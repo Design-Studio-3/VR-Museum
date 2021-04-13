@@ -1,0 +1,159 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.2.75",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Telesphere_part1",
+            "translation" : [
+                0,
+                0.10903973132371902,
+                0
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "Telesphere",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 0
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicRoughnessTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                }
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Mesh.006",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        },
+        {
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "Telesphere_Normal",
+            "uri" : "Telesphere_Normal.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Telesphere_BaseColor",
+            "uri" : "Telesphere_BaseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "Telesphere_Metallic-Telesphere_Roughness",
+            "uri" : "Telesphere_Metallic-Telesphere_Roughness.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 495,
+            "max" : [
+                0.23169560730457306,
+                0.060163311660289764,
+                0.10896516591310501
+            ],
+            "min" : [
+                -0.23091843724250793,
+                -0.1036907359957695,
+                -0.07651391625404358
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 495,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 495,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 1494,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 5940,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 5940,
+            "byteOffset" : 5940
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3960,
+            "byteOffset" : 11880
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2988,
+            "byteOffset" : 15840
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 18828,
+            "uri" : "TelesphereMask_part1.bin"
+        }
+    ]
+}
