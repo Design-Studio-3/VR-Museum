@@ -15,22 +15,22 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "Vital_part3",
+            "name" : "Sensorama_part3",
             "rotation" : [
                 0,
-                0.7011890411376953,
-                -0.7129753828048706,
-                -1.9976255316578317e-07
+                0.695732057094574,
+                -0.7183013558387756,
+                -1.1334914518101868e-07
             ],
             "scale" : [
-                0.2846609354019165,
-                0.2846609354019165,
-                0.2846609354019165
+                0.7218431830406189,
+                0.7218431830406189,
+                0.7218431830406189
             ],
             "translation" : [
-                0,
-                0.05518877133727074,
-                0
+                0.004613783210515976,
+                0.3111079931259155,
+                0.04983329772949219
             ]
         }
     ],
@@ -38,26 +38,22 @@
         {
             "doubleSided" : true,
             "emissiveFactor" : [
-                1,
-                1,
-                1
+                0,
+                0,
+                0
             ],
-            "emissiveTexture" : {
-                "index" : 0,
-                "texCoord" : 0
-            },
-            "name" : "Vital",
+            "name" : "Sensorama",
             "normalTexture" : {
-                "index" : 1,
+                "index" : 0,
                 "texCoord" : 0
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 2,
+                    "index" : 1,
                     "texCoord" : 0
                 },
                 "metallicRoughnessTexture" : {
-                    "index" : 3,
+                    "index" : 2,
                     "texCoord" : 0
                 }
             }
@@ -65,7 +61,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Mesh.009",
+            "name" : "Mesh.008",
             "primitives" : [
                 {
                     "attributes" : {
@@ -88,95 +84,87 @@
         },
         {
             "source" : 2
-        },
-        {
-            "source" : 3
         }
     ],
     "images" : [
         {
             "mimeType" : "image/png",
-            "name" : "Vital_Vital_Emissive",
-            "uri" : "Vital_Vital_Emissive.png"
+            "name" : "Sensorama_Normal",
+            "uri" : "Sensorama_Normal.png"
         },
         {
             "mimeType" : "image/png",
-            "name" : "Vital_Vital_Normal",
-            "uri" : "Vital_Vital_Normal.png"
+            "name" : "Sensorama_BaseColor",
+            "uri" : "Sensorama_BaseColor.png"
         },
         {
             "mimeType" : "image/png",
-            "name" : "Vital_Vital_BaseColor-mesh_Vital_alpha",
-            "uri" : "Vital_Vital_BaseColor-mesh_Vital_alpha.png"
-        },
-        {
-            "mimeType" : "image/png",
-            "name" : "Vital_Vital_Metallic-Vital_Vital_Roughness",
-            "uri" : "Vital_Vital_Metallic-Vital_Vital_Roughness.png"
+            "name" : "Sensorama_Metallic-Sensorama_Roughness",
+            "uri" : "Sensorama_Metallic-Sensorama_Roughness.png"
         }
     ],
     "accessors" : [
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 784,
+            "count" : 287,
             "max" : [
-                1.0078253746032715,
-                0.4641878008842468,
-                0.20330220460891724
+                0.734103262424469,
+                0.7804319858551025,
+                0.44966137409210205
             ],
             "min" : [
-                -1.0078245401382446,
-                -0.5705153942108154,
-                -0.3369353413581848
+                -0.734103262424469,
+                -0.9347245693206787,
+                -1.1811013221740723
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 784,
+            "count" : 287,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 784,
+            "count" : 287,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5123,
-            "count" : 2160,
+            "count" : 864,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 9408,
+            "byteLength" : 3444,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 9408,
-            "byteOffset" : 9408
+            "byteLength" : 3444,
+            "byteOffset" : 3444
         },
         {
             "buffer" : 0,
-            "byteLength" : 6272,
-            "byteOffset" : 18816
+            "byteLength" : 2296,
+            "byteOffset" : 6888
         },
         {
             "buffer" : 0,
-            "byteLength" : 4320,
-            "byteOffset" : 25088
+            "byteLength" : 1728,
+            "byteOffset" : 9184
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 29408,
-            "uri" : "Vital_part3.bin"
+            "byteLength" : 10912,
+            "uri" : "Sensorama_part2.bin"
         }
     ]
 }

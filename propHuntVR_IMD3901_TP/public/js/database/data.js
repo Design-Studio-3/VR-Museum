@@ -20,7 +20,7 @@ export const exhibitItems = [
     {
       id: 2,
       name: 'Sensorama',
-      pathToFullAsset: '../../assets/',
+      pathToFullAsset: '../../assets/models/Sensorama/Sensorama.gltf',
       numOfParts: 3,
       pathToAssetParts: [],
       pathToImages: [
@@ -34,7 +34,7 @@ export const exhibitItems = [
     {
       id: 3,
       name: 'Telesphere Mask',
-      pathToFullAsset: '../../assets/',
+      pathToFullAsset: '../../assets/models/TelesphereMask/TelesphereMask.gltf',
       numOfParts: 3,
       pathToAssetParts: [],
       pathToImages: [
