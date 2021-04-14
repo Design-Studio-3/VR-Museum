@@ -98,10 +98,15 @@ function goToNextExhibitItem()
     // emit for the UI
     io.emit('updateUIExhibits', {
       currentExhibitItemId: currentExhibitItemId,
+      partsFound: partsFound,
       allPartsFoundBool: 'True'
     });
     io.emit('updateUIMessage', {
       message: 'All parts have been found! Proceed to next exhibit item'
+    });
+    io.emit('makeANoise', {
+      sound: 'ding'
+      sound: 'finishedExhibit'
     });
 
     // do logging
@@ -201,9 +206,19 @@ io.on('connection', (socket) =>
       io.emit('updateUIMessage', {
         message: 'A part of the exhibit item has been found'
       });
+      io.emit('makeANoise', {
+        sound: 'ding'
+      });
 
       // check if the exhibit has been completed
       tryCompleteExhibit();
+    } else {
+      io.emit('updateUIMessage', {
+        message: 'This is not the part you\'re looking for. Try something else!'
+      });
+      io.emit('makeANoise', {
+        sound: 'wrong exhibit'
+      });
     }
   });
 });
@@ -265,7 +280,7 @@ const onConnect = (socket, playerData) =>
   });
   // update UI message
   io.emit('updateUIMessage', {
-    message: 'Player ' + socket.id + ' has joined'
+    message: 'Player ' + newPlayer.name + ' has joined'
   });
 
   // emit the playerJoined event to all connected sockets
