@@ -50,10 +50,11 @@ AFRAME.registerComponent('game-controller', {
         var relatedExhibitId = AFRAME.utils.entity.getComponentProperty(
           exhibitParts[i], 'exhibit-part.relatedExhibitId');
 
+        var isExhibitCompleted = completedExhibitIds.includes(relatedExhibitId);
+        var isAlreadyFound = relatedExhibitId == currentExhibitItemId && partsFound.includes(exhibitPartId);
+
         // determine if this exhibit part should be visible
-        var shouldBeVisible = !(
-          relatedExhibitId == completedExhibitIds ||
-          (relatedExhibitId == currentExhibitItemId && partsFound.includes(exhibitPartId)));
+        var shouldBeVisible = !(isExhibitCompleted || isAlreadyFound);
 
         exhibitParts[i].emit('update', {visible: shouldBeVisible});
       }
