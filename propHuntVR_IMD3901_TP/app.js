@@ -52,14 +52,14 @@ startup();
 function startup()
 {
   // set the starting exhibitItemIndex
-  currentExhibitItemIndex = 0;
+  currentExhibitItemIndex = 4;
 
   // initialize variables
   players = [];
   currentExhibitItemId = database.exhibitItems[currentExhibitItemIndex].id;
   partsFound = [];
   numOfParts = database.exhibitItems[currentExhibitItemIndex].numOfParts;
-  completedExhibitIds = [];
+  completedExhibitIds = [1,2,3,4];
   gameOver = false;
 }
 
@@ -77,7 +77,8 @@ function updateSockets()
     players: players,
     currentExhibitItemId: currentExhibitItemId,
     partsFound: partsFound,
-    completedExhibitIds: completedExhibitIds
+    completedExhibitIds: completedExhibitIds,
+    gameOver: gameOver
   });
 }
 

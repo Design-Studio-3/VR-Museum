@@ -11,6 +11,7 @@ AFRAME.registerComponent('game-controller', {
     var currentExhibitItemId = -1;
     var completedExhibitIds = [];
     var partsFound = [];
+    this.isGameOver = false;
 
     // add event listeners
     el.addEventListener('update', function (data) {
@@ -18,6 +19,7 @@ AFRAME.registerComponent('game-controller', {
       currentExhibitItemId = data.detail.itemId;
       partsFound = data.detail.partsFound;
       completedExhibitIds = data.detail.completedExhibitIds;
+      self.isGameOver = data.detail.gameOver;
 
       // get the exhibits
       var exhibits = document.querySelectorAll('[exhibit]');
@@ -59,5 +61,22 @@ AFRAME.registerComponent('game-controller', {
         exhibitParts[i].emit('update', {visible: shouldBeVisible});
       }
     });
+  },
+
+  tick: function(time, timeDelta) {
+    if (this.isGameOver) {
+      // const skyColor = new THREE.Color("rgb(0,0,0)");
+      const color1 = new THREE.Color("rgb(5, 86, 247)");
+      const color2 = new THREE.Color("rgb(215, 5, 247)");
+      // skyColor.lerpColors(color1, color2, 0.5);
+      color1.lerp(color2, Math.sin(time / 2500));
+
+      var environmentComponent = document.querySelector('[environment]');
+      environmentComponent.setAttribute('environment', {
+        preset: "default",
+        skyType: "color",
+        skyColor: "#" + color1.getHexString()
+      });
+    }
   }
 });
