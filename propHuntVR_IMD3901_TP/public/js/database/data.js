@@ -15,8 +15,15 @@ export const exhibitItems = [
         '../assets/images/stereopsis/stereopsis_part3.png',
         '../assets/images/stereopsis/stereopsis_FULL.png'
       ],
+
+      pathToText: [
+        '../assets/2D/StereoscopeTextLeft.png',
+        '../assets/2D/StereoscopeTextRight.png'
+      ],
+
       hint: 'Your mom is a nice lady'
     },
+
     {
       id: 2,
       name: 'Sensorama',
@@ -33,8 +40,15 @@ export const exhibitItems = [
         '../assets/images/Sensorama/',
         '../assets/images/Sensorama/'
       ],
+
+      pathToText: [
+        '../assets/2D/SensoramaTextLeft.png',
+        '../assets/2D/SensoramaTextRight.png'
+      ],
+
       hint: 'Your mom is a nice lady'
     },
+
     {
       id: 3,
       name: 'Telesphere Mask',
@@ -51,8 +65,15 @@ export const exhibitItems = [
         '../assets/images/Telesphere/',
         '../assets/images/Telesphere/'
       ],
+
+      pathToText: [
+        '../assets/2D/StereoscopeTextLeft.png',
+        '../assets/2D/StereoscopeTextRight.png'
+      ],
+
       hint: 'Your mom is a nice lady'
     },
+
     {
       id: 4,
       name: 'VITAL Helmet',
@@ -69,8 +90,15 @@ export const exhibitItems = [
         '../assets/images/VITAL/',
         '../assets/images/VITAL/'
       ],
+
+      pathToText: [
+        '../assets/2D/StereoscopeTextLeft.png',
+        '../assets/2D/StereoscopeTextRight.png'
+      ],
+
       hint: 'Your mom is a nice lady'
     },
+
     {
       id: 5,
       name: 'VPL Body Suit',
@@ -83,6 +111,12 @@ export const exhibitItems = [
         '../assets/images/VPL/',
         '../assets/images/VPL/'
       ],
+
+      pathToText: [
+        '../assets/2D/StereoscopeTextLeft.png',
+        '../assets/2D/StereoscopeTextRight.png'
+      ],
+
       hint: 'Your mom is a nice lady'
     }
 ];

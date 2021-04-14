@@ -60,7 +60,7 @@ AFRAME.registerComponent('exhibit',
         primitive: 'plane', height: 2, radius: 0.5});
       leftScreen.setAttribute('shadow', {cast: true, receive: true});
       leftScreen.setAttribute('material', {
-        src: '../assets/holo.png', opacity: 0, transparent: true});
+        src: '../assets/2D/hologramBackground.png', opacity: 0, transparent: true});
 
       let leftScreenText = document.createElement('a-entity');
       leftScreenText.setAttribute('id', 'screen-left-text');
@@ -68,7 +68,7 @@ AFRAME.registerComponent('exhibit',
       leftScreenText.setAttribute('geometry', {
         primitive: 'plane', height: 2, radius: 0.5});
       leftScreenText.setAttribute('material', {
-        src: '../assets/StereoText1.png', opacity: 0, transparent: true,
+        src: database.exhibitItems[this.data.exhibitId-1].pathToText[0], opacity: 0, transparent: true,
         alphaTest: 0.5});
 
       let middleScreen = document.createElement('a-entity');
@@ -77,11 +77,8 @@ AFRAME.registerComponent('exhibit',
       middleScreen.setAttribute('geometry', {
         primitive: 'plane', height: 2, radius: 0.5});
       middleScreen.setAttribute('material', {
-        src: '../assets/holo.png', opacity: 0});
+        src: '../assets/2D/hologramBackground.png', opacity: 0});
       middleScreen.setAttribute('shadow', {cast: true, receive: true});
-
-      let middleScreenText = document.createElement('p');
-      middleScreenText.setAttribute('id', 'demo');
 
       let rightScreen = document.createElement('a-entity');
       rightScreen.setAttribute('id', 'screen-right');
@@ -90,7 +87,7 @@ AFRAME.registerComponent('exhibit',
         primitive: 'plane', height: 2, radius: 0.5});
       rightScreen.setAttribute('shadow', {cast: true, receive: true});
       rightScreen.setAttribute('material', {
-        src: '../assets/holo.png', opacity: 0, transparent: true});
+        src: '../assets/2D/hologramBackground.png', opacity: 0, transparent: true});
 
       let rightScreenText = document.createElement('a-entity');
       rightScreenText.setAttribute('id', 'screen-right-text');
@@ -98,12 +95,11 @@ AFRAME.registerComponent('exhibit',
       rightScreenText.setAttribute('geometry', {
         primitive: 'plane', height: 2, radius: 0.5});
       rightScreenText.setAttribute('material', {
-        src: '../assets/StereoText1.png', opacity: 0, transparent: true,
+        src: database.exhibitItems[this.data.exhibitId-1].pathToText[1], opacity: 0, transparent: true,
         alphaTest: 0.5});
 
       // add the screens to the scene
       leftScreen.appendChild(leftScreenText);
-      middleScreen.appendChild(middleScreenText);
       rightScreen.appendChild(rightScreenText);
       screenRoot.appendChild(leftScreen);
       screenRoot.appendChild(rightScreen);
@@ -144,8 +140,8 @@ AFRAME.registerComponent('exhibit',
       if(this.data.isCompleted)
       {
         prop.setAttribute('visible', "true");
-        screenLeftText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText1.png; opacity:1.0; transparent: true; alphaTest: 0.5');
-        screenRightText.setAttribute('material', 'color: #80e5ff; src: assets/StereoText2.png; opacity:1.0; transparent: true; alphaTest: 0.5');
+        screenLeftText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5' + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[0]);
+        screenRightText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5'  + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[1]);
       }
 
       else
@@ -173,12 +169,12 @@ AFRAME.registerComponent('exhibit',
 
         if(this.data.isCompleted)
         {
-          screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 100; wrapCount: 12; value:" + database.exhibitItems[this.data.exhibitId-1].name.toUpperCase());
+          screenMiddle.setAttribute('text', "font: roboto; color: #00EAFF; align: center; lineHeight: 100; wrapCount: 12; value:" + database.exhibitItems[this.data.exhibitId-1].name.toUpperCase());
         }
 
         else
         {
-          screenMiddle.setAttribute('text', "font: roboto; color: #80e5ff; align: center; lineHeight: 100; wrapCount: 12; value: EXHIBIT: #" + database.exhibitItems[this.data.exhibitId-1].id + "\n LOCKED");
+          screenMiddle.setAttribute('text', "font: roboto; color: #00EAFF; align: center; lineHeight: 100; wrapCount: 12; value: EXHIBIT: #" + database.exhibitItems[this.data.exhibitId-1].id + "\n LOCKED");
         }
 
         screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
