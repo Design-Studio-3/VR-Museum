@@ -58,7 +58,6 @@ socket.on('updateUIExhibits', (data) => {
 
     // Reset UI when all parts of an exhibit have been found
     if (allPartsFoundBool === 'True') {
-        console.log('test');
         part1Box.innerHTML = '';
         part2Box.innerHTML = '';
         part3Box.innerHTML = '';
@@ -86,6 +85,10 @@ socket.on('makeANoise', (data) => {
             break;
         case 'finishedExhibit':
             var audio = new Audio('../../assets/audio/goddamn_soldier.wav');
+            audio.play();
+            break;
+        case 'finishedMuseum':
+            var audio = new Audio('../../assets/audio/congrats.mp3');
             audio.play();
             break;
     }   
