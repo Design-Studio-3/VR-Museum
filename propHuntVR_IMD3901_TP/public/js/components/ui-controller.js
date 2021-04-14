@@ -89,18 +89,22 @@ socket.on('makeANoise', (data) => {
     switch (noiseToPlay) {
         case 'wrong exhibit':
             var audio = new Audio('../../assets/audio/wrong.mp3');
+            audio.volume = 0.5;
             audio.play();
             break;
         case 'ding':
             var audio = new Audio('../../assets/audio/ding.wav');
+            audio.volume = 0.5;
             audio.play();
             break;
         case 'finishedExhibit':
             var audio = new Audio('../../assets/audio/goddamn_soldier.wav');
+            audio.volume = 0.5;
             audio.play();
             break;
         case 'finishedMuseum':
             var audio = new Audio('../../assets/audio/congrats.mp3');
+            audio.volume = 0.5;
             audio.play();
             break;
     }
