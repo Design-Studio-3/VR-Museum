@@ -106,6 +106,7 @@ function goToNextExhibitItem()
     });
     io.emit('makeANoise', {
       sound: 'ding'
+      sound: 'finishedExhibit'
     });
 
     // do logging

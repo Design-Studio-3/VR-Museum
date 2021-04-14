@@ -84,5 +84,9 @@ socket.on('makeANoise', (data) => {
             var audio = new Audio('../../assets/audio/ding.wav');
             audio.play();
             break;
+        case 'finishedExhibit':
+            var audio = new Audio('../../assets/audio/goddamn_soldier.wav');
+            audio.play();
+            break;
     }   
 });
