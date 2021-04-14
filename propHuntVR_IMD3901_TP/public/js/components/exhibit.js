@@ -6,7 +6,8 @@ AFRAME.registerComponent('exhibit',
     schema: {
       isCompleted: {default: false},
       exhibitId: {default: -1},
-      enablePedestal: {default: true}
+      enablePedestal: {default: true},
+      enableScreens: {default: true}
     },
 
     init: function ()
@@ -30,6 +31,12 @@ AFRAME.registerComponent('exhibit',
       {
         exhibitItemGeo.setAttribute('position', "0 1.8 0");
       }
+      else
+      {
+        exhibitItemGeo.setAttribute('static-body', {
+          shape: "box"
+        });
+      }
 
       // add the exhibit item geometry to the scene
       el.appendChild(exhibitItemGeo);
@@ -47,64 +54,67 @@ AFRAME.registerComponent('exhibit',
       // GOING TO NEED AN ELSE CASE FOR EXHIBIT COLLIDER WITH NO PEDESTAL
       //
 
-      // create the root screen
-      let screenRoot = document.createElement('a-entity');
-      screenRoot.setAttribute('id', "screens");
-      screenRoot.setAttribute('position', "0 3.0 0");
+      if (this.data.enableScreens)
+      {
+        // create the root screen
+        let screenRoot = document.createElement('a-entity');
+        screenRoot.setAttribute('id', "screens");
+        screenRoot.setAttribute('position', "0 3.0 0");
 
-      // create each screen
-      let leftScreen = document.createElement('a-entity');
-      leftScreen.setAttribute('id', 'screen-left');
-      leftScreen.setAttribute('scale', '1.25 0.4 1');
-      leftScreen.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
-      leftScreen.setAttribute('shadow', {cast: true, receive: true});
-      leftScreen.setAttribute('material', {
-        src: '../assets/2D/hologramBackground.png', opacity: 0, transparent: true});
+        // create each screen
+        let leftScreen = document.createElement('a-entity');
+        leftScreen.setAttribute('id', 'screen-left');
+        leftScreen.setAttribute('scale', '1.25 0.4 1');
+        leftScreen.setAttribute('geometry', {
+          primitive: 'plane', height: 2, radius: 0.5});
+        leftScreen.setAttribute('shadow', {cast: true, receive: true});
+        leftScreen.setAttribute('material', {
+          src: '../assets/2D/hologramBackground.png', opacity: 0, transparent: true});
 
-      let leftScreenText = document.createElement('a-entity');
-      leftScreenText.setAttribute('id', 'screen-left-text');
-      leftScreenText.setAttribute('position', '0 0 0.01');
-      leftScreenText.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
-      leftScreenText.setAttribute('material', {
-        src: database.exhibitItems[this.data.exhibitId-1].pathToText[0], opacity: 0, transparent: true,
-        alphaTest: 0.5});
+        let leftScreenText = document.createElement('a-entity');
+        leftScreenText.setAttribute('id', 'screen-left-text');
+        leftScreenText.setAttribute('position', '0 0 0.01');
+        leftScreenText.setAttribute('geometry', {
+          primitive: 'plane', height: 2, radius: 0.5});
+        leftScreenText.setAttribute('material', {
+          src: database.exhibitItems[this.data.exhibitId-1].pathToText[0], opacity: 0, transparent: true,
+          alphaTest: 0.5});
 
-      let middleScreen = document.createElement('a-entity');
-      middleScreen.setAttribute('id', 'screen-middle');
-      middleScreen.setAttribute('scale', '1.75 0.55 1');
-      middleScreen.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
-      middleScreen.setAttribute('material', {
-        src: '../assets/2D/hologramBackground.png', opacity: 0});
-      middleScreen.setAttribute('shadow', {cast: true, receive: true});
+        let middleScreen = document.createElement('a-entity');
+        middleScreen.setAttribute('id', 'screen-middle');
+        middleScreen.setAttribute('scale', '1.75 0.55 1');
+        middleScreen.setAttribute('geometry', {
+          primitive: 'plane', height: 2, radius: 0.5});
+        middleScreen.setAttribute('material', {
+          src: '../assets/2D/hologramBackground.png', opacity: 0});
+        middleScreen.setAttribute('shadow', {cast: true, receive: true});
 
-      let rightScreen = document.createElement('a-entity');
-      rightScreen.setAttribute('id', 'screen-right');
-      rightScreen.setAttribute('scale', '1.25 0.4 1');
-      rightScreen.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
-      rightScreen.setAttribute('shadow', {cast: true, receive: true});
-      rightScreen.setAttribute('material', {
-        src: '../assets/2D/hologramBackground.png', opacity: 0, transparent: true});
+        let rightScreen = document.createElement('a-entity');
+        rightScreen.setAttribute('id', 'screen-right');
+        rightScreen.setAttribute('scale', '1.25 0.4 1');
+        rightScreen.setAttribute('geometry', {
+          primitive: 'plane', height: 2, radius: 0.5});
+        rightScreen.setAttribute('shadow', {cast: true, receive: true});
+        rightScreen.setAttribute('material', {
+          src: '../assets/2D/hologramBackground.png', opacity: 0, transparent: true});
 
-      let rightScreenText = document.createElement('a-entity');
-      rightScreenText.setAttribute('id', 'screen-right-text');
-      rightScreenText.setAttribute('position', '0 0 0.01');
-      rightScreenText.setAttribute('geometry', {
-        primitive: 'plane', height: 2, radius: 0.5});
-      rightScreenText.setAttribute('material', {
-        src: database.exhibitItems[this.data.exhibitId-1].pathToText[1], opacity: 0, transparent: true,
-        alphaTest: 0.5});
+        let rightScreenText = document.createElement('a-entity');
+        rightScreenText.setAttribute('id', 'screen-right-text');
+        rightScreenText.setAttribute('position', '0 0 0.01');
+        rightScreenText.setAttribute('geometry', {
+          primitive: 'plane', height: 2, radius: 0.5});
+        rightScreenText.setAttribute('material', {
+          src: database.exhibitItems[this.data.exhibitId-1].pathToText[1], opacity: 0, transparent: true,
+          alphaTest: 0.5});
 
-      // add the screens to the scene
-      leftScreen.appendChild(leftScreenText);
-      rightScreen.appendChild(rightScreenText);
-      screenRoot.appendChild(leftScreen);
-      screenRoot.appendChild(rightScreen);
-      screenRoot.appendChild(middleScreen);
-      el.appendChild(screenRoot);
+        // add the screens to the scene
+        leftScreen.appendChild(leftScreenText);
+        rightScreen.appendChild(rightScreenText);
+        screenRoot.appendChild(leftScreen);
+        screenRoot.appendChild(rightScreen);
+        screenRoot.appendChild(middleScreen);
+        el.appendChild(screenRoot);
+      }
 
       el.addEventListener('update', function (data) {
         // update isCompleted
@@ -131,18 +141,32 @@ AFRAME.registerComponent('exhibit',
       const prop = exhibit.querySelector('.exhibitItem');
 
       const screens = exhibit.querySelector('#screens');
-      const screenMiddle = screens.querySelector('#screen-middle');
-      const screenLeft = screens.querySelector('#screen-left');
-      const screenRight = screens.querySelector('#screen-right');
-      const screenLeftText = screenLeft.children[0];
-      const screenRightText = screenRight.children[0];
+
+      var screenMiddle = null;
+      var screenLeft = null;
+      var screenRight = null;
+      var screenLeftText = null
+      var screenRightText = null
+
+      if (this.data.enableScreens)
+      {
+        screenMiddle = screens.querySelector('#screen-middle');
+        screenLeft = screens.querySelector('#screen-left');
+        screenRight = screens.querySelector('#screen-right');
+        screenLeftText = screenLeft.children[0];
+        screenRightText = screenRight.children[0];
+      }
+      else
+      {
+        screenLeftText = exhibit.querySelector('[material]');
+      }
 
       if(this.data.isCompleted)
       {
         prop.setAttribute('visible', "true");
 
-        if (this.data.enablePedestal == false)
-        { 
+        if (this.data.enableScreens)
+        {
           // Sensorama only has "Left" text:
           screenLeftText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5' + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[0]);
 
@@ -162,7 +186,7 @@ AFRAME.registerComponent('exhibit',
         else
         {
           screenLeftText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5' + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[0]);
-          screenRightText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5'  + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[1]);
+          // screenRightText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5'  + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[1]);
         }
       }
 
