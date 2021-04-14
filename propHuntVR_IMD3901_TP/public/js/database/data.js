@@ -42,8 +42,7 @@ export const exhibitItems = [
       ],
 
       pathToText: [
-        '../assets/2D/SensoramaTextLeft.png',
-        '../assets/2D/SensoramaTextRight.png'
+        '../assets/2D/SensoramaTextLeft.png'
       ],
 
       hint: 'Your mom is a nice lady'
