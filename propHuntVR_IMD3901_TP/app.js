@@ -105,7 +105,6 @@ function goToNextExhibitItem()
       message: 'All parts have been found! Proceed to next exhibit item'
     });
     io.emit('makeANoise', {
-      sound: 'ding'
       sound: 'finishedExhibit'
     });
 
