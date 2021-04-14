@@ -52,14 +52,14 @@ startup();
 function startup()
 {
   // set the starting exhibitItemIndex
-  currentExhibitItemIndex = 4;
+  currentExhibitItemIndex = 0;
 
   // initialize variables
   players = [];
   currentExhibitItemId = database.exhibitItems[currentExhibitItemIndex].id;
   partsFound = [];
   numOfParts = database.exhibitItems[currentExhibitItemIndex].numOfParts;
-  completedExhibitIds = [1,2,3,4];
+  completedExhibitIds = [];
   gameOver = false;
 }
 
