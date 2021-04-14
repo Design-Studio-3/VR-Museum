@@ -106,9 +106,11 @@ export const exhibitItems = [
       numOfParts: 1,
       pathToAssetParts: ['../../assets/models/VPL/VPL.gltf'],
       pathToImages: [
-        '../assets/images/vpl/VPL_FULL'
+        '../assets/images/vpl/VPL_FULL.png',
+        '',
+        '',
+        '../assets/images/vpl/VPL_FULL.png'
       ],
-
       pathToText: [
         '../assets/2D/VPLTextLeft.png',
         '../assets/2D/VPLTextRight.png'
