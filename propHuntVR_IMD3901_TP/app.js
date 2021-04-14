@@ -40,6 +40,7 @@ var currentExhibitItemId    = -1;
 var partsFound              = [];
 var numOfParts              = -1;
 var completedExhibitIds     = [];
+var gameOver                = false;
 
 // set up socket updater timer
 var socketUpdateTime = setInterval(updateSockets, updateInterval);
@@ -59,6 +60,7 @@ function startup()
   partsFound = [];
   numOfParts = database.exhibitItems[currentExhibitItemIndex].numOfParts;
   completedExhibitIds = [];
+  gameOver = false;
 }
 
 function updateSockets()
@@ -99,7 +101,8 @@ function goToNextExhibitItem()
     io.emit('updateUIExhibits', {
       currentExhibitItemId: currentExhibitItemId,
       partsFound: partsFound,
-      allPartsFoundBool: 'True'
+      allPartsFoundBool: 'True',
+      gameOver: gameOver
     });
     io.emit('updateUIMessage', {
       message: 'All parts have been found! Proceed to next exhibit item'
@@ -118,6 +121,17 @@ function goToNextExhibitItem()
           name: ${database.exhibitItems[currentExhibitItemIndex].name},
           numOfParts:${numOfParts}`);
     }
+  } else {
+    // Game is over!
+    gameOver = true;
+    io.emit('updateUIExhibits', {
+      currentExhibitItemId: -1,
+      partsFound: [],
+      allPartsFoundBool: 'True',
+      gameOver: gameOver
+    });
+    io.emit('updateUIMessage', {message: 'Congrats! All exhibits have been completed!'});
+    io.emit('makeANoise', {sound: 'finishedMuseum'});
   }
 }
 
@@ -200,7 +214,8 @@ io.on('connection', (socket) =>
       io.emit('updateUIExhibits', {
         currentExhibitItemId: currentExhibitItemId,
         partsFound: partsFound,
-        allPartsFoundBool: 'False'
+        allPartsFoundBool: 'False',
+        gameOver: gameOver
       });
       io.emit('updateUIMessage', {
         message: 'A part of the exhibit item has been found'
@@ -273,9 +288,10 @@ const onConnect = (socket, playerData) =>
   }
 
   // emit for the UI, displays which exhibit parts have been found
-  io.emit('updateUIExhibits', {
+  socket.emit('updateUIExhibits', {
     currentExhibitItemId: currentExhibitItemId,
-    partsFound: partsFound
+    partsFound: partsFound,
+    gameOver: gameOver
   });
   // update UI message
   io.emit('updateUIMessage', {

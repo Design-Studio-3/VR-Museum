@@ -16,53 +16,65 @@ socket.on('updateUIExhibits', (data) => {
     let pathToImage;
     let pathToText;
 
-    let allPartsFoundBool = data.allPartsFoundBool;
-    // This exhibit's ID
-    let currentExhibitItemId = data.currentExhibitItemId - 1;
+    // check if the game is over
+    if (data.gameOver)
+    {
+      lookingForImage.innerHTML = '';
+      lookingForText.innerHTML = '';
+      lookingForHint.innerHTML = 'All done!';
+      part1Box.innerHTML = '';
+      part2Box.innerHTML = '';
+      part3Box.innerHTML = '';
+    }
+    else
+    {
+      let allPartsFoundBool = data.allPartsFoundBool;
+      // This exhibit's ID
+      let currentExhibitItemId = data.currentExhibitItemId - 1;
 
-    // Update the looking for image
-    pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[3];
-    lookingForImage.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
+      // Update the looking for image
+      pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[3];
+      lookingForImage.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
 
-    // Update name of prop
-    pathToText = database.exhibitItems[currentExhibitItemId].name;
-    lookingForText.innerHTML = pathToText;
+      // Update name of prop
+      pathToText = database.exhibitItems[currentExhibitItemId].name;
+      lookingForText.innerHTML = pathToText;
 
-    //Update hint of prop
-    pathToText = database.exhibitItems[currentExhibitItemId].hint;
-    lookingForHint.innerHTML = pathToText;
+      //Update hint of prop
+      pathToText = database.exhibitItems[currentExhibitItemId].hint;
+      lookingForHint.innerHTML = pathToText;
 
-    // Display which parts have been found in the UI
-    let partsFoundArray = [];
-    let partsFound = data.partsFound;
-    for (var i = 0 ; i <= partsFound.length ; i++) {
+      // Display which parts have been found in the UI
+      let partsFoundArray = [];
+      let partsFound = data.partsFound;
+      for (var i = 0 ; i <= partsFound.length ; i++) {
         let thisPartNumber = partsFound.slice(i, i+1);
         partsFoundArray[thisPartNumber] = thisPartNumber;
-    }
+      }
 
-    // Display exhibit part
-    if (partsFoundArray[1] == 1) {
+      // Display exhibit part
+      if (partsFoundArray[1] == 1) {
         pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[0];
         part1Box.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
-    }
+      }
 
-    if (partsFoundArray[2] == 2) {
+      if (partsFoundArray[2] == 2) {
         pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[1];
         part2Box.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
-    }
+      }
 
-    if (partsFoundArray[3] == 3) {
+      if (partsFoundArray[3] == 3) {
         pathToImage = database.exhibitItems[currentExhibitItemId].pathToImages[2];
         part3Box.innerHTML = '<img class="propImage" src="' + pathToImage + '"></img>';
-    }
+      }
 
-    // Reset UI when all parts of an exhibit have been found
-    if (allPartsFoundBool === 'True') {
+      // Reset UI when all parts of an exhibit have been found
+      if (allPartsFoundBool === 'True') {
         part1Box.innerHTML = '';
         part2Box.innerHTML = '';
         part3Box.innerHTML = '';
+      }
     }
-
 });
 
 // Update message board
@@ -91,5 +103,5 @@ socket.on('makeANoise', (data) => {
             var audio = new Audio('../../assets/audio/congrats.mp3');
             audio.play();
             break;
-    }   
+    }
 });
