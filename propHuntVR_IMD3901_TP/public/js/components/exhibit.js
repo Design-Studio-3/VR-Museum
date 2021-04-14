@@ -50,7 +50,7 @@ AFRAME.registerComponent('exhibit',
       // create the root screen
       let screenRoot = document.createElement('a-entity');
       screenRoot.setAttribute('id', "screens");
-      screenRoot.setAttribute('position', "0 2.8 0");
+      screenRoot.setAttribute('position', "0 3.0 0");
 
       // create each screen
       let leftScreen = document.createElement('a-entity');
@@ -140,8 +140,30 @@ AFRAME.registerComponent('exhibit',
       if(this.data.isCompleted)
       {
         prop.setAttribute('visible', "true");
-        screenLeftText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5' + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[0]);
-        screenRightText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5'  + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[1]);
+
+        if (this.data.enablePedestal == false)
+        { 
+          // Sensorama only has "Left" text:
+          screenLeftText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5' + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[0]);
+
+          screens.setAttribute('visible', 'true')
+          screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+          screenMiddle.setAttribute('rotation', '0 180 0');
+          screenMiddle.setAttribute('position', '-0.017 -0.460 0.372');
+          screenMiddle.setAttribute('scale', '1.580 0.620 1.020');
+
+          screenLeftText.setAttribute('rotation', '0 180 0');
+          screenLeftText.setAttribute('position', '0 -1.183 0.364');
+          screenLeftText.setAttribute('scale', '1.200 1.400 1.000');
+
+          this.el.children[0].setAttribute('static-body', 'shape: box');
+        }
+
+        else
+        {
+          screenLeftText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5' + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[0]);
+          screenRightText.setAttribute('material', 'color: #00EAFF; opacity:1.0; transparent: true; alphaTest: 0.5'  + 'src: ' +  database.exhibitItems[this.data.exhibitId-1].pathToText[1]);
+        }
       }
 
       else
@@ -151,52 +173,55 @@ AFRAME.registerComponent('exhibit',
 
       let timeout;
 
-      if(distanceToExhibit < 4)
+      if(this.data.enablePedestal == true)
       {
-        clearTimeout(timeout);
 
-        screens.setAttribute('visible', 'true')
-
-        screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
-        screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
-
-        screenLeft.setAttribute('animation__2', 'property: position; to: -1.35 -0.05 0.75; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation__2', 'property: position; to: 1.35 -0.05 0.75; loop:false; dur:200; easing: linear;')
-
-        screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 25 0; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation__3', 'property: rotation; to: 0 -25 0; loop:false; dur:200; easing: linear;')
-
-        if(this.data.isCompleted)
+        if(distanceToExhibit < 4)
         {
-          screenMiddle.setAttribute('text', "font: roboto; color: #00EAFF; align: center; lineHeight: 100; wrapCount: 12; value:" + database.exhibitItems[this.data.exhibitId-1].name.toUpperCase());
+          clearTimeout(timeout);
+
+          screens.setAttribute('visible', 'true')
+
+          screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+          screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+          screenRight.setAttribute('animation', 'property: material.opacity; to: 0.75; loop:false; dur:200; easing: linear;')
+
+          screenLeft.setAttribute('animation__2', 'property: position; to: -1.35 -0.05 0.75; loop:false; dur:200; easing: linear;')
+          screenRight.setAttribute('animation__2', 'property: position; to: 1.35 -0.05 0.75; loop:false; dur:200; easing: linear;')
+
+          screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 25 0; loop:false; dur:200; easing: linear;')
+          screenRight.setAttribute('animation__3', 'property: rotation; to: 0 -25 0; loop:false; dur:200; easing: linear;')
+
+          if(this.data.isCompleted)
+          {
+            screenMiddle.setAttribute('text', "font: roboto; color: #00EAFF; align: center; lineHeight: 100; wrapCount: 12; value:" + database.exhibitItems[this.data.exhibitId-1].name.toUpperCase());
+          }
+
+          else
+          {
+            screenMiddle.setAttribute('text', "font: roboto; color: #00EAFF; align: center; lineHeight: 100; wrapCount: 12; value: EXHIBIT: #" + database.exhibitItems[this.data.exhibitId-1].id + "\n LOCKED");
+          }
+
+          screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
         }
 
         else
         {
-          screenMiddle.setAttribute('text', "font: roboto; color: #00EAFF; align: center; lineHeight: 100; wrapCount: 12; value: EXHIBIT: #" + database.exhibitItems[this.data.exhibitId-1].id + "\n LOCKED");
+          screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
+          screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
+          screenRight.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
+
+          screenLeft.setAttribute('animation__2', 'property: position; to: 0 0 0.75; loop:false; dur:200; easing: linear;')
+          screenRight.setAttribute('animation__2', 'property: position; to: 0 0 0.75; loop:false; dur:200; easing: linear;')
+
+          screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
+          screenRight.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
+
+          screenLeftText.setAttribute('material', 'opacity:0.0;');
+          screenRightText.setAttribute('material', 'opacity:0.0;');
+
+          timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
         }
-
-        screens.object3D.lookAt(playerPosVector.x, playerPosVector.y + 2.25, playerPosVector.z);
       }
-
-      else
-      {
-        screenMiddle.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
-        screenLeft.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation', 'property: material.opacity; to: 0.0; loop:false; dur:200; easing: linear;')
-
-        screenLeft.setAttribute('animation__2', 'property: position; to: 0 0 0.75; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation__2', 'property: position; to: 0 0 0.75; loop:false; dur:200; easing: linear;')
-
-        screenLeft.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
-        screenRight.setAttribute('animation__3', 'property: rotation; to: 0 0 0; loop:false; dur:200; easing: linear;')
-
-        screenLeftText.setAttribute('material', 'opacity:0.0;');
-        screenRightText.setAttribute('material', 'opacity:0.0;');
-
-        timeout = setTimeout(function(){ screens.setAttribute('visible', 'false') }, 200);
-      }
-
     }
 });
