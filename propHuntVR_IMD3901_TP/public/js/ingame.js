@@ -25,6 +25,6 @@ if (playerName == null) {
   // start the music, oh yeah
   var audio = new Audio("./assets/audio/music.m4a");
   audio.loop = true;
-  audio.volume = 0.2;
+  audio.volume = 0.1;
   audio.play();
 }
