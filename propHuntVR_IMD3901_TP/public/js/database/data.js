@@ -67,8 +67,8 @@ export const exhibitItems = [
       ],
 
       pathToText: [
-        '../assets/2D/StereoscopeTextLeft.png',
-        '../assets/2D/StereoscopeTextRight.png'
+        '../assets/2D/TelesphereTextLeft.png',
+        '../assets/2D/TelesphereTextRight.png'
       ],
 
       hint: 'Your mom is a nice lady'
@@ -92,8 +92,8 @@ export const exhibitItems = [
       ],
 
       pathToText: [
-        '../assets/2D/StereoscopeTextLeft.png',
-        '../assets/2D/StereoscopeTextRight.png'
+        '../assets/2D/VitalTextLeft.png',
+        '../assets/2D/VitalTextRight.png'
       ],
 
       hint: 'Your mom is a nice lady'
@@ -110,8 +110,8 @@ export const exhibitItems = [
       ],
 
       pathToText: [
-        '../assets/2D/StereoscopeTextLeft.png',
-        '../assets/2D/StereoscopeTextRight.png'
+        '../assets/2D/VPLTextLeft.png',
+        '../assets/2D/VPLTextRight.png'
       ],
 
       hint: 'Your mom is a nice lady'
