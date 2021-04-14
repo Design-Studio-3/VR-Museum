@@ -21,7 +21,7 @@ export const exhibitItems = [
         '../assets/2D/StereoscopeTextRight.png'
       ],
 
-      hint: 'Your mom is a nice lady'
+      hint: 'Have you checked under a bench?'
     },
 
     {
@@ -45,7 +45,7 @@ export const exhibitItems = [
         '../assets/2D/SensoramaTextLeft.png'
       ],
 
-      hint: 'Your mom is a nice lady'
+      hint: 'Don\'t forget, this museum has dead ends.'
     },
 
     {
@@ -70,7 +70,7 @@ export const exhibitItems = [
         '../assets/2D/TelesphereTextRight.png'
       ],
 
-      hint: 'Your mom is a nice lady'
+      hint: 'Have you checked all of the flower beds?'
     },
 
     {
@@ -95,7 +95,7 @@ export const exhibitItems = [
         '../assets/2D/VitalTextRight.png'
       ],
 
-      hint: 'Your mom is a nice lady'
+      hint: 'Don\'t forget to look down.'
     },
 
     {
@@ -115,6 +115,6 @@ export const exhibitItems = [
         '../assets/2D/VPLTextRight.png'
       ],
 
-      hint: 'Your mom is a nice lady'
+      hint: 'This one is an easy one.'
     }
 ];
