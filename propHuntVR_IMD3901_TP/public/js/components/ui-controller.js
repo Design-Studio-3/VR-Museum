@@ -98,7 +98,7 @@ socket.on('makeANoise', (data) => {
             audio.play();
             break;
         case 'finishedExhibit':
-            var audio = new Audio('../../assets/audio/goddamn_soldier.wav');
+            var audio = new Audio('../../assets/audio/Done.wav');
             audio.volume = 0.5;
             audio.play();
             break;
