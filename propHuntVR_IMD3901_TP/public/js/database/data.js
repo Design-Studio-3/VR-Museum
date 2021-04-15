@@ -1,7 +1,7 @@
 export const exhibitItems = [
     {
       id: 1,
-      name: 'Stereopsis',
+      name: 'Stereoscope',
       pathToFullAsset: '../../assets/models/Stereopsis/Stereopsis.gltf',
       numOfParts: 3,
       pathToAssetParts: [
